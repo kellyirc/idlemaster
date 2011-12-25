@@ -1,0 +1,9 @@
+socks,1
+sandals,2
+sneakers,3
+boots,5
+greaves,10
+hovershoes,14
+jetboots,18
+Rocket Shoes,375
+Expensive Cardboard Shoes,450

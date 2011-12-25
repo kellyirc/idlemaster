@@ -1,0 +1,11 @@
+mittens,1
+gloves,3
+bracers,4
+guards,7
+gauntlets,9
+armlets,10
+chainmail gloves,12
+scalemail gloves,22
+dragonscale gloves,32
+Glover's Gloves,250
+Pixelated Gloves of Doom,450

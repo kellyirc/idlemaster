@@ -1,0 +1,22 @@
+pin,1
+bracelet,2
+talisman,4
+armband,5
+bauble,7
+earring,8
+trinket,11
+plume,13
+pixane,16
+juju,23
+credit card,25
+skeleton key,28
+luckstone,31
+magic mirror,35
+whistle,37
+wooden stake,40
+cross,40
+candle,45
+Rabbit's Foot,350
+Twilight Bracelet,450
+Mirror Mirror,550
+Everburn,650

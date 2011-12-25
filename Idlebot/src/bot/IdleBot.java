@@ -1,0 +1,348 @@
+package bot;
+
+import generators.*;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.TimeZone;
+
+import listeners.*;
+
+import org.pircbotx.PircBotX;
+import org.pircbotx.User;
+import org.pircbotx.exception.IrcException;
+import org.pircbotx.exception.NickAlreadyInUseException;
+
+import com.google.gson.Gson;
+
+import data.IdleMaster;
+import data.Playable;
+import data.Player;
+import data.Playable.Alignment;
+import data.UserData;
+
+public class IdleBot extends PircBotX implements Globals {
+
+	public static IdleBot botref;
+
+	private Gson gson = new Gson();
+	private ItemGenerator itemgen = new ItemGenerator();
+	
+	private LinkedList<Playable> players = new LinkedList<>();
+	private HashMap<String, Player> loggedIn = new HashMap<>();
+
+	public static void main(String[] args) {
+
+		new IdleBot(Globals.Server);
+
+	}
+
+	public IdleBot(String server, int port) {
+
+		botref = this;
+		
+		addListeners();
+
+		this.setVerbose(true);
+
+		try {
+
+			this.setLogin("EllyBot");
+			this.setName("IdleMaster");
+			this.setVersion("Eclipse 3.7");
+			this.setAutoNickChange(true);
+			this.connect(server, port);
+			this.identify("cake");
+
+		} catch (NickAlreadyInUseException e) {
+			e.printStackTrace();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		} catch (IrcException e) {
+			e.printStackTrace();
+
+		}
+
+		this.joinChannel(Globals.Channel);
+
+		try {
+			Thread.sleep(9001);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		if (!this.getChannel(Globals.Channel).isOp(this.getUserBot())
+				&& this.isConnected()) {
+			messageChannel("I can't play without being an op!");
+			this.quitServer("Sorry!");
+			return;
+		}
+
+		// this.setModerated(getGlobalChannel());
+		this.setTopic(getGlobalChannel(), getCustomTopic());
+		new Thread(new EventThread()).run();
+
+	}
+
+	private void addListeners() {
+		this.getListenerManager().addListener(new CommandListener());
+		this.getListenerManager().addListener(new UserListener());
+		this.getListenerManager().addListener(new PenaltyListener());
+		this.getListenerManager().addListener(new SaveListener());
+	}
+
+	public void loadPlayers() {
+		File f = new File("players.dat");
+		if (!f.exists())
+			return;
+
+		BufferedReader br;
+		try {
+			br = new BufferedReader(new InputStreamReader(new DataInputStream(
+					new FileInputStream("players.dat"))));
+
+			String strLine;
+
+			while ((strLine = br.readLine()) != null) {
+				if(strLine.equals("")) continue;
+				if(strLine.contains("IdleMaster") && strLine.contains("\"aliases\":[]") && strLine.contains("\"password\":\"EOyfDm54PVWZAY0jH292yhlzTUYjGYmp\"")) {
+					IdleMaster p = gson.fromJson(strLine, IdleMaster.class);
+					p.fromSerialize();
+
+					players.add(p);
+				} else {
+					Player p = gson.fromJson(strLine, Player.class);
+					p.fromSerialize();
+
+					players.add(p);
+				}
+				
+			}
+
+			br.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void savePlayers() {
+		File file = new File("players.dat");
+
+		try {
+			BufferedWriter out = new BufferedWriter(new FileWriter(file));
+
+			for (Player p : getPlayers()) {
+
+				out.write( gson.toJson(p) + "\n\n");
+				
+			}
+
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public Player getPlayerByUser(String user) {
+		return loggedIn.get(user);
+	}
+	
+	public Player getPlayerByUser(User user) {
+		return getPlayerByUser(user.getNick());
+	}
+
+	public Player findPlayer(String name) {
+		for (Playable p : players) {
+			if (p instanceof Player && p.getName().equals(name)) {
+				return (Player)p;
+			}
+		}
+		return null;
+	}
+
+	public org.pircbotx.Channel getGlobalChannel() {
+		return this.getChannel(Globals.Channel);
+	}
+
+	public IdleBot(String server) {
+		this(server, 6667);
+	}
+
+	public String getCustomTopic() {
+		return "Welcome to Word Soup v" + Globals.Version
+				+ ", the best idling game ever! http://seiyria.com/project.php";
+	}
+
+	public String ms2dd(long l) {
+
+		SimpleDateFormat sdf = null;
+
+		if (l > 86400000 - 1) {
+			sdf = new SimpleDateFormat("dd'd 'HH'h 'mm'm 'ss");
+		} else if (l > 3600000 - 1) {
+			sdf = new SimpleDateFormat("HH'h 'mm'm 'ss");
+		} else if (l > 60000 - 1) {
+			sdf = new SimpleDateFormat("mm'm 'ss");
+		} else if (l > 1000 - 1) {
+			sdf = new SimpleDateFormat("ss");
+		} else {
+			sdf = new SimpleDateFormat("SSS");
+		}
+
+		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+		return sdf.format(l) + (l < 1000 ? "ms" : "s");
+	}
+
+	public void signalLevelUp(Player player) {
+
+		messageChannel(player.getName() + " is now level "+(player.getLevel()+1)+"! "+ms2dd(player.getTimeLeft()) +" to next level.");
+		savePlayers();
+
+	}
+
+	public void createPlayer(User user, String name, String password, String cclass) {
+		Player p = new Player(name, password, cclass, Alignment.Neutral);
+
+		players.add(p);
+
+		savePlayers();
+		
+		p.fromSerialize();
+		
+		messageChannel(user.getNick() + " has registered "+name+"!");
+
+	}
+
+	public void handleLogin(User user, Player player) {
+		if(player.loggedIn) return;
+		player.loggedIn = true;
+		loggedIn.put(user.getNick(), player);
+		player.getAliases().add(new UserData(user.generateSnapshot()));
+		messageChannel(user.getNick() + " has joined Idletopia as "+player+".");
+
+	}
+
+	public boolean findLoggedInUser(String nick) {
+		return loggedIn.containsKey(nick);
+	}
+
+	private class EventThread extends Thread {
+		
+		int ticks = 0;
+		
+		@Override
+		public void run() {
+			while (true) {
+
+				for (Playable p : players) {
+					if (p instanceof Player && ((Player)p).loggedIn)
+						p.takeTurn();
+				}
+
+				try {
+					sleep(1);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+				if(ticks++ > 60000) {
+					ticks = 0;
+					savePlayers();
+				}
+			}
+		}
+
+	}
+
+	public void handleLogout(User user) {
+		if(user == null) return;
+		Player p = IdleBot.botref.getPlayerByUser(user);
+		if(p == null) return;
+		p.loggedIn = false;
+		loggedIn.remove(user.getNick());
+		messageChannel(p.getName()+" has abandoned Idletopia.");
+	}
+
+	public void movePlayerToNewNick(String oldNick, String newNick) {
+		Player p = loggedIn.get(oldNick);
+		if(p == null) return;
+		loggedIn.remove(oldNick);
+		loggedIn.put(newNick, p);
+	}
+	
+	public void penalize(User user, int length) {
+		penalize(user.getNick(), length);
+	}
+
+	public void penalize(String user, int length) {
+		Player p = this.getPlayerByUser(user);
+		if(p == null) return;
+		long pentime = (long) (length * Math.pow(1.14, p.getLevel()))*1000;
+		messageChannel(p.getName() + " was penalized "+ms2dd(pentime));
+		p.modifyTime(-pentime);
+	}
+	
+	public void messageChannel(String s) {
+		sendMessage(getGlobalChannel(), s);
+	}
+	
+	/**
+	 * @return the itemgen
+	 */
+	public ItemGenerator getItemgen() {
+		return itemgen;
+	}
+
+	public String getUserByPlayer(Player player) {
+		for(String s : loggedIn.keySet()) {
+			if(loggedIn.get(s).equals(player)) {
+				return s;
+			}
+		}
+		return null;
+	}
+	
+	public void reload() {
+		messageChannel("Reloading my generators...");
+		itemgen = new ItemGenerator();
+		messageChannel("Reloaded.");
+	}
+
+	public LinkedList<Player> getOnlinePlayers() { 
+		LinkedList<Player> ll = new LinkedList<>();
+		for(Playable p : players) {
+			if(p instanceof Player && ((Player) p).loggedIn) ll.add((Player) p);
+		}
+		return ll;
+	}
+	
+	public LinkedList<Player> getPlayers() { 
+		LinkedList<Player> ll = new LinkedList<>();
+		for(Playable p : players) {
+			if(p instanceof Player) ll.add((Player) p);
+		}
+		return ll;
+	}
+
+	
+	public LinkedList<Playable> getPlayersRaw() {
+		return players;
+	}
+
+}

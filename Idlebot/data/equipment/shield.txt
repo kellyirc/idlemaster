@@ -1,0 +1,17 @@
+wooden board,1
+girdle,3
+shield,4
+targe,6
+armlet,8
+buckler,10
+ward,11
+round shield,14
+tower shield,17
+kite shield,21
+bulwark,23
+wing,27
+escutcheon,31
+aegis,37
+Shield of Four Elements,325
+Companion Cube,380
+Reinforced Chunk of Rust,450

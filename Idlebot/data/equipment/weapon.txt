@@ -1,0 +1,138 @@
+pill,1
+ice cream cone,2
+arrow,3
+bullet,4
+spoon,5
+rusty spoon,9
+pillow,10
+watermelon,13
+cane,14
+hatchet,15
+knife,16
+book,17
+bar,19
+glaive,21
+rapier,23
+kunai,24
+hammer,27
+scriptures,28
+axe,30
+kris,32
+dirk,34
+tome,35
+fisticuffs,37
+knuckles,38
+fangs,41
+shortsword,43
+tonfa,44
+sitar,45
+harmonica,46
+flute,47
+trumpet,48
+bagpipes,49
+harpsichord,50
+mandolin,51
+ukelele,52
+lyre,53
+kukri,55
+sword,57
+shamshir,58
+war-axe,61
+estoc,62
+jackknife,63
+flail,66
+cudgel,68
+schimitar,69
+cutlass,72
+mattock,73
+awl-pike,75
+dagger,76
+mace,78
+crosier,79
+morning star,81
+rod,83
+fleuret,86
+scepter,87
+pole,88
+baton,89
+broadsword,90
+epee,92
+bell,93
+trumpet,94
+shell,95
+viola,96
+trident,97
+claymore,98
+lance,99
+halberd,100
+spear,101
+voulge,104
+saber,106
+talwar,109
+longsword,110
+staff,113
+falx,117
+harpoon,119
+barong,120
+falchion,121
+tristaff,122
+sceptre,123
+ayuvir,124
+cube,125
+manual,126
+vial,127
+contraption,130
+utensil,131
+large trout,135
+orb,140
+machine,145
+shard of glass,150
+twig,151
+tail,153
+device,155
+perpetually spinning object,160
+scythe,162
+warhammer,165
+shuriken,168
+chakram,170
+sling,172
+longbow,175
+crossbow,177
+greatmace,180
+javelin,182
+gun,183
+partisan,184
+blowgun,185
+bazooka,188
+king of hearts,190
+cannon,192
+queen of clubs,195
+rifle,197
+raygun,199
+jack of diamonds,201
+flyssa,203
+flyswatter,204
+greataxe,205
+ace of spades,207
+armcannon,215
+tsurigi,221
+longbow,235
+grayswandir,335
+muramasa,435
+murasame,535
+masamune,635
+mjollnir,735
+graytooth,835
+hellbat,935
+deathswat,1035
+lightspear,1135
+holyspear,1235
+skullcrusher,1335
+steelhorn,1403
+magicbane,1503
+excalibur,1603
+Reina's Billhook,350
+Gigasword,390
+Vacuum Gun,420
+Full Ale Bottle,450
+Chaos Grid,500

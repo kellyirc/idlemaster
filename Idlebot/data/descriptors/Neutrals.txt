@@ -1,0 +1,4 @@
+lost,0
+swiss,0
+confused,0
+pacifying,0

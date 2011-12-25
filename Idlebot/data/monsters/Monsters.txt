@@ -1,0 +1,98 @@
+rarespawn,0
+gnat,1
+sick and dying animal,2
+godmonster,3
+louse,13
+mouse,25
+rat,50
+owl,75
+cat,100
+bat,150
+salamander,175
+slime,200
+ooze,225
+insect swarm,227
+human nudist,230
+human farmer,236
+human knight,250
+human paladin,300
+human professor,307
+human magician,313
+human brawler,325
+human sniper,336
+human thief,340
+marionette,345
+lizardman,350
+kobold,363
+orc brawler,375
+imp,383
+goblin,400
+mimic,425
+orc witch,433
+orc,450
+hellhound,463
+ogre,475
+will-o-wisp,500
+ninja,550
+pirate,550
+caveman,550
+hero,563
+acolyte,575
+zephyr,586
+elemental,600
+druid,613
+geoduck,625
+jellyfish,633
+demon,650
+mist,700
+zombie,750
+wight,775
+ghost,800
+poltergeist,825
+ghoul,850
+mutant,875
+skeleton,900
+skeletal knight,925
+skeletal magician,950
+skeletal gnat,999
+skeletal rogue,1000
+vengeful soul,1025
+heretic,1033
+vampire,1050
+vampyre,1075
+minotaur,1100
+roc,1150
+supergnat,1175
+giant,1200
+gryphon,1250
+mudman,1275
+golem,1300
+hydra,1350
+gorgon,1375
+unicorn,1400
+dragon,1450
+behemoth,1475
+wyvern,1500
+phoenix,1600
+demogorgon,1800
+abomination,2000
+zealot,2100
+conjuror,2200
+laser cannon,2400
+incubator,2425
+transcendentalist,2450
+warmech,2500
+black knight,2600
+ninja pirate zombie robot,2700
+kappa,3100
+deity avatar,3300
+succubus,3333
+incubus,3333
+demigod,3400
+memory,3500
+manifestation,3550
+wandering spirit,3600
+automaton,4000
+miniboss squad,4300
+subsonic wave,4040
+doppleganger,9999

@@ -1,0 +1,8 @@
+stockings,1
+pants,2
+trousers,4
+leggings,6
+chaps,7
+chausses,9
+Plated Pants,425
+Venus Flytrap,450

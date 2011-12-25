@@ -1,0 +1,21 @@
+outdated,20
+dial-up,40
+old world,60
+old-fashioned,80
+analog,100
+passe,120
+classic,140
+retro,180
+pixelated,200
+0D,202
+1D,205
+2D,210
+nostalgic,220
+8-bit,240
+56k,280
+1990s,300
+telegraphic,320
+holographic,340
+coal-powered,350
+steam-powered,360
+steampunk,380

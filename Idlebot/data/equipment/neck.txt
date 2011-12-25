@@ -1,0 +1,17 @@
+chain,1
+brooch,2
+amulet,3
+necklace,4
+pendant,5
+medal,7
+collar,9
+choker,10
+torc,12
+eye,15
+heart,20
+orb,25
+Amethyst Necklace,350
+Antique Brooch,450
+Aesculapius Eye,550
+Arihman's Heart,650
+Fated Orb,750

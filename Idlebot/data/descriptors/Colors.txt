@@ -1,0 +1,15 @@
+white,1
+blue,2
+black,4
+yellow,8
+gray,10
+purple,15
+metallic,17
+copper,18
+gold,19
+silver,22
+adamantine,25
+crystalline,29
+crystal,34
+oricalchum,39
+kryptonite,48

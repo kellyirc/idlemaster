@@ -1,0 +1,14 @@
+royal,0
+generous,0
+prudent,0
+stern,0
+rigid,0
+ornate,0
+opulent,0
+able,0
+excellent,0
+superior,0
+masterwork,0
+exceptional,0
+marevlous,0
+jewel-encrusted,0

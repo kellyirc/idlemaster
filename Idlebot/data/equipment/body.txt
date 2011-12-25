@@ -1,0 +1,30 @@
+toga,1
+tunic,2
+cloak,4
+robe,5
+pelt,7
+coat,9
+vest,11
+garb,12
+frock,14
+smock,16
+gi,17
+chiton,19
+bustier,21
+lamellar,24
+brigandine,27
+cuirass,30
+byrnie,31
+banded mail,32
+ring mail,34
+chainmail,36
+breastplate,38
+platemail,39
+hauberk,40
+haubergon,42
+fullplate,45
+riot armor,51
+scale mail,60
+dragonscale mail,70
+Invisibility Cloak,400
+Tuxedo,450
