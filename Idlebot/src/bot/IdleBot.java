@@ -8,6 +8,7 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -37,7 +38,7 @@ public class IdleBot extends PircBotX implements Globals {
 
 	private Gson gson = new Gson();
 	private ItemGenerator itemgen = new ItemGenerator();
-	
+
 	private LinkedList<Playable> players = new LinkedList<>();
 	private HashMap<String, Player> loggedIn = new HashMap<>();
 
@@ -50,7 +51,7 @@ public class IdleBot extends PircBotX implements Globals {
 	public IdleBot(String server, int port) {
 
 		botref = this;
-		
+
 		addListeners();
 
 		this.setVerbose(true);
@@ -116,8 +117,11 @@ public class IdleBot extends PircBotX implements Globals {
 			String strLine;
 
 			while ((strLine = br.readLine()) != null) {
-				if(strLine.equals("")) continue;
-				if(strLine.contains("IdleMaster") && strLine.contains("\"password\":\"EOyfDm54PVWZAY0jH292yhlzTUYjGYmp\"")) {
+				if (strLine.equals(""))
+					continue;
+				if (strLine.contains("IdleMaster")
+						&& strLine
+								.contains("\"password\":\"EOyfDm54PVWZAY0jH292yhlzTUYjGYmp\"")) {
 					IdleMaster p = gson.fromJson(strLine, IdleMaster.class);
 					p.fromSerialize();
 
@@ -128,7 +132,7 @@ public class IdleBot extends PircBotX implements Globals {
 
 					players.add(p);
 				}
-				
+
 			}
 
 			br.close();
@@ -141,14 +145,38 @@ public class IdleBot extends PircBotX implements Globals {
 
 	public void savePlayers() {
 		File file = new File("players.dat");
+		if (file.exists()) {
+			File dir = new File("backup/");
+			File output = new File("backup/players-"+System.currentTimeMillis()+".dat");
+			try {
+				if(!dir.exists()) {
+					dir.mkdir();
+				}
+				output.createNewFile();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			try (FileInputStream from = new FileInputStream(file); FileOutputStream to = new FileOutputStream(output) ){
+				byte[] buffer = new byte[4096];
+				int bytesRead;
+
+				while ((bytesRead = from.read(buffer)) != -1)
+					to.write(buffer, 0, bytesRead);
+				
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter(file));
 
 			for (Player p : getPlayers()) {
 
-				out.write( gson.toJson(p) + "\n\n");
-				
+				out.write(gson.toJson(p) + "\n\n");
+
 			}
 
 			out.close();
@@ -161,7 +189,7 @@ public class IdleBot extends PircBotX implements Globals {
 	public Player getPlayerByUser(String user) {
 		return loggedIn.get(user);
 	}
-	
+
 	public Player getPlayerByUser(User user) {
 		return getPlayerByUser(user.getNick());
 	}
@@ -169,7 +197,7 @@ public class IdleBot extends PircBotX implements Globals {
 	public Player findPlayer(String name) {
 		for (Playable p : players) {
 			if (p instanceof Player && p.getName().equals(name)) {
-				return (Player)p;
+				return (Player) p;
 			}
 		}
 		return null;
@@ -211,31 +239,36 @@ public class IdleBot extends PircBotX implements Globals {
 
 	public void signalLevelUp(Player player) {
 
-		messageChannel(player.getName() + " is now level "+(player.getLevel()+1)+"! "+ms2dd(player.getTimeLeft()) +" to next level.");
+		messageChannel(player.getName() + " is now level "
+				+ (player.getLevel() + 1) + "! " + ms2dd(player.getTimeLeft())
+				+ " to next level.");
 		savePlayers();
 
 	}
 
-	public void createPlayer(User user, String name, String password, String cclass) {
+	public void createPlayer(User user, String name, String password,
+			String cclass) {
 		Player p = new Player(name, password, cclass, Alignment.Neutral);
 
 		players.add(p);
 
 		savePlayers();
-		
+
 		p.fromSerialize();
-		
-		messageChannel(user.getNick() + " has registered "+name+"!");
+
+		messageChannel(user.getNick() + " has registered " + name + "!");
 
 	}
 
 	public void handleLogin(User user, Player player) {
-		if(player.loggedIn) return;
+		if (player.loggedIn)
+			return;
 		player.loggedIn = true;
 		player.lastLogin = new UserData(user.generateSnapshot());
 		loggedIn.put(user.getNick(), player);
 		player.getAliases().add(new UserData(user.generateSnapshot()));
-		messageChannel(user.getNick() + " has joined Idletopia as "+player+".");
+		messageChannel(user.getNick() + " has joined Idletopia as " + player
+				+ ".");
 
 	}
 
@@ -244,15 +277,16 @@ public class IdleBot extends PircBotX implements Globals {
 	}
 
 	private class EventThread extends Thread {
-		
+
 		int ticks = 0;
-		
+
 		@Override
 		public void run() {
 			while (true) {
 
 				for (Playable p : players) {
-					if (p instanceof Player && !((Player)p).loggedIn) continue;
+					if (p instanceof Player && !((Player) p).loggedIn)
+						continue;
 					p.takeTurn();
 				}
 
@@ -261,8 +295,8 @@ public class IdleBot extends PircBotX implements Globals {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				
-				if(ticks++ > 6/1000) {
+
+				if (ticks++ > 6 / 1000) {
 					ticks = 0;
 					savePlayers();
 				}
@@ -272,37 +306,41 @@ public class IdleBot extends PircBotX implements Globals {
 	}
 
 	public void handleLogout(User user) {
-		if(user == null) return;
+		if (user == null)
+			return;
 		Player p = IdleBot.botref.getPlayerByUser(user);
-		if(p == null) return;
+		if (p == null)
+			return;
 		p.loggedIn = false;
 		loggedIn.remove(user.getNick());
-		messageChannel(p.getName()+" has abandoned Idletopia.");
+		messageChannel(p.getName() + " has abandoned Idletopia.");
 	}
 
 	public void movePlayerToNewNick(String oldNick, String newNick) {
 		Player p = loggedIn.get(oldNick);
-		if(p == null) return;
+		if (p == null)
+			return;
 		loggedIn.remove(oldNick);
 		loggedIn.put(newNick, p);
 	}
-	
+
 	public void penalize(User user, int length) {
 		penalize(user.getNick(), length);
 	}
 
 	public void penalize(String user, int length) {
 		Player p = this.getPlayerByUser(user);
-		if(p == null) return;
-		long pentime = (long) (length * Math.pow(1.14, p.getLevel()))*1000;
-		messageChannel(p.getName() + " was penalized "+ms2dd(pentime));
+		if (p == null)
+			return;
+		long pentime = (long) (length * Math.pow(1.14, p.getLevel())) * 1000;
+		messageChannel(p.getName() + " was penalized " + ms2dd(pentime));
 		p.modifyTime(-pentime);
 	}
-	
+
 	public void messageChannel(String s) {
 		sendMessage(getGlobalChannel(), s);
 	}
-	
+
 	/**
 	 * @return the itemgen
 	 */
@@ -311,32 +349,34 @@ public class IdleBot extends PircBotX implements Globals {
 	}
 
 	public String getUserByPlayer(Player player) {
-		for(String s : loggedIn.keySet()) {
-			if(loggedIn.get(s).equals(player)) {
+		for (String s : loggedIn.keySet()) {
+			if (loggedIn.get(s).equals(player)) {
 				return s;
 			}
 		}
 		return null;
 	}
-	
+
 	public void reload() {
 		messageChannel("Reloading my generators...");
 		itemgen = new ItemGenerator();
 		messageChannel("Reloaded.");
 	}
 
-	public LinkedList<Player> getOnlinePlayers() { 
+	public LinkedList<Player> getOnlinePlayers() {
 		LinkedList<Player> ll = new LinkedList<>();
-		for(Playable p : players) {
-			if(p instanceof Player && ((Player) p).loggedIn) ll.add((Player) p);
+		for (Playable p : players) {
+			if (p instanceof Player && ((Player) p).loggedIn)
+				ll.add((Player) p);
 		}
 		return ll;
 	}
-	
-	public LinkedList<Player> getPlayers() { 
+
+	public LinkedList<Player> getPlayers() {
 		LinkedList<Player> ll = new LinkedList<>();
-		for(Playable p : players) {
-			if(p instanceof Player) ll.add((Player) p);
+		for (Playable p : players) {
+			if (p instanceof Player)
+				ll.add((Player) p);
 		}
 		return ll;
 	}
@@ -344,18 +384,20 @@ public class IdleBot extends PircBotX implements Globals {
 	public LinkedList<Playable> getPlayersRaw() {
 		return players;
 	}
-	
+
 	public Playable findPlayableByCoordinates(Playable root) {
-		
-		for(Playable p : players) {
-			if(p.equals(root))continue;
-			if(p instanceof Player && !((Player) p).loggedIn) continue;
-			if(p.getX() == root.getX() && p.getY() == root.getY()) {
+
+		for (Playable p : players) {
+			if (p.equals(root))
+				continue;
+			if (p instanceof Player && !((Player) p).loggedIn)
+				continue;
+			if (p.getX() == root.getX() && p.getY() == root.getY()) {
 				return p;
 			}
 		}
 		return null;
-		
+
 	}
 
 }

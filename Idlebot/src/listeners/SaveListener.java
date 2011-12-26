@@ -45,6 +45,7 @@ public class SaveListener extends org.pircbotx.hooks.ListenerAdapter<PircBotX> {
 	public void onDisconnect(DisconnectEvent<PircBotX> event) throws Exception {
 		IdleBot.botref.savePlayers();
 		super.onDisconnect(event);
+		System.err.println("I died.");
 	}
 
 }

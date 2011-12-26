@@ -26,29 +26,65 @@ public class CommandListener extends
 
 		String[] args = event.getMessage().split(" ");
 
-		switch (args[0]) {
+		switch (args[0].toLowerCase()) {
+		/**
+		 * COMMAND: register
+		 * ARGUMENTS: name password custom-class-name
+		 * HELP: Register a new character.
+		 * PENALTY: None.
+		 */
 		case "register":
 			
 			doRegister(event, args);
 			break;
-			
+
+			/**
+			 * COMMAND: login
+			 * ARGUMENTS: name password
+			 * HELP: Log in to a previously created character.
+			 * PENALITY: None.
+			 */
 		case "login":
 			
 			doLogin(event, args);
 			break;
-			
+
+			/**
+			 * COMMAND: timeleft
+			 * ARGUMENTS: none
+			 * HELP: Get the remaining time to level.
+			 * PENALTY: None.
+			 */
 		case "timeleft":
 			doTimeleft(event);
 			break;
-			
+
+			/**
+			 * COMMAND: info
+			 * ARGUMENTS: none
+			 * HELP: Display all information about your character.
+			 * PENALTY: None.
+			 */
 		case "info":
 			doInfo(event, args);
 			break;
-			
+
+			/**
+			 * COMMAND: logout
+			 * ARGUMENTS: none
+			 * HELP: Safely log out of your character.
+			 * PENALTY: None.
+			 */
 		case "logout":
 			doLogout(event);
 			break;
-			
+
+			/**
+			 * COMMAND: timeleft
+			 * ARGUMENTS: none
+			 * HELP: Get the remaining time to level.
+			 * PENALTY: None.
+			 */
 		case "online":
 			event.getBot().sendMessage(event.getUser(), event.getBot().getOnlinePlayers().toString());
 			break;
@@ -56,7 +92,13 @@ public class CommandListener extends
 		case "reload":
 			event.getBot().reload();
 			break;
-			
+
+			/**
+			 * COMMAND: ignore
+			 * ARGUMENTS: none
+			 * HELP: Ignore the bots notices about selling/trashing items.
+			 * PENALTY: None.
+			 */
 		case "ignore":
 			Player p = event.getBot().getPlayerByUser(event.getUser());
 			if(p == null) return;

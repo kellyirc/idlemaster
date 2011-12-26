@@ -3,7 +3,6 @@ package bot;
 public class Todo {
 }
 /**
- * Make Command class
  * Salt password 
 	Alignment bonuses 
 		good - blessed more often, Steal0, E-Crit80/2, ChangeAlign30m, Parry20/34, Dodge1, Magic2, ConflictAvoid-N10
