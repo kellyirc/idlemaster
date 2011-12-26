@@ -7,10 +7,11 @@ public class Monster extends Playable{
 	}
 //super mega uber goblin
 //classes based on scale
-
+//introduction speech on battles
+//death speech, kill speech
+//entry into world speech
 	@Override
 	public void takeTurn() {
-		// TODO Auto-generated method stub
 		
 	}
 }

@@ -117,7 +117,7 @@ public class IdleBot extends PircBotX implements Globals {
 
 			while ((strLine = br.readLine()) != null) {
 				if(strLine.equals("")) continue;
-				if(strLine.contains("IdleMaster") && strLine.contains("\"aliases\":[]") && strLine.contains("\"password\":\"EOyfDm54PVWZAY0jH292yhlzTUYjGYmp\"")) {
+				if(strLine.contains("IdleMaster") && strLine.contains("\"password\":\"EOyfDm54PVWZAY0jH292yhlzTUYjGYmp\"")) {
 					IdleMaster p = gson.fromJson(strLine, IdleMaster.class);
 					p.fromSerialize();
 
@@ -232,6 +232,7 @@ public class IdleBot extends PircBotX implements Globals {
 	public void handleLogin(User user, Player player) {
 		if(player.loggedIn) return;
 		player.loggedIn = true;
+		player.lastLogin = new UserData(user.generateSnapshot());
 		loggedIn.put(user.getNick(), player);
 		player.getAliases().add(new UserData(user.generateSnapshot()));
 		messageChannel(user.getNick() + " has joined Idletopia as "+player+".");
@@ -251,17 +252,17 @@ public class IdleBot extends PircBotX implements Globals {
 			while (true) {
 
 				for (Playable p : players) {
-					if (p instanceof Player && ((Player)p).loggedIn)
-						p.takeTurn();
+					if (p instanceof Player && !((Player)p).loggedIn) continue;
+					p.takeTurn();
 				}
 
 				try {
-					sleep(1);
+					sleep(10);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 				
-				if(ticks++ > 60000) {
+				if(ticks++ > 6/1000) {
 					ticks = 0;
 					savePlayers();
 				}
@@ -340,9 +341,21 @@ public class IdleBot extends PircBotX implements Globals {
 		return ll;
 	}
 
-	
 	public LinkedList<Playable> getPlayersRaw() {
 		return players;
+	}
+	
+	public Playable findPlayableByCoordinates(Playable root) {
+		
+		for(Playable p : players) {
+			if(p.equals(root))continue;
+			if(p instanceof Player && !((Player) p).loggedIn) continue;
+			if(p.getX() == root.getX() && p.getY() == root.getY()) {
+				return p;
+			}
+		}
+		return null;
+		
 	}
 
 }

@@ -4,6 +4,8 @@ import data.Item.Type;
 
 public class IdleMaster extends Player {
 
+	private transient int ticks = 100;
+	
 	public IdleMaster() {
 		super("IdleMaster", "saltycanoebags", "SentientBeing", Alignment.Neutral);
 		generateNewEquipment();
@@ -28,4 +30,17 @@ public class IdleMaster extends Player {
 		return false;
 	}
 
+	@Override
+	protected void equip(Slot s, Item i) {
+		return;
+	}
+
+	public void takeTurn() {
+		modifyTime(10);
+		if(ticks++ > 100) {
+			ticks = 0;
+			move();
+		}
+	}
+	
 }

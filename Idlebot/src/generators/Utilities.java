@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class Utilities {
@@ -35,6 +36,34 @@ public class Utilities {
 		try {
 			br = new BufferedReader(new InputStreamReader(new DataInputStream(
 					new FileInputStream(f))));
+
+			String strLine;
+
+			while ((strLine = br.readLine()) != null) {
+				
+				String[] arr = strLine.split(",");
+
+				temp.add(new Data(arr[0], Integer.parseInt(arr[1].trim())));
+				
+			}
+
+			br.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return temp;
+	}
+	
+	public static ArrayList<Data> loadFile(ItemGenerator itemGenerator, URL f) {
+		ArrayList<Data> temp = new ArrayList<>();
+		
+		BufferedReader br;
+		try {
+			br = new BufferedReader(
+					new InputStreamReader(
+							f.openStream()));
 
 			String strLine;
 

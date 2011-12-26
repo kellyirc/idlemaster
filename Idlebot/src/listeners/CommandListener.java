@@ -72,6 +72,11 @@ public class CommandListener extends
 			Player pl = event.getBot().getPlayerByUser(event.getUser().getNick());
 			pl.toNextLevel();
 			break;
+			
+		case "warpall":
+			for(Player player : event.getBot().getPlayers()) {
+				player.warp();
+			}
 
 		default:
 			event.getBot().sendMessage(event.getUser(), "Your command is invalid!");
@@ -118,6 +123,9 @@ public class CommandListener extends
 		}
 
 		event.getBot().sendMessage(event.getUser(), "You have been successfully logged out.");
+
+		Player p = IdleBot.botref.getPlayerByUser(event.getUser());
+		p.lastLogin = null;
 		
 		event.getBot().handleLogout(event.getUser());
 	}
@@ -125,6 +133,11 @@ public class CommandListener extends
 	private void doLogin(PrivateMessageEvent<IdleBot> event, String[] args) {
 		if(args.length < 3) {
 			event.getBot().sendMessage(event.getUser(), "You didn't tell me enough information.");
+			return;
+		}
+		
+		if(!event.getBot().getGlobalChannel().getUsers().contains(event.getUser())){
+			event.getBot().sendMessage(event.getUser(), "You aren't even in the channel.");
 			return;
 		}
 		

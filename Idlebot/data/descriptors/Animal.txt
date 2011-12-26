@@ -12,6 +12,7 @@ kraken,36
 dragon,43
 unicorn,57
 pixie,61
+red-eyed programmer,63
 radioactive rabbit,65
 silly snake,70
 goofy gopher,80

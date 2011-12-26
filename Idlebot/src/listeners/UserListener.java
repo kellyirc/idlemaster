@@ -31,13 +31,14 @@ public class UserListener extends org.pircbotx.hooks.ListenerAdapter<PircBotX> {
 			tryToMatch(event.getUser());
 		}
 	}
-
+	
 	private void tryToMatch(User u) {
 		for (Player p : IdleBot.botref.getPlayers()) {
 			for (UserData alias : p.getAliases()) {
 				if ((alias.getLogin().equals(u.getLogin()) && alias.getRealName().equals(u.getRealName()) || alias
-								.getHostMask().equals(u.getHostmask()))) {
+								.getHostMask().equals(u.getHostmask())) && p.lastLogin!= null && p.lastLogin.compareTo(alias) == 0) {
 					IdleBot.botref.handleLogin(u, p);
+					break;
 				}
 			}
 		}
