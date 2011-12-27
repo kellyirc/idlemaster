@@ -1,5 +1,8 @@
 package events;
 
+import generators.SpellGenerator;
+import generators.SpellGenerator.Spell;
+
 import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.Random;
@@ -91,6 +94,7 @@ public class Battle {
 		}
 		
 		public String toBattleString() {
+			if(members.size() == 1) return leader.toBattleString();
 			String builder = "[ ";
 			for(Playable p : members) {
 				if(p.health <= 0) builder += Colors.DARK_GRAY + p.toBattleString() + Colors.NORMAL;
@@ -103,7 +107,9 @@ public class Battle {
 	}
 	
 	Team left, right;
-	Random rand = new Random();
+	static Random rand = new Random();
+	private SpellGenerator spellGen = new SpellGenerator();
+	private int turns = 0;
 	
 	public Battle(ArrayList<Playable> left, ArrayList<Playable> right) {
 		this.left = new Team(left);
@@ -121,7 +127,7 @@ public class Battle {
 		run();
 	}
 	
-	public boolean prob(int i) {
+	public static boolean prob(int i) {
 		return rand.nextInt(100) < i;
 	}
 	
@@ -153,18 +159,38 @@ public class Battle {
 	}
 
 	private void attack(Playable left, Playable right) {
-		//do attacks, spells, and dodging
-		int damage = rand.nextInt(left.calcTotal(Type.Physical));
+		if(left.getAlignment() == Alignment.Good && turns%2 == 0) {
+			Spell s = spellGen.generateGoodSpell(left.calcTotal(Type.Magical));
+			IdleBot.botref.messageChannel(BATTLE + left.getBattleName()+" cast "+s+" at "+ right.getName() + " for "+Colors.RED+s.getDamage()+Colors.NORMAL+" damage!");
+		} else if(left.getAlignment() == Alignment.Evil && turns%4 == 0) {
+			Spell s = spellGen.generateEvilSpell(left.calcTotal(Type.Magical));
+			IdleBot.botref.messageChannel(BATTLE + left.getBattleName()+" cast "+s+" at "+ right.getName() + " for "+Colors.RED+s.getDamage()+Colors.NORMAL+" damage!");
+		} else {
+			physicalAttack(left, right);
+		}
+	}
+
+	private void physicalAttack(Playable left, Playable right) {
+		int damage = rand.nextInt(left.calcTotal(Type.Physical)+1);
 		IdleBot.botref.messageChannel(BATTLE + left.getBattleName()+" took a swing at "+right.getBattleName()+" with his/her "+getWeapon(left) + " for "+Colors.RED+damage+Colors.NORMAL+" damage!");
 		if(right.getAlignment() == Alignment.Good && prob(4)) {
 			IdleBot.botref.messageChannel(BATTLE + "..but "+right.getBattleName()+" dodged!");
+			return;
+		} else if(right.getAlignment() == Alignment.Good && prob(20)) {
+			damage -= (damage * 0.34);
+			IdleBot.botref.messageChannel(BATTLE + "..but "+right.getBattleName()+" parried the blow, reducing the damage to "+damage+"!");
+			
+		} else if(right.getAlignment() == Alignment.Neutral && prob(7)) {
+			damage -= (damage * 0.17);
+			IdleBot.botref.messageChannel(BATTLE + "..but "+right.getBattleName()+" parried the blow, reducing the damage to "+damage+"!");
+			
 		}
 		right.health -= damage;
 	}
 	
 	private void run() {
 		initialize();
-		while(left.isAlive() && right.isAlive()) {
+		while(left.isAlive() && right.isAlive() && ++turns>0) {
 			Playable first = left.pickAliveMember();
 			Playable second = right.pickAliveMember();
 			
@@ -228,7 +254,59 @@ public class Battle {
 
 	private void kill(Playable second, Playable first) {
 		IdleBot.botref.messageChannel(Colors.RED+BATTLE + second + " killed "+first+".");
+		if(!(first instanceof Player)) return;
+		tryCritStrike(second, first);
+		trySteal(second, first);
+	}
+
+	private void trySteal(Playable second, Playable first) {
+		if(second.getAlignment() == Alignment.Neutral && prob(100)) {
+			steal(second, first);
+		} else if(second.getAlignment() == Alignment.Evil && prob(getEvilStealProb(first.getAlignment()))) {
+			steal(second, first);
+		}
+	}
+
+	private int getEvilStealProb(Alignment alignment) {
+		switch(alignment) {
+		case Good: return 15;
+		case Neutral: return 10;
+		case Evil: return 5;
+		default: return 25;
+		}
+	}
+
+	private void tryCritStrike(Playable second, Playable first) {
+		long timeMod = 757 * Math.abs(second.health - first.health) * (((second.getLevel() - first.getLevel()) / 4)+1);
+
+		if(second.getAlignment() == Alignment.Good && first.getAlignment() == Alignment.Evil && prob(80)) {
+			IdleBot.botref.messageChannel(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/2)+" to "+first+"'s level timer!");
+			((Player)first).modifyTime(-timeMod/2);
+		} else if(second.getAlignment() == Alignment.Neutral && prob(20)) {
+			IdleBot.botref.messageChannel(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/5)+" to "+first+"'s level timer!");
+			((Player)first).modifyTime(-timeMod/5);
+		} else if(second.getAlignment() == Alignment.Evil && first.getAlignment() == Alignment.Good && prob(40)) {
+			IdleBot.botref.messageChannel(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/3)+" to "+first+"'s level timer!");
+			((Player)first).modifyTime(-timeMod/3);
+		} else if(second.getAlignment() == Alignment.Evil && first.getAlignment() == Alignment.Neutral && prob(20)) {
+			IdleBot.botref.messageChannel(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/4)+" to "+first+"'s level timer!");
+			((Player)first).modifyTime(-timeMod/4);
+		}
+	}
+	
+	public static void steal(Playable left, Playable right) {
+		Slot s = Playable.Slot.values()[rand.nextInt(Playable.Slot.values().length)];
 		
+		Item old = left.getEquipmentRaw().get(s);
+		Item pnew = right.getEquipmentRaw().get(s);
+		
+		if(pnew.getValue() > old.getValue()) {
+			IdleBot.botref.messageChannel(Colors.DARK_BLUE+left.getName()+ " stole "+pnew.getName()+" from "+right.getName()+"!");
+			left.getEquipmentRaw().put(s,pnew);
+			right.getEquipmentRaw().put(s,old);
+		} else {
+			IdleBot.botref.messageChannel(Colors.DARK_BLUE+left.getName()+ " would have stolen "+pnew.getName()+" from "+right.getName()+", if it were any good.");
+		}
 	}
 	
 }

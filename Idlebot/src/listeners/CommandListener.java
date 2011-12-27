@@ -94,7 +94,7 @@ public class CommandListener extends
 			 * COMMAND: align
 			 * ARGUMENTS: Good|Neutral|Evil
 			 * HELP: Change alignment of your character.
-			 * PENALTY: p5|p15|p30
+			 * PENALTY: p30|p15|p5
 			 */
 		case "align":
 			doAlignChange(event, args);
@@ -144,11 +144,11 @@ public class CommandListener extends
 		switch(args[1]) {
 		case "good":
 			play.setAlignment(Alignment.Good);
-			IdleBot.botref.penalize(event.getUser(), 5);
+			IdleBot.botref.penalize(event.getUser(), 30);
 			break;
 		case "evil":
 			play.setAlignment(Alignment.Evil);
-			IdleBot.botref.penalize(event.getUser(), 30);
+			IdleBot.botref.penalize(event.getUser(), 5);
 			break;
 		case "neutral":
 			play.setAlignment(Alignment.Neutral);

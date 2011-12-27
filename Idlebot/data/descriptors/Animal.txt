@@ -39,4 +39,5 @@ jumping jackalope,260
 gelatinous jabberwocky,270
 snorting squirrel,280
 castrated cat,290
+vicious viking,300
 phoenix,331

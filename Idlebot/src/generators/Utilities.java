@@ -69,6 +69,7 @@ public class Utilities {
 
 			while ((strLine = br.readLine()) != null) {
 				
+				if(strLine.equals("")) continue;
 				String[] arr = strLine.split(",");
 
 				temp.add(new Data(arr[0], Integer.parseInt(arr[1].trim())));

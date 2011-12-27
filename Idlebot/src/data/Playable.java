@@ -202,6 +202,21 @@ public abstract class Playable {
 	
 	public void engage(Playable other) {
 		if(canBattle(this, other)) {
+			if(this.alignment == Alignment.Good && other.alignment == Alignment.Neutral && Battle.prob(10)) {
+				IdleBot.botref.messageChannel(Battle.BATTLE + getName() + " greeted "+other.getName()+" and went on his/her merry way.");
+				return;
+			}
+			if(this.alignment == Alignment.Neutral && Battle.prob(20)) {
+				IdleBot.botref.messageChannel(Battle.BATTLE + getName() + " glanced at "+other.getName()+" and kept walking.");
+				return;
+			}
+			if(this.alignment == Alignment.Evil && Battle.prob(10)){
+				IdleBot.botref.messageChannel(Battle.BATTLE + getName() + " snickered as s/he walked by "+other.getName()+".");
+				if(Battle.prob(10)) {
+					Battle.steal(this, other);
+				}
+				return;
+			}
 			new Battle(this, other);
 		} else {
 			if(this.level > other.level + 3 || this.calcTotal(null) > other.calcTotal(null) * 2) {
@@ -237,6 +252,10 @@ public abstract class Playable {
 	
 	public String getColorNumber(String color, Type type) {
 		return calcTotal(type) == 0 ? "" : "["+color+calcTotal(type)+Colors.NORMAL+"] ";
+	}
+	
+	public HashMap<Slot,Item> getEquipmentRaw() {
+		return equipment;
 	}
 	
 	public void warp() {

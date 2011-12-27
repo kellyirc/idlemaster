@@ -13,7 +13,7 @@ public class Statistics {
 	public int forsaken;
 	public int blessed;
 	public int fatehand;
-	public int masterFound;
+	public int monsterKilled;
 	
 	//TODO karma cookies
 	//TODO temporarily sell items to other players (they can try to equip it then)

@@ -13,7 +13,7 @@ pixelated,200
 nostalgic,220
 8-bit,240
 56k,280
-1990s,300
+'90s,300
 telegraphic,320
 holographic,340
 coal-powered,350
