@@ -17,6 +17,7 @@ import data.Item.Type;
 import data.Playable.Alignment;
 import data.Playable.Slot;
 import data.Player;
+import data.Monster;
 
 public class Battle {
 	public static final String BATTLE = " *** ";
@@ -38,7 +39,8 @@ public class Battle {
 		
 		public void initialize() {
 			for(Playable p : members) {
-				p.health = p.calcTotal(null);
+				if(p instanceof Player) isMonsterOnly = false;
+				if(!((p instanceof Monster) && ((Monster) p).strings!=null && p.health > 0)) p.health = p.calcTotal(null) + (p instanceof Monster ? ((Monster)p).getBonus() : 0);
 				emotional += p.calcTotal(Type.Emotional);
 				spiritual += p.calcTotal(Type.Spiritual);
 			}
@@ -48,8 +50,8 @@ public class Battle {
 			for(Playable p : members) { 
 				if(p instanceof Player){
 					((Player) p).modifyTime(l);
-					IdleBot.botref.messageChannel(p.getName()+" got "+IdleBot.botref.ms2dd(Math.abs(l))+(l>0 ? " removed from " : " added to ") + "his/her level timer!");
-				}
+					battleMessage(p.getName()+" got "+IdleBot.botref.ms2dd(Math.abs(l))+(l>0 ? " removed from " : " added to ") + "his/her level timer!");
+				} 
 			}
 		}
 		
@@ -110,6 +112,7 @@ public class Battle {
 	static Random rand = new Random();
 	private SpellGenerator spellGen = new SpellGenerator();
 	private int turns = 0;
+	private boolean isMonsterOnly = true;
 	
 	public Battle(ArrayList<Playable> left, ArrayList<Playable> right) {
 		this.left = new Team(left);
@@ -140,11 +143,11 @@ public class Battle {
 
 	private void emotionalDamage() {
 		if(left.emotional > 0) {
-			IdleBot.botref.messageChannel(BATTLE + "A crushing blow by "+left+" deals a staggering "+Colors.PURPLE+left.emotional+Colors.NORMAL+" emotional damage to "+right+".");
+			battleMessage(BATTLE + "A crushing blow by "+left+" deals a staggering "+Colors.PURPLE+left.emotional+Colors.NORMAL+" emotional damage to "+right+".");
 			right.takeDamage(left.leader, left.emotional);
 		}
 		if(right.emotional > 0) {
-			IdleBot.botref.messageChannel(BATTLE + "A smashing blow by "+right+" inflicts an intense "+Colors.PURPLE +right.emotional+Colors.NORMAL+" emotional damage to "+left+".");
+			battleMessage(BATTLE + "A smashing blow by "+right+" inflicts an intense "+Colors.PURPLE +right.emotional+Colors.NORMAL+" emotional damage to "+left+".");
 			left.takeDamage(right.leader, right.emotional);
 		}
 	}
@@ -161,10 +164,12 @@ public class Battle {
 	private void attack(Playable left, Playable right) {
 		if(left.getAlignment() == Alignment.Good && turns%2 == 0) {
 			Spell s = spellGen.generateGoodSpell(left.calcTotal(Type.Magical));
-			IdleBot.botref.messageChannel(BATTLE + left.getBattleName()+" cast "+s+" at "+ right.getName() + " for "+Colors.RED+s.getDamage()+Colors.NORMAL+" damage!");
+			battleMessage(BATTLE + left.getBattleName()+" cast "+s+" at "+ right.getName() + " for "+Colors.RED+s.getDamage()+Colors.NORMAL+" damage!");
+			right.health -= s.getDamage();
 		} else if(left.getAlignment() == Alignment.Evil && turns%4 == 0) {
 			Spell s = spellGen.generateEvilSpell(left.calcTotal(Type.Magical));
-			IdleBot.botref.messageChannel(BATTLE + left.getBattleName()+" cast "+s+" at "+ right.getName() + " for "+Colors.RED+s.getDamage()+Colors.NORMAL+" damage!");
+			battleMessage(BATTLE + left.getBattleName()+" cast "+s+" at "+ right.getName() + " for "+Colors.RED+s.getDamage()+Colors.NORMAL+" damage!");
+			right.health -= s.getDamage();
 		} else {
 			physicalAttack(left, right);
 		}
@@ -172,17 +177,17 @@ public class Battle {
 
 	private void physicalAttack(Playable left, Playable right) {
 		int damage = rand.nextInt(left.calcTotal(Type.Physical)+1);
-		IdleBot.botref.messageChannel(BATTLE + left.getBattleName()+" took a swing at "+right.getBattleName()+" with his/her "+getWeapon(left) + " for "+Colors.RED+damage+Colors.NORMAL+" damage!");
+		battleMessage(BATTLE + left.getBattleName()+" took a swing at "+right.getBattleName()+" with his/her "+getWeapon(left) + " for "+Colors.RED+damage+Colors.NORMAL+" damage!");
 		if(right.getAlignment() == Alignment.Good && prob(4)) {
-			IdleBot.botref.messageChannel(BATTLE + "..but "+right.getBattleName()+" dodged!");
+			battleMessage(BATTLE + "..but "+right.getBattleName()+" dodged!");
 			return;
 		} else if(right.getAlignment() == Alignment.Good && prob(20)) {
 			damage -= (damage * 0.34);
-			IdleBot.botref.messageChannel(BATTLE + "..but "+right.getBattleName()+" parried the blow, reducing the damage to "+damage+"!");
+			battleMessage(BATTLE + "..but "+right.getBattleName()+" parried the blow, reducing the damage to "+Colors.RED+damage+Colors.NORMAL+"!");
 			
 		} else if(right.getAlignment() == Alignment.Neutral && prob(7)) {
 			damage -= (damage * 0.17);
-			IdleBot.botref.messageChannel(BATTLE + "..but "+right.getBattleName()+" parried the blow, reducing the damage to "+damage+"!");
+			battleMessage(BATTLE + "..but "+right.getBattleName()+" parried the blow, reducing the damage to "+Colors.RED+damage+Colors.NORMAL+"!");
 			
 		}
 		right.health -= damage;
@@ -224,39 +229,49 @@ public class Battle {
 	}
 
 	private void spiritualDamage() {
-		if(left.spiritual > 0) {
-			IdleBot.botref.messageChannel(BATTLE + left+" whittles away the spirit of "+right+" by "+Colors.PURPLE +left.spiritual+Colors.NORMAL+".");
+		if(left.isAlive() && left.spiritual > 0) {
+			battleMessage(BATTLE + left+" whittles away the spirit of "+right+" by "+Colors.PURPLE +left.spiritual+Colors.NORMAL+".");
 			right.takeDamage(left.leader, left.spiritual);
 		}
-		if(right.spiritual > 0) {
-			IdleBot.botref.messageChannel(BATTLE + right+" prods "+left+" for "+Colors.PURPLE +right.spiritual+Colors.NORMAL+" spiritual damage.");
+		if(right.isAlive() && right.spiritual > 0) {
+			battleMessage(BATTLE + right+" prods "+left+" for "+Colors.PURPLE +right.spiritual+Colors.NORMAL+" spiritual damage.");
 			left.takeDamage(right.leader, right.spiritual);
 		}
 	}
 
 	private void roundStatistics() {
-		IdleBot.botref.messageChannel(BATTLE + "Round Statistics: "+left.toBattleString() + " " + right.toBattleString());
+		battleMessage(BATTLE + "Round Statistics: "+left.toBattleString() + " " + right.toBattleString());
 	}
 	
 	private void initialSpeech() {
 		if(left.members.size() == 1 && right.members.size() == 1) {
-			IdleBot.botref.messageChannel(Colors.RED+BATTLE + left + " is raging up to "+right+"..!");
+			battleMessage(Colors.RED+BATTLE + left + " is raging up to "+right+"..!");
 		}
 	}
 
 	//do the winners dance (steal, critical strike if player->player, dropItem if player->monster)
 	private void victory(Team victors, Team losrars) {
-		IdleBot.botref.messageChannel(Colors.DARK_GREEN+BATTLE + victors + " won the battle!");
-		long timeMod = 757 * Math.abs(victors.getRemainingLife() - losrars.getRemainingLife()) * (((victors.getTotalLevel() - losrars.getTotalLevel()) / 4)+1);
+		battleMessage(Colors.DARK_GREEN+BATTLE + victors + " won the battle!");
+		float mod = ((victors.getTotalLevel() - losrars.getTotalLevel()) / 4)+1;
+		long timeMod = (long) (757 * Math.abs(victors.getRemainingLife() - losrars.getRemainingLife()) * (mod == 0 ? 1 : mod));
 		victors.timeMod(timeMod);
 		losrars.timeMod(-timeMod/2);
 	}
 
+	private void battleMessage(String string) {
+		//if(!isMonsterOnly)
+			IdleBot.botref.messageChannel(string);
+		
+	}
+
 	private void kill(Playable second, Playable first) {
-		IdleBot.botref.messageChannel(Colors.RED+BATTLE + second + " killed "+first+".");
-		if(!(first instanceof Player)) return;
-		tryCritStrike(second, first);
+		battleMessage(Colors.RED+BATTLE + second + " killed "+first+".");
 		trySteal(second, first);
+		if(!(first instanceof Player)) {
+			((Monster)first).die(second);
+		} else {
+			tryCritStrike(second, first);
+		}
 	}
 
 	private void trySteal(Playable second, Playable first) {
@@ -280,21 +295,22 @@ public class Battle {
 		long timeMod = 757 * Math.abs(second.health - first.health) * (((second.getLevel() - first.getLevel()) / 4)+1);
 
 		if(second.getAlignment() == Alignment.Good && first.getAlignment() == Alignment.Evil && prob(80)) {
-			IdleBot.botref.messageChannel(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/2)+" to "+first+"'s level timer!");
+			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/2)+" to "+first+"'s level timer!");
 			((Player)first).modifyTime(-timeMod/2);
 		} else if(second.getAlignment() == Alignment.Neutral && prob(20)) {
-			IdleBot.botref.messageChannel(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/5)+" to "+first+"'s level timer!");
+			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/5)+" to "+first+"'s level timer!");
 			((Player)first).modifyTime(-timeMod/5);
 		} else if(second.getAlignment() == Alignment.Evil && first.getAlignment() == Alignment.Good && prob(40)) {
-			IdleBot.botref.messageChannel(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/3)+" to "+first+"'s level timer!");
+			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/3)+" to "+first+"'s level timer!");
 			((Player)first).modifyTime(-timeMod/3);
 		} else if(second.getAlignment() == Alignment.Evil && first.getAlignment() == Alignment.Neutral && prob(20)) {
-			IdleBot.botref.messageChannel(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/4)+" to "+first+"'s level timer!");
+			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/4)+" to "+first+"'s level timer!");
 			((Player)first).modifyTime(-timeMod/4);
 		}
 	}
 	
 	public static void steal(Playable left, Playable right) {
+		//if(left instanceof Monster) return;
 		Slot s = Playable.Slot.values()[rand.nextInt(Playable.Slot.values().length)];
 		
 		Item old = left.getEquipmentRaw().get(s);

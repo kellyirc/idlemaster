@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.TimeZone;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import listeners.*;
 
@@ -48,8 +49,10 @@ public class IdleBot extends PircBotX implements Globals {
 
 	private Gson gson = new Gson();
 	private ItemGenerator itemgen = new ItemGenerator();
+	
+	public static final int MAX_MONSTERS = 200;
 
-	private LinkedList<Playable> players = new LinkedList<>();
+	private ConcurrentLinkedQueue<Playable> players = new ConcurrentLinkedQueue<>();
 	private HashMap<String, Player> loggedIn = new HashMap<>();
 
 	public static void main(String[] args) {
@@ -104,7 +107,13 @@ public class IdleBot extends PircBotX implements Globals {
 		// this.setModerated(getGlobalChannel());
 		this.setTopic(getGlobalChannel(), getCustomTopic());
 		new Thread(new EventThread()).run();
+	}
 
+	public void generateMonsters() {
+		for(int i=0; i<MAX_MONSTERS; i++) {
+			players.add(MonsterGenerator.generateMonster(null, -1));
+		}
+		
 	}
 
 	private void addListeners() {
@@ -447,7 +456,7 @@ public class IdleBot extends PircBotX implements Globals {
 		return ll;
 	}
 
-	public LinkedList<Playable> getPlayersRaw() {
+	public ConcurrentLinkedQueue<Playable> getPlayersRaw() {
 		return players;
 	}
 

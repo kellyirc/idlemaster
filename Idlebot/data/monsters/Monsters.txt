@@ -92,6 +92,7 @@ demigod,3400
 memory,3500
 manifestation,3550
 wandering spirit,3600
+nightmare,3700
 automaton,4000
 miniboss squad,4300
 subsonic wave,4040

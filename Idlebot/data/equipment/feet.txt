@@ -1,9 +1,30 @@
 socks,1
 sandals,2
 sneakers,3
-boots,5
-greaves,10
-hovershoes,14
-jetboots,18
+golf shoes,4
+flip-flops,5
+high-heels,6
+duct-tape shoes,7
+boots,15
+geta,18
+greaves,20
+hovershoes,31
+anchors,35
+cement shoes,37
+jetboots,43
+mermaid tail,46
+fuzzy boots,48
+long fall boots,50
+long jump boots,55
+steel-toed boots,60
+spiked boots,65
+Grabbin' 'n Slowin' Ghosts,300
+Flippity Floppies,350
 Rocket Shoes,375
+Hover Boots,400
+Iron Boots,425
 Expensive Cardboard Shoes,450
+Stilettos,500
+Two Ton Bricks,550
+Mario Boots,600
+Advanced Knee Replacement,650

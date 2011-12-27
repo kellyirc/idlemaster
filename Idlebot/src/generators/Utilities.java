@@ -29,7 +29,7 @@ public class Utilities {
 		public int getValue() { return value; }
 	}
 	
-	public static ArrayList<Data> loadFile(ItemGenerator itemGenerator, File f) {
+	public static ArrayList<Data> loadFile(File f) {
 		ArrayList<Data> temp = new ArrayList<>();
 		
 		BufferedReader br;
@@ -56,7 +56,7 @@ public class Utilities {
 		return temp;
 	}
 	
-	public static ArrayList<Data> loadFile(ItemGenerator itemGenerator, URL f) {
+	public static ArrayList<Data> loadFile(URL f) {
 		ArrayList<Data> temp = new ArrayList<>();
 		
 		BufferedReader br;

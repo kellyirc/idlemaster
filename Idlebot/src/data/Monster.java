@@ -1,19 +1,46 @@
 package data;
 
+import bot.IdleBot;
+import data.Item.ItemClass;
+import data.Item.Type;
+import generators.ItemGenerator;
+import generators.MonsterGenerator;
+import generators.MonsterGenerator.BossStrings;
+
 public class Monster extends Playable {
 
 	private transient int ticks = 0;
-	public String dieSpeech, killSpeech, introSpeech;
-	private int bonus;
+	public BossStrings strings;
+	private int bonus = 0;
 	
-	public Monster(String name2, String classtype2, Alignment align) {
-		super(name2, classtype2, align);
+	public Monster(String name2, Alignment align) {
+		this(name2, align, null);
 	}
-//super mega uber goblin
-//classes based on scale
-//introduction speech on battles
-//death speech, kill speech
-//entry into world speech
+	
+	public Monster(String name, Alignment align, BossStrings strings) {
+		super(name, "Monster", align);
+		this.strings = strings;
+		if(strings!=null) {
+			IdleBot.botref.messageChannel(strings.intro);
+		}
+		generateEquipment();
+		warp();
+	}
+	
+	private void generateEquipment() {
+		for(Slot s : Slot.values()) {
+			Item newItem = ItemGenerator.generateItem(s);
+			if(s == Slot.Weapon) {
+				if(this.canEquip(s,  newItem) || this.strings != null) {
+					equipment.put(s, newItem);
+				} else {
+					equipment.put(s, new Item("fist", 0, Type.Physical, ItemClass.Newbie));
+				}
+			} else if(this.canEquip(s, newItem) || this.strings != null)
+				equipment.put(s,  newItem);
+		}
+	}
+
 	@Override
 	public void takeTurn() {
 		if(ticks++ > 100) {
@@ -24,6 +51,20 @@ public class Monster extends Playable {
 	
 	public void addToBonus(int i) {
 		bonus += i;
+		this.level = (short) (bonus/25);
 	}
 	
+	public int getBonus() {
+		return bonus;
+	}
+	
+	public void die(Playable second) {
+		if(second == null) return;
+		IdleBot.botref.getPlayersRaw().add(MonsterGenerator.generateMonster(null, -1));
+		IdleBot.botref.getPlayersRaw().remove(this);
+	}
+	
+	public String toString() { 
+		return this.name;
+	}
 }

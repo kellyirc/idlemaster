@@ -9,3 +9,8 @@ worthless,0
 tarnished,0
 rusted,0
 inferior,0
+tiny,0
+miniature,0
+model,0
+replica,0
+microscopic,0

@@ -10,5 +10,13 @@ excellent,0
 superior,0
 masterwork,0
 exceptional,0
-marevlous,0
+marvelous,0
 jewel-encrusted,0
+gargantuan,0
+large,0
+mega,0
+super,0
+fantastic,0
+giga,0
+uber,0
+ginormous,0

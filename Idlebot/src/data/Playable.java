@@ -14,8 +14,8 @@ import bot.IdleBot;
 
 public abstract class Playable {
 	
-	public static final int MAX_X = 150;
-	public static final int MAX_Y = 150;
+	public static final int MAX_X = 250;
+	public static final int MAX_Y = 250;
 	
 	public static final double BATTLE_MULTIPLIER = 2.5;
 	
@@ -186,12 +186,15 @@ public abstract class Playable {
 	private boolean underX() {
 		return x+1 < MAX_X;
 	}
+	
 	private boolean aboveY() {
 		return y-1 > 0;
 	}
+	
 	private boolean aboveX() {
 		return x-1 > 0;
 	}
+	
 	private boolean underY() {
 		return y+1 < MAX_Y;
 	}
@@ -201,6 +204,7 @@ public abstract class Playable {
 	}
 	
 	public void engage(Playable other) {
+		if(!(this instanceof Monster && other instanceof Monster && Battle.prob(1))) return;
 		if(canBattle(this, other)) {
 			if(this.alignment == Alignment.Good && other.alignment == Alignment.Neutral && Battle.prob(10)) {
 				IdleBot.botref.messageChannel(Battle.BATTLE + getName() + " greeted "+other.getName()+" and went on his/her merry way.");
@@ -225,6 +229,10 @@ public abstract class Playable {
 				IdleBot.botref.messageChannel(Battle.BATTLE + other.getName() + " passed by "+getName()+", laughing and gloating.");
 			} else {
 				IdleBot.botref.messageChannel(Battle.BATTLE + other.getName() + " and "+getName() + " wave as they pass by each other.");
+			}
+			
+			if(other instanceof Monster) {
+				((Monster) other).die(null);
 			}
 		}
 		warp();
@@ -256,6 +264,21 @@ public abstract class Playable {
 	
 	public HashMap<Slot,Item> getEquipmentRaw() {
 		return equipment;
+	}
+	
+	protected boolean canEquip(Slot s, Item i) {
+		if(i.getItemClass() == data.Item.ItemClass.Avatar)
+			return true;
+		
+		Item current = equipment.get(s);
+		
+		if(current == null) return true;
+		
+		if(current.getValue() > i.getValue()) return false;
+		
+		if(i.getValue() > level * ((level/7)+2)*1.5) return false;
+		
+		return true;
 	}
 	
 	public void warp() {

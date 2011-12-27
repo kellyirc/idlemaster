@@ -33,6 +33,8 @@ public class SaveListener extends org.pircbotx.hooks.ListenerAdapter<IdleBot> {
 			IdleBot.botref.handleLogin(event.getBot().getUserBot(), p);
 		}
 		super.onConnect(event);
+		
+		IdleBot.botref.generateMonsters();
 	}
 
 	/*
@@ -49,6 +51,7 @@ public class SaveListener extends org.pircbotx.hooks.ListenerAdapter<IdleBot> {
 			if(p.loggedIn) event.getBot().handleLogout(p);
 		}
 		while(!event.getBot().isConnected()){
+			System.err.println("Reconnecting attempt..");
 			event.getBot().reconnect();
 			Thread.sleep(10000);
 		}

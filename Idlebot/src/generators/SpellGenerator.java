@@ -78,7 +78,7 @@ public class SpellGenerator {
 				"of angels", "of angelicity", "of divinity", "of purification",
 				"of perfection", "of eternity" };
 
-		return new Spell(genSpellName(prefixes, names, suffixes), r.nextInt(maxDamage)+1);
+		return new Spell(genSpellName(prefixes, names, suffixes), Math.max(r.nextInt(maxDamage)+1,1));
 	}
 	
 	public Spell generateEvilSpell(int maxDamage) {

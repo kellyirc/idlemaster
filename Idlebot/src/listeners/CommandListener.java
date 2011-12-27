@@ -114,6 +114,10 @@ public class CommandListener extends
 			doIgnore(event);
 			break;
 			
+		case "total":
+			event.getBot().sendMessage(event.getUser(), ""+IdleBot.botref.getPlayersRaw().size());
+			break;
+			
 		case "levelup":
 			Player pl = event.getBot().getPlayerByUser(event.getUser().getNick());
 			pl.toNextLevel();

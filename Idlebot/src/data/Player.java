@@ -1,5 +1,7 @@
 package data;
 
+import generators.ItemGenerator;
+
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Random;
@@ -42,7 +44,7 @@ public class Player extends Playable{
 		
 		Slot slot = e[random.nextInt(e.length)];
 		
-		Item i = IdleBot.botref.getItemgen().generateItem(slot);
+		Item i = ItemGenerator.generateItem(slot);
 		if(i.compareTo(equipment.get(slot)) > 0 && canEquip(slot, i)) {
 			equip(slot, i);
 		} else {

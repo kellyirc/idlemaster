@@ -8,4 +8,4 @@ chainmail gloves,12
 scalemail gloves,22
 dragonscale gloves,32
 Glover's Gloves,250
-Pixelated Gloves of Doom,450
+Pixelated Gloves,450

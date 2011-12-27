@@ -7,13 +7,10 @@ import data.Item.Type;
 import data.Playable.Alignment;
 import data.Playable.Slot;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -24,35 +21,19 @@ import data.Item;
 
 public class ItemGenerator {
 
-	private static final Data[] DUMMYARRAY = new Data[0];
+	static HashMap<data.Playable.Slot, Data[]> equipment = new HashMap<>();
+	static HashMap<data.Item.ItemClass, Data[]> types = new HashMap<>();
 
-	Random random = new Random();
-
-	Data[] colors;
-
-	Data[] downvalue;
-	Data[] upvalue;
-
-	Data[] evils;
-	Data[] goods;
-	Data[] neutrals;
-
-	Data[] prefixes;
-
-	HashMap<data.Playable.Slot, Data[]> equipment = new HashMap<>();
-	HashMap<data.Item.ItemClass, Data[]> types = new HashMap<>();
-
-	public ItemGenerator() {
+	static{
 		try {
 			loadEquipment();
 			loadTypes();
-			loadOthers();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private data.Playable.Slot determineSlot(String name) {
+	private static data.Playable.Slot determineSlot(String name) {
 
 		name = name.substring(0, name.indexOf('.'));
 
@@ -64,7 +45,7 @@ public class ItemGenerator {
 		return null;
 	}
 
-	private data.Item.ItemClass determineType(String name) {
+	private static data.Item.ItemClass determineType(String name) {
 
 		name = name.substring(0, name.indexOf('.'));
 
@@ -75,7 +56,7 @@ public class ItemGenerator {
 		return null;
 	}
 
-	private void loadEquipment() throws IOException {
+	private static void loadEquipment() throws IOException {
 		Document doc = Jsoup
 				.connect(
 						"https://idlemaster.googlecode.com/svn/trunk/Idlebot/data/equipment/")
@@ -91,38 +72,15 @@ public class ItemGenerator {
 				continue;
 			}
 
-			ArrayList<Data> temp = Utilities.loadFile(this, new URL(
+			ArrayList<Data> temp = Utilities.loadFile( new URL(
 					"https://idlemaster.googlecode.com/svn/trunk/Idlebot/data/equipment/"
 							+ e.ownText()));
 
-			equipment.put(curslot, temp.toArray(DUMMYARRAY));
+			equipment.put(curslot, temp.toArray(GeneratorData.DUMMYARRAY));
 		}
 	}
 
-	private void loadOthers() throws MalformedURLException {
-		colors = Utilities
-				.loadFile(
-						this,
-						new URL(
-								"https://idlemaster.googlecode.com/svn/trunk/Idlebot/data/descriptors/Colors.txt"))
-				.toArray(DUMMYARRAY);
-		downvalue = Utilities.loadFile(this,
-				new File("data/descriptors/Devalued.txt")).toArray(DUMMYARRAY);
-		upvalue = Utilities.loadFile(this,
-				new File("data/descriptors/Valuable.txt")).toArray(DUMMYARRAY);
-		goods = Utilities
-				.loadFile(this, new File("data/descriptors/Goods.txt"))
-				.toArray(DUMMYARRAY);
-		evils = Utilities
-				.loadFile(this, new File("data/descriptors/Evils.txt"))
-				.toArray(DUMMYARRAY);
-		neutrals = Utilities.loadFile(this,
-				new File("data/descriptors/Neutrals.txt")).toArray(DUMMYARRAY);
-		prefixes = Utilities.loadFile(this,
-				new File("data/descriptors/Prefixes.txt")).toArray(DUMMYARRAY);
-	}
-
-	private void loadTypes() throws IOException {
+	private static void loadTypes() throws IOException {
 		Document doc = Jsoup
 				.connect(
 						"https://idlemaster.googlecode.com/svn/trunk/Idlebot/data/descriptors/")
@@ -137,29 +95,29 @@ public class ItemGenerator {
 				continue;
 			}
 
-			ArrayList<Data> temp = Utilities.loadFile(this, new URL("https://idlemaster.googlecode.com/svn/trunk/Idlebot/data/descriptors/"+e.ownText()));
+			ArrayList<Data> temp = Utilities.loadFile(new URL("https://idlemaster.googlecode.com/svn/trunk/Idlebot/data/descriptors/"+e.ownText()));
 
-			types.put(curtype, temp.toArray(DUMMYARRAY));
+			types.put(curtype, temp.toArray(GeneratorData.DUMMYARRAY));
 		}
 	}
 
-	public Item generateItem(Slot slot) {
+	public static Item generateItem(Slot slot) {
 		return generateItem(slot, null, null);
 	}
 
-	public Item generateItem(ItemClass cl) {
+	public static Item generateItem(ItemClass cl) {
 		return generateItem(null, cl, null);
 	}
 
-	public Item generateItem(Type type) {
+	public static Item generateItem(Type type) {
 		return generateItem(null, null, type);
 	}
 
-	public Item generateItem() {
+	public static Item generateItem() {
 		return generateItem(null, null, null);
 	}
 
-	public Item generateItem(Slot slot, ItemClass cl, Type type) {
+	public static Item generateItem(Slot slot, ItemClass cl, Type type) {
 
 		StringBuffer itemName = new StringBuffer();
 		double modPercent = 0;
@@ -172,9 +130,9 @@ public class ItemGenerator {
 
 		// try to make avatar (3/1000)
 		if (cl == ItemClass.Idle || cl == ItemClass.Avatar
-				|| random.nextInt(1000) > 999) {
+				|| GeneratorData.random.nextInt(1000) > 999) {
 			itemClass = ItemClass.Avatar;
-			choice = types.get(ItemClass.Avatar)[random.nextInt(types
+			choice = types.get(ItemClass.Avatar)[GeneratorData.random.nextInt(types
 					.get(ItemClass.Avatar).length)];
 			itemName.append(choice + " ");
 			itemValue += choice.getValue();
@@ -185,10 +143,10 @@ public class ItemGenerator {
 		// try to add retro
 		if (cl == ItemClass.Idle
 				|| cl == ItemClass.Retro
-				|| random.nextInt(1000) > (itemClass == ItemClass.Avatar ? 960
+				|| GeneratorData.random.nextInt(1000) > (itemClass == ItemClass.Avatar ? 960
 						: 980)) {
 
-			choice = types.get(ItemClass.Retro)[random.nextInt(types
+			choice = types.get(ItemClass.Retro)[GeneratorData.random.nextInt(types
 					.get(ItemClass.Retro).length)];
 			itemValue += choice.getValue();
 			itemName.append(choice + " ");
@@ -201,51 +159,51 @@ public class ItemGenerator {
 		// try to add descriptor (25% normal, 55% if avatar)
 		// value descriptors need to be taken care of
 		if (cl == ItemClass.Idle
-				|| random.nextInt(1000) > (itemClass == ItemClass.Avatar ? 450
+				|| GeneratorData.random.nextInt(1000) > (itemClass == ItemClass.Avatar ? 450
 						: 750)) {
 			Data[] array;
-			int i = random.nextInt(100);
+			int i = GeneratorData.random.nextInt(100);
 			if (i < 6) {
-				array = evils;
+				array = GeneratorData.evils;
 				align = Alignment.Evil;
 			} else if (i < 12) {
-				array = goods;
+				array = GeneratorData.goods;
 				align = Alignment.Good;
 			} else if (i < 18) {
-				array = neutrals;
+				array = GeneratorData.neutrals;
 				align = Alignment.Neutral;
 			} else if (i < 33) {
-				array = downvalue;
+				array = GeneratorData.downvalue;
 				modPercent = 0.5;
 				// TODO make individualized mod percents
 			} else if (i < 58) {
-				array = upvalue;
+				array = GeneratorData.upvalue;
 				modPercent = 1.5;
 			} else {
-				array = prefixes;
+				array = GeneratorData.prefixes;
 			}
-			choice = array[random.nextInt(array.length)];
+			choice = array[GeneratorData.random.nextInt(array.length)];
 			itemValue += choice.getValue();
 			itemName.append(choice + " ");
 		}
 		// try to add color (75% avatar, 25% normal)
 		if (cl == ItemClass.Idle
-				|| random.nextInt(1000) > (itemClass == ItemClass.Avatar ? 250
+				|| GeneratorData.random.nextInt(1000) > (itemClass == ItemClass.Avatar ? 250
 						: 750)) {
-			choice = colors[random.nextInt(colors.length)];
+			choice = GeneratorData.colors[GeneratorData.random.nextInt(GeneratorData.colors.length)];
 			itemValue += choice.getValue();
 			itemName.append(choice + " ");
 		}
 
 		if (slot == null) {
 			Slot[] e = equipment.keySet().toArray(new Slot[0]);
-			slot = e[random.nextInt(e.length)];
+			slot = e[GeneratorData.random.nextInt(e.length)];
 		}
 
 		// pick a base item, if slot, seed with slot
 		// if base item is a proper named item
 		// if no current class, or class is avatar, make class special
-		choice = equipment.get(slot)[random.nextInt(equipment.get(slot).length)];
+		choice = equipment.get(slot)[GeneratorData.random.nextInt(equipment.get(slot).length)];
 		itemValue += choice.getValue();
 		itemName.append(choice);
 		if (choice.toString().charAt(0) < 91 && itemClass == null)
@@ -254,14 +212,14 @@ public class ItemGenerator {
 		// try to become spirit class (5% avatar, 0.3% normal)
 		if (cl == ItemClass.Idle
 				|| cl == ItemClass.Spiritual
-				|| random.nextInt(1000) > (itemClass == ItemClass.Avatar ? 950
+				|| GeneratorData.random.nextInt(1000) > (itemClass == ItemClass.Avatar ? 950
 						: 997)) {
-			choice = types.get(ItemClass.Saint)[random.nextInt(types
+			choice = types.get(ItemClass.Saint)[GeneratorData.random.nextInt(types
 					.get(ItemClass.Saint).length)];
 			itemValue += choice.getValue();
 			itemName.append(" of " + choice + ", ");
 
-			choice = types.get(ItemClass.Animal)[random.nextInt(types
+			choice = types.get(ItemClass.Animal)[GeneratorData.random.nextInt(types
 					.get(ItemClass.Animal).length)];
 			itemValue += choice.getValue();
 			itemName.append("the " + choice);
@@ -269,11 +227,10 @@ public class ItemGenerator {
 				itemClass = ItemClass.Spiritual;
 
 			// if not, try to become animal class (59% avatar, 39% normal)
-		} else if (cl == ItemClass.Idle
-				|| cl == ItemClass.Animal
-				|| random.nextInt(1000) > (itemClass == ItemClass.Avatar ? 410
+		} else if (cl == ItemClass.Animal
+				|| GeneratorData.random.nextInt(1000) > (itemClass == ItemClass.Avatar ? 410
 						: 610)) {
-			choice = types.get(ItemClass.Animal)[random.nextInt(types
+			choice = types.get(ItemClass.Animal)[GeneratorData.random.nextInt(types
 					.get(ItemClass.Animal).length)];
 			itemValue += choice.getValue();
 			itemName.append(" of the " + choice);
@@ -281,11 +238,10 @@ public class ItemGenerator {
 				itemClass = ItemClass.Animal;
 
 			// if not, try to become saint class (17% avatar, 1% normal)
-		} else if (cl == ItemClass.Idle
-				|| cl == ItemClass.Saint
-				|| random.nextInt(1000) > (itemClass == ItemClass.Avatar ? 830
+		} else if (cl == ItemClass.Saint
+				|| GeneratorData.random.nextInt(1000) > (itemClass == ItemClass.Avatar ? 830
 						: 990)) {
-			choice = types.get(ItemClass.Saint)[random.nextInt(types
+			choice = types.get(ItemClass.Saint)[GeneratorData.random.nextInt(types
 					.get(ItemClass.Saint).length)];
 			itemValue += choice.getValue();
 			itemName.append(" of " + choice);
@@ -313,7 +269,7 @@ public class ItemGenerator {
 				itemClass, align);
 	}
 
-	private Type determineType(Slot slot) {
+	private static Type determineType(Slot slot) {
 		switch (slot) {
 		case Neck:
 		case Charm:
