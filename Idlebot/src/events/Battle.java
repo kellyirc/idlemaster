@@ -11,6 +11,7 @@ import bot.IdleBot;
 import data.Item;
 import data.Playable;
 import data.Item.Type;
+import data.Playable.Alignment;
 import data.Playable.Slot;
 import data.Player;
 
@@ -44,7 +45,7 @@ public class Battle {
 			for(Playable p : members) { 
 				if(p instanceof Player){
 					((Player) p).modifyTime(l);
-					IdleBot.botref.messageChannel(p.getName()+" got "+IdleBot.botref.ms2dd(l)+(l>0 ? " removed from " : " added to ") + "his/her level timer!");
+					IdleBot.botref.messageChannel(p.getName()+" got "+IdleBot.botref.ms2dd(Math.abs(l))+(l>0 ? " removed from " : " added to ") + "his/her level timer!");
 				}
 			}
 		}
@@ -89,9 +90,15 @@ public class Battle {
 			return p;
 		}
 		
-		//TODO show a more proper team (showing dead people only by name in gray)
 		public String toBattleString() {
-			return leader.toBattleString();
+			String builder = "[ ";
+			for(Playable p : members) {
+				if(p.health <= 0) builder += Colors.DARK_GRAY + p.toBattleString() + Colors.NORMAL;
+				else builder += p.toBattleString();
+				builder += " ";
+			}
+			builder += "]";
+			return builder;
 		}
 	}
 	
@@ -112,6 +119,10 @@ public class Battle {
 		this.left = new Team(left);
 		this.right = new Team(right);
 		run();
+	}
+	
+	public boolean prob(int i) {
+		return rand.nextInt(100) < i;
 	}
 	
 	public void initialize() {
@@ -145,6 +156,9 @@ public class Battle {
 		//do attacks, spells, and dodging
 		int damage = rand.nextInt(left.calcTotal(Type.Physical));
 		IdleBot.botref.messageChannel(BATTLE + left.getBattleName()+" took a swing at "+right.getBattleName()+" with his/her "+getWeapon(left) + " for "+Colors.RED+damage+Colors.NORMAL+" damage!");
+		if(right.getAlignment() == Alignment.Good && prob(4)) {
+			IdleBot.botref.messageChannel(BATTLE + "..but "+right.getBattleName()+" dodged!");
+		}
 		right.health -= damage;
 	}
 	
@@ -155,11 +169,19 @@ public class Battle {
 			Playable second = right.pickAliveMember();
 			
 			attack(first, second);
+			if((first.getAlignment() == Alignment.Evil && prob(7)) || (second.getAlignment() == Alignment.Neutral && prob(1))) {
+				attack(first, second);
+			}
 			if(second.health < 0) {
 				kill(first, second);
 			}
 			
-			attack(second, first);
+			if(second.health > 0) {
+				attack(second, first);
+				if((second.getAlignment() == Alignment.Evil && prob(7)) || (second.getAlignment() == Alignment.Neutral && prob(1))) {
+					attack(second, first);
+				}
+			}
 			if(first.health < 0) {
 				kill(second, first);
 			} 

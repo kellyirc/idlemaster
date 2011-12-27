@@ -17,6 +17,8 @@ public abstract class Playable {
 	public static final int MAX_X = 150;
 	public static final int MAX_Y = 150;
 	
+	public static final double BATTLE_MULTIPLIER = 2.5;
+	
 	public enum Direction { NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST };
 	public enum Alignment { Evil, Good, Neutral };
 	public enum Slot { Neck, Head, Charm, Hands, Feet, Legs, Finger, Shield, Body, Weapon };
@@ -214,10 +216,15 @@ public abstract class Playable {
 	}
 	
 	private boolean canBattle(Playable playable, Playable other) {
-		return playable.level*2 > other.level && playable.level/2 < other.level || playable.calcTotal(null)*2 > other.level && playable.calcTotal(null)/2 < other.level;
-		//15 31
-		//30 < 31 || 7 > 31
-		//62 < 30 || 15 > 15
+		return ( !isWithinLevel(playable, other) && !isWithinRange(playable, other));
+	}
+	
+	private boolean isWithinRange(Playable left, Playable right) {
+		return (left.calcTotal(null)*BATTLE_MULTIPLIER < right.calcTotal(null) || right.calcTotal(null)*BATTLE_MULTIPLIER < left.calcTotal(null));
+	}
+	
+	private boolean isWithinLevel(Playable left, Playable right) {
+		return (left.level*BATTLE_MULTIPLIER < right.level || right.level*BATTLE_MULTIPLIER < left.level);
 	}
 	
 	public String getBattleName() {

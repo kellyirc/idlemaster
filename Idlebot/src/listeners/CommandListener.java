@@ -5,6 +5,7 @@ import java.util.Map.Entry;
 import org.pircbotx.hooks.events.PrivateMessageEvent;
 
 import data.Item;
+import data.Playable.Alignment;
 import data.Playable.Slot;
 import data.Player;
 
@@ -42,7 +43,7 @@ public class CommandListener extends
 			 * COMMAND: login
 			 * ARGUMENTS: name password
 			 * HELP: Log in to a previously created character.
-			 * PENALITY: None.
+			 * PENALTY: None.
 			 */
 		case "login":
 			
@@ -80,13 +81,23 @@ public class CommandListener extends
 			break;
 
 			/**
-			 * COMMAND: timeleft
+			 * COMMAND: online
 			 * ARGUMENTS: none
-			 * HELP: Get the remaining time to level.
+			 * HELP: Show all currently logged in players.
 			 * PENALTY: None.
 			 */
 		case "online":
 			event.getBot().sendMessage(event.getUser(), event.getBot().getOnlinePlayers().toString());
+			break;
+			
+			/**
+			 * COMMAND: align
+			 * ARGUMENTS: Good|Neutral|Evil
+			 * HELP: Change alignment of your character.
+			 * PENALTY: p5|p15|p30
+			 */
+		case "align":
+			doAlignChange(event, args);
 			break;
 			
 		case "reload":
@@ -100,14 +111,7 @@ public class CommandListener extends
 			 * PENALTY: None.
 			 */
 		case "ignore":
-			Player p = event.getBot().getPlayerByUser(event.getUser());
-			if(p == null) return;
-			if(p.isIgnoring) { 
-				event.getBot().sendMessage(event.getUser(), "You are no longer ignoring my messages.");
-			} else {
-				event.getBot().sendMessage(event.getUser(), "You are now ignoring my messages.");
-			}
-			p.isIgnoring = !p.isIgnoring;
+			doIgnore(event);
 			break;
 			
 		case "levelup":
@@ -124,6 +128,49 @@ public class CommandListener extends
 			event.getBot().sendMessage(event.getUser(), "Your command is invalid!");
 			break;
 		}
+	}
+
+	private void doAlignChange(PrivateMessageEvent<IdleBot> event, String[] args) {
+		if(args.length < 2) {
+			event.getBot().sendMessage(event.getUser(), "Invalid syntax: align [Good|Neutral|Evil].");
+			return;
+		}
+		Player play = event.getBot().getPlayerByUser(event.getUser());
+		if(play == null) {
+			event.getBot().sendMessage(event.getUser(), "You aren't logged in!");
+			return;
+		}
+		args[1] = args[1].toLowerCase();
+		switch(args[1]) {
+		case "good":
+			play.setAlignment(Alignment.Good);
+			IdleBot.botref.penalize(event.getUser(), 5);
+			break;
+		case "evil":
+			play.setAlignment(Alignment.Evil);
+			IdleBot.botref.penalize(event.getUser(), 30);
+			break;
+		case "neutral":
+			play.setAlignment(Alignment.Neutral);
+			IdleBot.botref.penalize(event.getUser(), 10);
+			break;
+		default:
+			event.getBot().sendMessage(event.getUser(), "Invalid alignment: align [Good|Neutral|Evil].");
+			return;
+		}
+		event.getBot().sendMessage(event.getUser(), "You are now "+args[1] + " aligned!");
+		event.getBot().messageChannel(play.getName() + " changed alignment to "+args[1] + "!");
+	}
+
+	private void doIgnore(PrivateMessageEvent<IdleBot> event) {
+		Player p = event.getBot().getPlayerByUser(event.getUser());
+		if(p == null) return;
+		if(p.isIgnoring) { 
+			event.getBot().sendMessage(event.getUser(), "You are no longer ignoring my messages.");
+		} else {
+			event.getBot().sendMessage(event.getUser(), "You are now ignoring my messages.");
+		}
+		p.isIgnoring = !p.isIgnoring;
 	}
 
 	private void doTimeleft(PrivateMessageEvent<IdleBot> event) {
@@ -194,6 +241,12 @@ public class CommandListener extends
 		Player player = event.getBot().findPlayer(name);
 		
 		if(player != null) {
+			
+			if(player.loggedIn) {
+				event.getBot().sendMessage(event.getUser(), "You are already logged in. Cheater.");
+				return;
+			}
+			
 			if(player.login(password)) {
 				event.getBot().sendMessage(event.getUser(), "You are successfully logged in as "+player+". "+event.getBot().ms2dd(player.getTimeLeft()) + " to next level.");
 				event.getBot().handleLogin(event.getUser(), player);

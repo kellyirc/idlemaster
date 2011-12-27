@@ -14,7 +14,7 @@ public class IdleMaster extends Player {
 	@Override
 	protected void generateNewEquipment() {
 		equipment.put(Slot.Body, new Item("Avaracious Armor of the Idling Gods", 1000, Type.Physical, Item.ItemClass.Special));
-		equipment.put(Slot.Feet, new Item("Fastidious Boots of the Idling Gods", 1000, Type.Physical, Item.ItemClass.Special));
+		equipment.put(Slot.Feet, new Item("Fastidious Feet of the Idling Gods", 1000, Type.Physical, Item.ItemClass.Special));
 		equipment.put(Slot.Finger, new Item("Rebellious Ring of the Idling Gods", 1000, Type.Magical, Item.ItemClass.Special));
 		equipment.put(Slot.Hands, new Item("Glowing Gauntlets of the Idling Gods", 1000, Type.Physical, Item.ItemClass.Special));
 		equipment.put(Slot.Head, new Item("Feathered Fez of the Idling Gods", 1000, Type.Physical, Item.ItemClass.Special));

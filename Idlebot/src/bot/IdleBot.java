@@ -12,13 +12,23 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.TimeZone;
 
 import listeners.*;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.pircbotx.PircBotX;
 import org.pircbotx.User;
 import org.pircbotx.exception.IrcException;
@@ -54,7 +64,7 @@ public class IdleBot extends PircBotX implements Globals {
 
 		addListeners();
 
-		this.setVerbose(true);
+		//this.setVerbose(true);
 
 		try {
 
@@ -128,6 +138,7 @@ public class IdleBot extends PircBotX implements Globals {
 					players.add(p);
 				} else {
 					Player p = gson.fromJson(strLine, Player.class);
+					if(p.getLevel() == 0) continue;
 					p.fromSerialize();
 
 					players.add(p);
@@ -143,47 +154,94 @@ public class IdleBot extends PircBotX implements Globals {
 		}
 	}
 
-	public void savePlayers() {
+	public void savePlayers(boolean backup) {
 		File file = new File("players.dat");
-		if (file.exists()) {
-			File dir = new File("backup/");
-			File output = new File("backup/players-"+System.currentTimeMillis()+".dat");
-			try {
-				if(!dir.exists()) {
-					dir.mkdir();
-				}
-				output.createNewFile();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-			try (FileInputStream from = new FileInputStream(file); FileOutputStream to = new FileOutputStream(output) ){
-				byte[] buffer = new byte[4096];
-				int bytesRead;
-
-				while ((bytesRead = from.read(buffer)) != -1)
-					to.write(buffer, 0, bytesRead);
-				
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		
+		if (backup && file.exists()) {
+			backup(file);
 		}
 
 		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter(file));
 
+			File temp = new File("Players.dat.swap");
+			
+			BufferedWriter out = new BufferedWriter(new FileWriter(temp));
+
+	        signalStart();
+	        
 			for (Player p : getPlayers()) {
-
-				out.write(gson.toJson(p) + "\n\n");
-
+				String gsonstr = gson.toJson(p);
+				out.write(gsonstr + "\n\n");
+				
+				sendData(gsonstr);
 			}
-
+			
+			signalEnd();
+			
 			out.close();
-		} catch (IOException e) {
+			
+			file.delete();
+			temp.renameTo(file);
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+	}
+
+	private void backup(File file) {
+		File dir = new File("backup/");
+		File output = new File("backup/players-"+System.currentTimeMillis()+".dat");
+		try {
+			if(!dir.exists()) {
+				dir.mkdir();
+			}
+			output.createNewFile();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		copy(file, output);
+	}
+
+	private void copy(File file, File output) {
+		try (FileInputStream from = new FileInputStream(file); FileOutputStream to = new FileOutputStream(output) ){
+			byte[] buffer = new byte[4096];
+			int bytesRead;
+
+			while ((bytesRead = from.read(buffer)) != -1)
+				to.write(buffer, 0, bytesRead);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void signalEnd() throws ClientProtocolException, IOException {
+		HttpClient httpclient = new DefaultHttpClient();
+		HttpGet httpget = new HttpGet("http://seiyria.com/update.php?end=1");
+		httpclient.execute(httpget);
+		httpclient.getConnectionManager().shutdown();
+	}
+
+	private void sendData(String gsonstr) throws UnsupportedEncodingException {
+		HttpClient httpclient = new DefaultHttpClient();
+		HttpPost post = new HttpPost("http://seiyria.com/update.php");
+		ArrayList<NameValuePair> nameValuePairs = new ArrayList<>();   
+		nameValuePairs.add(new BasicNameValuePair("msg", gsonstr+"\n\n"));
+		post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+		try {
+			httpclient.execute(post);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		httpclient.getConnectionManager().shutdown();
+	}
+
+	private void signalStart() throws IOException, ClientProtocolException {
+		HttpClient httpclient = new DefaultHttpClient();
+		HttpGet httpget = new HttpGet("http://seiyria.com/update.php?start=1");
+		httpclient.execute(httpget);
+		httpclient.getConnectionManager().shutdown();
 	}
 
 	public Player getPlayerByUser(String user) {
@@ -213,7 +271,7 @@ public class IdleBot extends PircBotX implements Globals {
 
 	public String getCustomTopic() {
 		return "Welcome to Word Soup v" + Globals.Version
-				+ ", the best idling game ever! http://seiyria.com/project.php";
+				+ ", the best idling game ever! http://seiyria.com/idle.php";
 	}
 
 	public String ms2dd(long l) {
@@ -242,7 +300,7 @@ public class IdleBot extends PircBotX implements Globals {
 		messageChannel(player.getName() + " is now level "
 				+ (player.getLevel() + 1) + "! " + ms2dd(player.getTimeLeft())
 				+ " to next level.");
-		savePlayers();
+		savePlayers(false);
 
 	}
 
@@ -252,7 +310,7 @@ public class IdleBot extends PircBotX implements Globals {
 
 		players.add(p);
 
-		savePlayers();
+		savePlayers(false);
 
 		p.fromSerialize();
 
@@ -296,9 +354,13 @@ public class IdleBot extends PircBotX implements Globals {
 					e.printStackTrace();
 				}
 
-				if (ticks++ > 6 / 1000) {
-					ticks = 0;
-					savePlayers();
+				if (ticks++%10000 == 0) {
+					if(ticks > 100000) {
+						ticks = 0;
+						savePlayers(true);
+					} else {
+						savePlayers(false);
+					}
 				}
 			}
 		}

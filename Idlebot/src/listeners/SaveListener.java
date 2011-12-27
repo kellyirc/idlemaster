@@ -24,7 +24,7 @@ public class SaveListener extends org.pircbotx.hooks.ListenerAdapter<PircBotX> {
 
 			IdleBot.botref.getPlayersRaw().add(i);
 
-			IdleBot.botref.savePlayers();
+			IdleBot.botref.savePlayers(false);
 			
 			i.loggedIn = true;
 
@@ -43,7 +43,7 @@ public class SaveListener extends org.pircbotx.hooks.ListenerAdapter<PircBotX> {
 	 */
 	@Override
 	public void onDisconnect(DisconnectEvent<PircBotX> event) throws Exception {
-		IdleBot.botref.savePlayers();
+		IdleBot.botref.savePlayers(false);
 		super.onDisconnect(event);
 		System.err.println("I died.");
 	}

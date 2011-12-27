@@ -1,3 +1,4 @@
+
 bear,7
 viper,10
 pig,14
@@ -29,6 +30,13 @@ never-narwhal,180
 welsh warthog,190
 helpful hedgehog,200
 herping heron,210
+derping deer,215
 intrepid iguana,220
 daring duck,230
+derpig,240
+horny hornet,250
+jumping jackalope,260
+gelatinous jabberwocky,270
+snorting squirrel,280
+castrated cat,290
 phoenix,331

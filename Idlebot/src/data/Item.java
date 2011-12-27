@@ -77,13 +77,13 @@ public class Item implements Comparable<Item>{
 	private String determineColor(ItemClass color2) {
 		switch(color2) {
 		case Normal: case Newbie: return Colors.NORMAL;
-		case Animal: return Colors.BOLD + Colors.BLACK;
+		case Animal: return Colors.BOLD + Colors.BROWN;
 		case Spiritual: return Colors.BOLD + Colors.BLUE;
 		case Saint: return Colors.BOLD + Colors.DARK_BLUE;
 		case Avatar: return Colors.BOLD + Colors.DARK_GREEN;
 		case Special: return Colors.BOLD + Colors.PURPLE;
-		case Retro: return Colors.BOLD + Colors.UNDERLINE + Colors.BLACK;
-		case Idle: return Colors.BOLD + Colors.UNDERLINE + Colors.MAGENTA;
+		case Retro: return Colors.BOLD  + Colors.BLACK;
+		case Idle: return Colors.BOLD  + Colors.MAGENTA;
 		}
 		return Colors.MAGENTA;
 	}
