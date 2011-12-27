@@ -8,7 +8,7 @@ public class Todo {
 	Alignment bonuses 
 		good - blessed more often
 		neut - fated more often
-		evil - forsaken more often, G-Steal15, N-Steal10, E-Steal5
+		evil - forsaken more often
  * Monsters
  * Events (cataclysms etc) 
  * Items 

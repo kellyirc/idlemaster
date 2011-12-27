@@ -95,4 +95,3 @@ wandering spirit,3600
 automaton,4000
 miniboss squad,4300
 subsonic wave,4040
-doppleganger,9999

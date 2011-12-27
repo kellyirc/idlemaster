@@ -1,0 +1,20 @@
+Dark Falz
+intro=A burst of blue light reveals a dark foe!
+death=The world has been deprived of its blue color...
+kills=Muhahaha, none can oppose me!
+end
+Ghost of KWRPG
+intro=The ghost of a long-forgotten place appears!
+death=The world is a better place now.
+kills=...
+end
+Omega Shenron
+intro=A dragon from an era long lost rears his face!
+death=The dragon died, oh no.
+kills=You thought you could defeat one from a realm not your own?!
+end
+Deity
+intro=A being from the heavens descends to take back his world!
+death=You've defeated a deity, something not many are capable of!
+kills=None can defeat a god! Kneel before your master!
+end

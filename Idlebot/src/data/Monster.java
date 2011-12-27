@@ -1,7 +1,11 @@
 package data;
 
-public class Monster extends Playable{
+public class Monster extends Playable {
 
+	private transient int ticks = 0;
+	public String dieSpeech, killSpeech, introSpeech;
+	private int bonus;
+	
 	public Monster(String name2, String classtype2, Alignment align) {
 		super(name2, classtype2, align);
 	}
@@ -12,6 +16,14 @@ public class Monster extends Playable{
 //entry into world speech
 	@Override
 	public void takeTurn() {
-		
+		if(ticks++ > 100) {
+			ticks = 0;
+			move();
+		}
 	}
+	
+	public void addToBonus(int i) {
+		bonus += i;
+	}
+	
 }

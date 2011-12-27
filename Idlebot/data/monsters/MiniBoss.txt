@@ -1,3 +1,4 @@
+Doppleganger,0
 Supersonic Wave,8080
 Wumpus,8000
 False Prophet,7800

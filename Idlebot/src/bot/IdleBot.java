@@ -373,8 +373,12 @@ public class IdleBot extends PircBotX implements Globals {
 		Player p = IdleBot.botref.getPlayerByUser(user);
 		if (p == null)
 			return;
+		handleLogout(p);
+	}
+	
+	public void handleLogout(Player p) {
 		p.loggedIn = false;
-		loggedIn.remove(user.getNick());
+		loggedIn.remove(getUserByPlayer(p));
 		messageChannel(p.getName() + " has abandoned Idletopia.");
 	}
 
@@ -394,7 +398,7 @@ public class IdleBot extends PircBotX implements Globals {
 		Player p = this.getPlayerByUser(user);
 		if (p == null)
 			return;
-		long pentime = (long) (length * Math.pow(1.14, p.getLevel())) * 1000;
+		long pentime = (long) (length * Math.pow(1.17, p.getLevel())) * 1000;
 		messageChannel(p.getName() + " was penalized " + ms2dd(pentime));
 		p.modifyTime(-pentime);
 	}
