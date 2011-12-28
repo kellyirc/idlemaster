@@ -112,7 +112,7 @@ public class Battle {
 	static Random rand = new Random();
 	private SpellGenerator spellGen = new SpellGenerator();
 	private int turns = 0;
-	private boolean isMonsterOnly = true;
+	boolean isMonsterOnly = true;
 	
 	public Battle(ArrayList<Playable> left, ArrayList<Playable> right) {
 		this.left = new Team(left);

@@ -9,9 +9,9 @@ public class Todo {
 		good - blessed more often
 		neut - fated more often
 		evil - forsaken more often
- * Monsters
  * Events (cataclysms etc) 
  * Items 
  * Cross-server implementation 
  * Implement remaining PM commands
+ * Draw all players on a map
  */

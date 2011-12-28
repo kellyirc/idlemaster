@@ -12,7 +12,6 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -172,7 +171,7 @@ public class IdleBot extends PircBotX implements Globals {
 
 		try {
 
-			File temp = new File("Players.dat.swap");
+			File temp = new File("players.dat.swap");
 			
 			BufferedWriter out = new BufferedWriter(new FileWriter(temp));
 
@@ -193,7 +192,6 @@ public class IdleBot extends PircBotX implements Globals {
 			temp.renameTo(file);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 
 	}
@@ -232,17 +230,13 @@ public class IdleBot extends PircBotX implements Globals {
 		httpclient.getConnectionManager().shutdown();
 	}
 
-	private void sendData(String gsonstr) throws UnsupportedEncodingException {
+	private void sendData(String gsonstr) throws ClientProtocolException, IOException {
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpPost post = new HttpPost("http://seiyria.com/update.php");
 		ArrayList<NameValuePair> nameValuePairs = new ArrayList<>();   
 		nameValuePairs.add(new BasicNameValuePair("msg", gsonstr+"\n\n"));
 		post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-		try {
-			httpclient.execute(post);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		httpclient.execute(post);
 		httpclient.getConnectionManager().shutdown();
 	}
 

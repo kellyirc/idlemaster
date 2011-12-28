@@ -204,7 +204,7 @@ public abstract class Playable {
 	}
 	
 	public void engage(Playable other) {
-		if(!(this instanceof Monster && other instanceof Monster && Battle.prob(1))) return;
+		if(!(this instanceof Monster && other instanceof Monster && Battle.prob(10) && Battle.prob(5))) return;
 		if(canBattle(this, other)) {
 			if(this.alignment == Alignment.Good && other.alignment == Alignment.Neutral && Battle.prob(10)) {
 				IdleBot.botref.messageChannel(Battle.BATTLE + getName() + " greeted "+other.getName()+" and went on his/her merry way.");

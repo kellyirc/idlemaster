@@ -164,7 +164,7 @@ public class Player extends Playable{
 		ticks++;
 		if(ticks % 1000 == 0) {
 			addNewItem();
-		} else if(ticks % 100 == 0){
+		} else if(ticks % 30 == 0){
 			move();
 			if(alignment == Alignment.Evil || alignment == Alignment.Neutral) move();
 			if(alignment == Alignment.Evil) move();
