@@ -3,3 +3,7 @@
 An enchantress approaches %player and enchants his/her %item, making it glow pretty colors.
 %player cleaned the rust off of his/her %item.
 %player dips his/her %item into a glowing fountain, and, in turn, %item begins to glow.
+While strolling around, %player encounters a fiery-hot forge, and proceeds to enforce his/her %item.
+Thinking his/her %item is looking a bit tarnished, %player tries their best to repair it.
+A demon approaches and possesses %player's %item, to aid %player on his/her quest.
+The God of Rampage and Brawling, Ishkalorht, has decided to give %player an advantage by powering up his/her %item.

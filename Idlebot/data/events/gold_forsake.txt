@@ -1,3 +1,8 @@
 %player was mugged by a rogue, and lost %money gold.
-%player stumbled across a pyrite mine, and invested %money "+Constants.moneyType+" in it, only to watch it fail miserably..
-%player bets %money "+Constants.moneyType+" at a gambling table, only to lose it. Unfortunately, s/he did not realize the dealer had loaded dice.
+%player stumbled across a pyrite mine, and invested %money gold in it, only to watch it fail miserably..
+%player bets %money gold at a gambling table, only to lose it. Unfortunately, s/he did not realize the dealer had loaded dice.
+%player decided to make an angel statue out of %money bits of gold, for they were interested in statue craftery. However, as we all know, angel statues are utterly useless, and thus the gold was wasted.
+%player bought meat from a local bum of the village since he was too cheap for %money gold, and consequently contracted diarrhea.
+%player donated %money bits of gold for charity, which helped fund a playground for poor children in the lands of Idliathla. It was a good thing, in the end.
+A friend of %player borrows %money bits of gold from them. Don't expect said friend to ever return it, %player...
+An enchantress approaches %player and offers to enchant an item of his/her choice, in exchange for %money bits of gold, paid in advance. %player pays up, and the enchantress runs off with it. Should not have expected anything else...

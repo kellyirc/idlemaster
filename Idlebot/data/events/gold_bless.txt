@@ -3,3 +3,6 @@
 %player sneezed on a rock, cleaning it off, and revealing a golden lustre!
 %player went spelunking in a cave, and found a room full of ancient artifacts and gold!
 %player won the lottery from that dirty cheat of a dealer!
+%player discovered what no alchemist could in many years: how to turn a bit of lead into %money bits of gold.
+%player found some kind of high-technologic device, which s/he proceed to bash against a rock and loot %money bits of gold from inside.
+A friend of %player gives him/her %money bits of gold, saying something about a 'debt'... Well, that doesn't happen too often.
