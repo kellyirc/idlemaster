@@ -14,6 +14,13 @@ import data.Item.Type;
 import bot.IdleBot;
 
 public class Player extends Playable{
+	/**
+	 * @param money the money to set
+	 */
+	public void setMoney(long money) {
+		this.money = money;
+	}
+
 	private TreeSet<UserData> aliases;
 	
 	private BigInteger curTime = new BigInteger("0");
@@ -30,7 +37,7 @@ public class Player extends Playable{
 
 	private transient Random random = new Random();
 
-	private Statistics stats = new Statistics();
+	public Statistics stats = new Statistics();
 
 	private BigInteger timeLeft = new BigInteger("0");
 	

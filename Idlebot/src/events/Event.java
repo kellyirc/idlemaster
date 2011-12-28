@@ -4,9 +4,12 @@ import data.Player;
 import bot.IdleBot;
 
 public class Event {
+	
+	public static final int EVENT_TIME = 15000;
+	
 	public Event() {
 		Player p = IdleBot.botref.getRandomPlayer();
 		
-		new TimeEvent(p);
+		// for testing new MoneyEvent(p);
 	}
 }

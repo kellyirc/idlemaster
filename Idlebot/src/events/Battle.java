@@ -271,6 +271,8 @@ public class Battle {
 			((Monster)first).die(second);
 		} else {
 			tryCritStrike(second, first);
+			((Player)second).stats.battlesWon++;
+			((Player)second).stats.battlesLost++;
 		}
 	}
 

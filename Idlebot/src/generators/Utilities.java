@@ -84,5 +84,33 @@ public class Utilities {
 		}
 		return temp;
 	}
+	
+	public static ArrayList<String> loadFileNoArray(URL f) {
+		ArrayList<String> temp = new ArrayList<>();
+		
+		BufferedReader br;
+		try {
+			br = new BufferedReader(
+					new InputStreamReader(
+							f.openStream()));
+
+			String strLine;
+
+			while ((strLine = br.readLine()) != null) {
+				
+				if(strLine.equals("")) continue;
+
+				temp.add(strLine);
+				
+			}
+
+			br.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return temp;
+	}
 
 }

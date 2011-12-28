@@ -6,6 +6,13 @@ import data.Playable.Alignment;
 
 public class Item implements Comparable<Item>{
 	
+	/**
+	 * @param value the value to set
+	 */
+	public void setValue(int value) {
+		this.value = Math.round(value);
+	}
+
 	public enum Type { Magical, Physical, Spiritual, Emotional };
 	public enum ItemClass { Newbie, Normal, Animal, Saint, Spiritual, Avatar, Special, Retro, Idle};
 	

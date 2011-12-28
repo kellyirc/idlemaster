@@ -222,6 +222,7 @@ public abstract class Playable {
 				}
 				return;
 			}
+			if(this instanceof Player) ((Player)this).stats.battlesCaused++;
 			new Battle(this, other);
 		} else {
 			if(this.level > other.level + 3 || this.calcTotal(null) > other.calcTotal(null) * 2) {

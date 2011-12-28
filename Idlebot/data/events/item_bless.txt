@@ -4,6 +4,8 @@ An enchantress approaches %player and enchants his/her %item, making it glow pre
 %player cleaned the rust off of his/her %item.
 %player dips his/her %item into a glowing fountain, and, in turn, %item begins to glow.
 While strolling around, %player encounters a fiery-hot forge, and proceeds to enforce his/her %item.
-Thinking his/her %item is looking a bit tarnished, %player tries their best to repair it.
+Thinking his/her %item is looking a bit tarnished, %player tries his/her best to repair it.
 A demon approaches and possesses %player's %item, to aid %player on his/her quest.
 The God of Rampage and Brawling, Ishkalorht, has decided to give %player an advantage by powering up his/her %item.
+%player's %item was exposed to spontaneous and strong Gamma radiation, and is now glowing a bright shade of green.
+%player uses a soul gem to enchant his/her %item at an enchantment table.
