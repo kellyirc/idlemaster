@@ -109,6 +109,7 @@ public abstract class Playable {
 		for(Item i : equipment.values()) {
 			if(type!=null && i.getType() == type || type == null) rev += i.getValue();
 		}
+		if(type == null && this instanceof Monster) rev += ((Monster)this).getBonus();
 		return rev;
 	}
 	

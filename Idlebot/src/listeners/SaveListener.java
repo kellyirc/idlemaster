@@ -53,6 +53,7 @@ public class SaveListener extends org.pircbotx.hooks.ListenerAdapter<IdleBot> {
 		while(!event.getBot().isConnected()){
 			System.err.println("Reconnecting attempt..");
 			event.getBot().reconnect();
+			System.err.println(event.getBot().isConnected());
 			Thread.sleep(10000);
 		}
 	}
