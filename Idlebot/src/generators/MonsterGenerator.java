@@ -136,7 +136,7 @@ public class MonsterGenerator {
 		}
 		Data monName;
 		if(Battle.prob(1) && Battle.prob(50) || bosspos >= 0) {
-			int i = bosspos > 0 ? bosspos : (int) Math.random() * bosses.length;
+			int i = bosspos >= 0 ? bosspos : (int) (Math.random() * bosses.length);
 			monName = bosses[i];
 			string = strings[i];
 		}else if(Battle.prob(5)) {

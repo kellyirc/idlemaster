@@ -41,6 +41,7 @@ import data.Playable;
 import data.Player;
 import data.Playable.Alignment;
 import data.UserData;
+import events.Event;
 
 public class IdleBot extends PircBotX implements Globals {
 
@@ -197,8 +198,8 @@ public class IdleBot extends PircBotX implements Globals {
 	}
 
 	private void backup(File file) {
-		File dir = new File("backup/");
-		File output = new File("backup/players-"+System.currentTimeMillis()+".dat");
+		File dir = new File("_backup/");
+		File output = new File("_backup/players-"+System.currentTimeMillis()+".dat");
 		try {
 			if(!dir.exists()) {
 				dir.mkdir();
@@ -350,6 +351,11 @@ public class IdleBot extends PircBotX implements Globals {
 						continue;
 					p.takeTurn();
 				}
+				
+				if(ticks++%600 == 0) {
+					if(getPlayers().size() == 0) continue;
+					new Event();
+				}
 
 				try {
 					sleep(10);
@@ -469,4 +475,8 @@ public class IdleBot extends PircBotX implements Globals {
 
 	}
 
+	public Player getRandomPlayer() {
+		return getPlayers().toArray(new Player[0])[(int) (Math.random() * getPlayers().size())];
+	}
+	
 }

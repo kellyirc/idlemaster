@@ -1,0 +1,5 @@
+%player cleaned off his/her %item in a nearby puddle.
+%player brushed the dust off of his/her %item.
+An enchantress approaches %player and enchants his/her %item, making it glow pretty colors.
+%player cleaned the rust off of his/her %item.
+%player dips his/her %item into a glowing fountain, and, in turn, %item begins to glow.

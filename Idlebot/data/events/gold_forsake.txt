@@ -1,0 +1,3 @@
+%player was mugged by a rogue, and lost %money gold.
+%player stumbled across a pyrite mine, and invested %money "+Constants.moneyType+" in it, only to watch it fail miserably..
+%player bets %money "+Constants.moneyType+" at a gambling table, only to lose it. Unfortunately, s/he did not realize the dealer had loaded dice.
