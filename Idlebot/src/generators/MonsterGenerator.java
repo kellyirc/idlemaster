@@ -19,6 +19,7 @@ public class MonsterGenerator {
 	static Data[] midboss;
 	static Data[] bosses;
 	static BossStrings[] strings;
+	public static int bossct = 0;
 	
 	public static class BossStrings {
 		
@@ -52,6 +53,7 @@ public class MonsterGenerator {
 			String strLine;
 			
 			for(int i=0; i < bosses.length; i++) {
+				bossct++;
 				BossStrings bs = new BossStrings();
 				for(int j=0; j<5; j++) {
 					strLine = br.readLine();
@@ -113,7 +115,7 @@ public class MonsterGenerator {
 			monName = normal[(int) (Math.random() * normal.length)];
 		}
 		
-		while(Battle.prob(30) || (name.equals("rarespawn") && tries++ < 6)) {
+		while(Battle.prob(30) || (name.equals("rarespawn") && tries++ < 10)) {
 
 			Data[] array;
 			Data choice;

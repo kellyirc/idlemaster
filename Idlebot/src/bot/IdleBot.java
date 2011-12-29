@@ -290,7 +290,7 @@ public class IdleBot extends PircBotX implements Globals {
 	}
 
 	public Player getRandomPlayer() {
-		return getOnlinePlayers().toArray(new Player[0])[(int) (Math.random() * getOnlinePlayers().size())];
+		return getOnlinePlayers().toArray(new Player[0])[(int) (Math.random() *( getOnlinePlayers().size()-1))];
 	}
 
 	public String getUserByPlayer(Player player) {

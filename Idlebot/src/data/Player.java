@@ -134,7 +134,7 @@ public class Player extends Playable{
 		return timeLeft.subtract(curTime).longValue();
 	}
 
-	private void levelUp() {
+	void levelUp() {
 		//if(curTime.longValue() > timeLeft.longValue()) {
 		///	System.out.println(curTime.longValue() + " " + timeLeft.longValue() + getName());
 		//	curTime = new BigInteger(""+(curTime.longValue() - timeLeft.longValue()));
@@ -168,7 +168,7 @@ public class Player extends Playable{
 			if(!isIgnoring && !(name.equals("IdleMaster"))) {
 				IdleBot.botref.sendNotice(IdleBot.botref.getUserByPlayer(this), "You gained "+gain+" gold from selling "+i+".");
 			}
-			money += gain;
+			money += gain * (this.stats.hasPhilStone ? 2 : 1);
 		} else {
 			if(!isIgnoring && !(name.equals("IdleMaster"))) {
 				IdleBot.botref.sendNotice(IdleBot.botref.getUserByPlayer(this), "You threw away "+i+".");
@@ -185,7 +185,7 @@ public class Player extends Playable{
 		ticks++;
 		if(ticks % 1000 == 0) {
 			addNewItem();
-		} else if(ticks % 30 == 0){
+		} else if(ticks % (30)/(this.stats.hasWingShoes ? 3 : 1) == 0){
 			move();
 			if(alignment == Alignment.Evil || alignment == Alignment.Neutral) move();
 			if(alignment == Alignment.Evil) move();
@@ -200,7 +200,6 @@ public class Player extends Playable{
 		return name+", the "+(alignment != null ? alignment+" " : "")+"level "+level + " "+classType;
 	}
 
-	
 	public void addItem(Usable usable) {
 		if(items.contains(usable)){
 			Usable old = items.get(items.indexOf(usable));

@@ -99,7 +99,7 @@ public class CommandListener extends
 			
 			/**
 			 * COMMAND: align
-			 * ARGUMENTS: Good|Neutral|Evil
+			 * ARGUMENTS: [Good|Neutral|Evil]
 			 * HELP: Change alignment of your character.
 			 * PENALTY: p30|p15|p5
 			 */
@@ -123,7 +123,7 @@ public class CommandListener extends
 
 			/**
 			 * COMMAND: shop
-			 * ARGUMENTS: [buy|info] [itemname]
+			 * ARGUMENTS: [buy|info] itemname
 			 * HELP: Buy or view items available for purchase.
 			 * PENALTY: None.
 			 */
@@ -142,7 +142,7 @@ public class CommandListener extends
 			break;
 			
 		case "cataclysm":
-			new Cataclysm();
+			//new Cataclysm();
 			break;
 			
 		case "announce":
@@ -151,7 +151,7 @@ public class CommandListener extends
 			break;
 			
 		case "total":
-			event.getBot().sendMessage(event.getUser(), ""+IdleBot.botref.getPlayersRaw().size());
+			//event.getBot().sendMessage(event.getUser(), ""+IdleBot.botref.getPlayersRaw().size());
 			break;
 			
 		case "levelup":
@@ -160,9 +160,9 @@ public class CommandListener extends
 			break;
 			
 		case "warpall":
-			for(Player player : event.getBot().getPlayers()) {
-				player.warp();
-			}
+			//for(Player player : event.getBot().getPlayers()) {
+			//	player.warp();
+			//}
 			break;
 		/*	
 		case "bossbattle":
@@ -172,6 +172,7 @@ public class CommandListener extends
 			new Battle(left, right);
 			break;
 			*/
+			/*
 		case "teambattle":
 			ArrayList<Player> left = new ArrayList<>();
 			ArrayList<Player> right = new ArrayList<>();
@@ -183,7 +184,7 @@ public class CommandListener extends
 				else left.add(players.get(i));
 			}
 			new Battle(left, right);
-			break;
+			break;*/
 
 		default:
 			event.getBot().sendMessage(event.getUser(), "Your command is invalid!");
@@ -202,9 +203,10 @@ public class CommandListener extends
 			return;
 		}
 		for(Usable u : p.getItems()) {
-			if(u.getName().equals(args[1])) {
-				event.getBot().sendMessage(event.getUser(), "You used "+u.getName()+"!"+(u.getCount() > 0  ?" You have "+u.getCount() + " left." : ""));
-				u.use(p);
+			if(u.getName().equals(args[1]) && u.getCount() > 0) {
+				if(u.use(p)) {
+					event.getBot().sendMessage(event.getUser(), "You used "+u.getName()+"!"+(u.getCount()-1 > 0  ?" You have "+(u.getCount()) + " left." : ""));
+				}
 				return;
 			}
 		}
@@ -236,6 +238,8 @@ public class CommandListener extends
 				event.getBot().sendMessage(event.getUser(), "You bought "+args[2]+"! You have "+p.getMoney()+" gold left.");
 				p.addItem(new Usable(args[2]));
 				p.setMoney(p.getMoney() - item.cost);
+				if(item.name.equals("philosopherstone")) p.stats.hasPhilStone = true;
+				if(item.name.equals("wingedshoes")) p.stats.hasWingShoes = true;
 			} else {
 				event.getBot().sendMessage(event.getUser(), "You don't have enough money! You need "+(item.cost - p.getMoney())+" more!");
 			}

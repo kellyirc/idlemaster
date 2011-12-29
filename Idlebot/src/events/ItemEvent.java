@@ -50,7 +50,7 @@ public class ItemEvent {
 		return message;
 	}
 
-	private Item getRandomItem(Player p) {
+	public static Item getRandomItem(Player p) {
 		return p.getEquipmentRaw().get(Slot.values()[(int) (Math.random() * Slot.values().length)]);
 	}
 }

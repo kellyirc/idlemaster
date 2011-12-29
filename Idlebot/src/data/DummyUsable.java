@@ -21,9 +21,9 @@ public class DummyUsable {
 	}
 	
 	public static DummyUsable[] dummyItems = {
-		new DummyUsable("fortunecookie", 3000, "Everyone loves to eat these tasty treats!"),
+		new DummyUsable("fortunecookie", 30000, "Everyone loves to eat these tasty treats!"),
 		new DummyUsable("karmacookie", 	30000, "Mmmm, tastes like revenge!"),
-		new DummyUsable("sledgehammer", 50000, "Smashy smashy!"),
+		new DummyUsable("sledgehammer", 75000, "Smashy smashy!"),
 		new DummyUsable("minuteglass", 	500, "The Sands of Time: every flip of the glass is a minute."),
 		new DummyUsable("hourglass", 		15000, "The Sands of Time: every flip of the glass is an hour."),
 		new DummyUsable("dayglass", 			250000, "The Sands of Time: every flip of the glass is a day."),
@@ -46,9 +46,9 @@ public class DummyUsable {
 		new DummyUsable("wishingwell", 	36000, "A giant well. How are you supposed to carry this around?"),
 		new DummyUsable("wishingfountain", 	456000, "An enormous fountain. Do you have a packmule?"),
 		new DummyUsable("darkmirror", 		500000, "A mirror that seems to reflect the darkest desires within you."),
-		new DummyUsable("genielamp", 		60000, "A solid gold lamp."),
+		new DummyUsable("genielamp", 		1000000, "A solid gold lamp."),
 		new DummyUsable("geniilamp", 		6000, "A solid bronze lamp."),
-		new DummyUsable("philosopherstone", 250000, "A small, chromatic gem."),
+		new DummyUsable("philosopherstone", 450000, "A small, chromatic gem."),
 		new DummyUsable("wingedshoes", 	100000, "A pair of shoes with wings attached to them. Nothing special."),
 	};
 	

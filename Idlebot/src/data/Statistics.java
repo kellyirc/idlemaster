@@ -18,6 +18,8 @@ public class Statistics {
 	public int itemForsake=0;
 	public int moneyFound=0;
 	public int moneyLost=0;
+	public boolean hasPhilStone=false;
+	public boolean hasWingShoes=false;
 	
 	//TODO karma cookies
 	//TODO temporarily sell items to other players (they can try to equip it then)
