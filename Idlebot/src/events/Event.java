@@ -11,5 +11,16 @@ public class Event {
 		Player p = IdleBot.botref.getRandomPlayer();
 		
 		// for testing new MoneyEvent(p);
+		
+		int i = (int) (Math.random() * 100);
+		if(i == 1) {
+			//cataclysm
+		} else if(i<21) {
+			new MoneyEvent(p);
+		} else if(i<54) {
+			new ItemEvent(p);
+		} else if(i<86){
+			new TimeEvent(p);
+		} 
 	}
 }

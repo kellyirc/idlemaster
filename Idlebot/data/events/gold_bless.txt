@@ -1,11 +1,10 @@
-%player found a gold mine!
-%player found a pot of gold at the end of the rainbow!
-%player sneezed on a rock, cleaning it off, and revealing a golden lustre!
-%player went spelunking in a cave, and found a room full of ancient artifacts and gold!
-%player won the lottery from that dirty cheat of a dealer!
+%player found a gold mine containing %money bits of gold!
+%player found a pot of gold at the end of the rainbow, and it contained %money gold pieces!
+%player sneezed on a rock, cleaning it off, and revealing a golden lustre. It sold for %money gold!
+%player went spelunking in a cave, and found a room full of ancient artifacts. %player also found %money gold!
+%player won the lottery and gained %money gold, after taxes of course.
 %player discovered what no alchemist could in many years: how to turn a bit of lead into %money bits of gold.
 %player found some kind of high-technologic device, which s/he proceeds to bash against a rock and then loots %money bits of gold from inside.
 A friend of %player gives him/her %money bits of gold, saying something about a 'debt'... Well, that doesn't happen too often.
-%player took an arrow to the gold pouch, losing %gold all over the ground.
 The Goddess of Riches, Kirierath, causes it to rain gold down at %player only, and s/he proceeds to pick up as many as %money bits of gold.
-%player finds a gold ingot with a lemon peel wrapped around it.
+%player finds a gold ingot with a lemon peel wrapped around it, and it was worth %money gold!

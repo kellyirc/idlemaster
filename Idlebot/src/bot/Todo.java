@@ -10,6 +10,7 @@ public class Todo {
 		neut - fated more often
 		evil - forsaken more often
  * Events (cataclysms etc) 
+ * team battles
  * Items 
  * Cross-server implementation 
  * Implement remaining PM commands

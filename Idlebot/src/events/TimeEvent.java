@@ -13,22 +13,26 @@ public class TimeEvent {
 	};
 
 	public TimeEvent(Player target) {
-		Type type = Type.values()[(int) (Math.random() * Type.values().length)];
+		this(target, null);
+	}
+	
+	public TimeEvent(Player target,Type cusType) {
+		Type type = cusType != null ? cusType : Type.values()[(int) (Math.random() * Type.values().length)];
 		switch(type) {
 		case Blessing:
-			if(Battle.prob(100 - target.getLevel()) && Battle.prob((int)(15*getModifier(target.getAlignment(), type)))) {
+			if(cusType!=null || Battle.prob(100 - target.getLevel()) && Battle.prob((int)(15*getModifier(target.getAlignment(), type)))) {
 				target.stats.blessed++;
 				doStuff("was blessed", target, false);
 			}
 			break;
 		case Fatehand:
-			if(Battle.prob(100 - target.getLevel()) && Battle.prob((int)(1*getModifier(target.getAlignment(), type))) && Battle.prob(20)) {
+			if(cusType!=null || Battle.prob(100 - target.getLevel()) && Battle.prob((int)(1*getModifier(target.getAlignment(), type))) && Battle.prob(20)) {
 				target.stats.fatehand++;
 				doStuff("met with the hand of fate", target, null);
 			}
 			break;
 		case Forsaken:
-			if(Battle.prob(100 - target.getLevel()) && Battle.prob((int)(7*getModifier(target.getAlignment(), type)))) {
+			if(cusType!=null || Battle.prob(100 - target.getLevel()) && Battle.prob((int)(7*getModifier(target.getAlignment(), type)))) {
 				target.stats.forsaken++;
 				doStuff("was forsaken", target, true);
 			}

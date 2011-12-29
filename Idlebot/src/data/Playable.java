@@ -17,7 +17,7 @@ public abstract class Playable {
 	public static final int MAX_X = 250;
 	public static final int MAX_Y = 250;
 	
-	public static final double BATTLE_MULTIPLIER = 2.5;
+	public static final double BATTLE_MULTIPLIER = 1.5;
 	
 	public enum Direction { NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST };
 	public enum Alignment { Evil, Good, Neutral };
@@ -109,7 +109,7 @@ public abstract class Playable {
 		for(Item i : equipment.values()) {
 			if(type!=null && i.getType() == type || type == null) rev += i.getValue();
 		}
-		if(type == null && this instanceof Monster) rev += ((Monster)this).getBonus();
+		//if(type == null && this instanceof Monster) rev += ((Monster)this).getBonus();
 		return rev;
 	}
 	
@@ -205,7 +205,7 @@ public abstract class Playable {
 	}
 	
 	public void engage(Playable other) {
-		if(!(this instanceof Monster && other instanceof Monster && Battle.prob(10) && Battle.prob(5))) return;
+	//	if(!(this instanceof Monster && other instanceof Monster && Battle.prob(5) && Battle.prob(5))) return;
 		if(canBattle(this, other)) {
 			if(this.alignment == Alignment.Good && other.alignment == Alignment.Neutral && Battle.prob(10)) {
 				IdleBot.botref.messageChannel(Battle.BATTLE + getName() + " greeted "+other.getName()+" and went on his/her merry way.");
@@ -245,7 +245,7 @@ public abstract class Playable {
 	}
 	
 	private boolean isWithinRange(Playable left, Playable right) {
-		return (left.calcTotal(null)*BATTLE_MULTIPLIER < right.calcTotal(null) || right.calcTotal(null)*BATTLE_MULTIPLIER < left.calcTotal(null));
+		return (left.calcTotal(Type.Physical)*BATTLE_MULTIPLIER < right.calcTotal(Type.Physical) || right.calcTotal(Type.Physical)*BATTLE_MULTIPLIER < left.calcTotal(Type.Physical));
 	}
 	
 	private boolean isWithinLevel(Playable left, Playable right) {

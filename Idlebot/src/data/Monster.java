@@ -43,7 +43,7 @@ public class Monster extends Playable {
 
 	@Override
 	public void takeTurn() {
-		if(ticks++ > 100) {
+		if(ticks++ > 10000) {
 			ticks = 0;
 			move();
 		}
@@ -51,7 +51,7 @@ public class Monster extends Playable {
 	
 	public void addToBonus(int i) {
 		bonus += i;
-		this.level = (short) (bonus/25);
+		this.level = (short) (bonus/45);
 	}
 	
 	public int getBonus() {

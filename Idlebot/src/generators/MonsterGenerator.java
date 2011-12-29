@@ -146,13 +146,13 @@ public class MonsterGenerator {
 		}
 		name.append(monName);
 		valueBonus += monName.getValue();
+		if(name.toString().equals("rarespawn")) valueBonus*=200;
 		
 		if(modPercent > 0) valueBonus *= modPercent;
 		
 		if(align == null) align = Alignment.Good;
 		
 		Monster rev = new Monster(name.toString(), align, string);
-		if(name.toString().equals("rarespawn")) valueBonus*=10;
 		rev.addToBonus(valueBonus);
 		return rev;
 	}

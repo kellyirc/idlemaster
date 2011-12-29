@@ -37,6 +37,7 @@ import org.pircbotx.exception.NickAlreadyInUseException;
 import com.google.gson.Gson;
 
 import data.IdleMaster;
+import data.Monster;
 import data.Playable;
 import data.Player;
 import data.Playable.Alignment;
@@ -62,6 +63,14 @@ public class IdleBot extends PircBotX implements Globals {
 				if(ticks++%Event.EVENT_TIME == 0) {
 					if(getPlayers().size() == 0) continue;
 					new Event();
+				}
+				
+				if(ticks++%(Event.EVENT_TIME*5) == 0) {
+					Player pl = IdleBot.botref.getRandomPlayer();
+					Playable m = IdleBot.botref.getRandomMonster();
+					if(m != null) {
+						pl.engage(m);
+					}
 				}
 
 				try {
@@ -479,4 +488,21 @@ public class IdleBot extends PircBotX implements Globals {
 		httpclient.getConnectionManager().shutdown();
 	}
 	
+	public Monster getRandomMonster() {
+		Monster m = null;
+		Playable[] p = players.toArray(new Playable[0]);
+		int tries = 0;
+		
+		do {
+			
+			Playable choice = p[(int) (Math.random() * p.length)];
+			
+			if( choice instanceof Monster) {
+				m = (Monster) choice;
+			}
+			
+		} while (tries++<100 && m == null);
+		
+		return m;
+	}
 }

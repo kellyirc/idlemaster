@@ -40,7 +40,7 @@ public class Battle {
 		public void initialize() {
 			for(Playable p : members) {
 				if(p instanceof Player) isMonsterOnly = false;
-				if(!((p instanceof Monster) && ((Monster) p).strings!=null && p.health > 0)) p.health = p.calcTotal(null) + (p instanceof Monster ? ((Monster)p).getBonus() : 0);
+				if(!((p instanceof Monster) && ((Monster) p).strings!=null && p.health > 0)) p.health = p.calcTotal(null);
 				emotional += p.calcTotal(Type.Emotional);
 				spiritual += p.calcTotal(Type.Spiritual);
 			}
@@ -162,7 +162,7 @@ public class Battle {
 	}
 
 	private void attack(Playable left, Playable right) {
-		if(left.getAlignment() == Alignment.Good && turns%2 == 0) {
+		if(left.getAlignment() == Alignment.Good && turns%3 == 0) {
 			Spell s = spellGen.generateGoodSpell(left.calcTotal(Type.Magical));
 			battleMessage(BATTLE + left.getBattleName()+" cast "+s+" at "+ right.getName() + " for "+Colors.RED+s.getDamage()+Colors.NORMAL+" damage!");
 			right.health -= s.getDamage();
@@ -271,8 +271,8 @@ public class Battle {
 			((Monster)first).die(second);
 		} else {
 			tryCritStrike(second, first);
-			((Player)second).stats.battlesWon++;
-			((Player)second).stats.battlesLost++;
+			if(second instanceof Player)((Player)second).stats.battlesWon++;
+			((Player)first).stats.battlesLost++;
 		}
 	}
 
