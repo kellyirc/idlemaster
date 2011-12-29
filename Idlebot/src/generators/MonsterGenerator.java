@@ -100,11 +100,24 @@ public class MonsterGenerator {
 		double modPercent = 0;
 		int valueBonus = 0;
 		BossStrings string = null;
+		int tries=0;
+
+		Data monName;
+		if(Battle.prob(1) && Battle.prob(50) || bosspos >= 0) {
+			int i = bosspos >= 0 ? bosspos : (int) (Math.random() * bosses.length);
+			monName = bosses[i];
+			string = strings[i];
+		}else if(Battle.prob(5)) {
+			monName = midboss[(int) (Math.random() * midboss.length)];
+		} else {
+			monName = normal[(int) (Math.random() * normal.length)];
+		}
 		
-		while(Battle.prob(30)) {
+		while(Battle.prob(30) || (name.equals("rarespawn") && tries++ < 6)) {
 
 			Data[] array;
 			Data choice;
+			
 			int i = GeneratorData.random.nextInt(100);
 			if (i < 6 && alignment==null) {
 				array = GeneratorData.evils;
@@ -133,16 +146,6 @@ public class MonsterGenerator {
 			Data color = GeneratorData.getRColor();
 			valueBonus += color.getValue();
 			name.append(color + " ");
-		}
-		Data monName;
-		if(Battle.prob(1) && Battle.prob(50) || bosspos >= 0) {
-			int i = bosspos >= 0 ? bosspos : (int) (Math.random() * bosses.length);
-			monName = bosses[i];
-			string = strings[i];
-		}else if(Battle.prob(5)) {
-			monName = midboss[(int) (Math.random() * midboss.length)];
-		} else {
-			monName = normal[(int) (Math.random() * normal.length)];
 		}
 		name.append(monName);
 		valueBonus += monName.getValue();

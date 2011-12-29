@@ -225,11 +225,11 @@ public abstract class Playable {
 			if(this instanceof Player) ((Player)this).stats.battlesCaused++;
 			new Battle(this, other);
 		} else {
-			if(this.level > other.level + 3 || this.calcTotal(null) > other.calcTotal(null) * 2) {
+			if((this.level > other.level + 3 || this.calcTotal(null) > other.calcTotal(null) * BATTLE_MULTIPLIER) && Battle.prob(10)) {
 				IdleBot.botref.messageChannel(Battle.BATTLE + getName() + " walked past "+other.getName()+", laughing so hard, s/he was crying.");
-			} else if(this.level < other.level - 3 || this.calcTotal(null) * 2 < other.calcTotal(null)) {
+			} else if((this.level < other.level - 3 || this.calcTotal(null) * BATTLE_MULTIPLIER < other.calcTotal(null)) && Battle.prob(10)) {
 				IdleBot.botref.messageChannel(Battle.BATTLE + other.getName() + " passed by "+getName()+", laughing and gloating.");
-			} else {
+			} else if(Battle.prob(10)){
 				IdleBot.botref.messageChannel(Battle.BATTLE + other.getName() + " and "+getName() + " wave as they pass by each other.");
 			}
 			
@@ -286,5 +286,10 @@ public abstract class Playable {
 	public void warp() {
 		x = (int) (Math.random() * MAX_X);
 		y = (int) (Math.random() * MAX_Y);
+	}
+	
+	public void warp(Player p) {
+		setX(p.getX());
+		setY(p.getY());
 	}
 }

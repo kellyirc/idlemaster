@@ -23,15 +23,31 @@ human sniper,336
 human thief,340
 marionette,345
 lizardman,350
+kobold nudist,351
+kobold archer,353
+kobold warrior,355
+kobold thief,357
 kobold,363
+kobold mage,364
+orc nudist,370
 orc brawler,375
 imp,383
 goblin,400
 mimic,425
 orc witch,433
 orc,450
+orc fighter,451
+half-orc,460
+half-orc warmage,461
+pygmy,462
 hellhound,463
+ogre nudist,464
+ogre fighter,467
 ogre,475
+ogre sorceror,480
+ogre oracle,485
+ogre alchemist,490
+ogre jouster,495
 will-o-wisp,500
 ninja,550
 pirate,550
@@ -45,7 +61,11 @@ geoduck,625
 jellyfish,633
 demon,650
 mist,700
+ye olde zombie,701
+old zombie,735
 zombie,750
+zombie fighter,760
+smart zombie,770
 wight,775
 ghost,800
 poltergeist,825

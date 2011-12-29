@@ -249,10 +249,9 @@ public class Battle {
 		}
 	}
 
-	//do the winners dance (steal, critical strike if player->player, dropItem if player->monster)
 	private void victory(Team victors, Team losrars) {
 		battleMessage(Colors.DARK_GREEN+BATTLE + victors + " won the battle!");
-		float mod = ((victors.getTotalLevel() - losrars.getTotalLevel()) / 4)+1;
+		float mod = Math.abs(((victors.getTotalLevel() - losrars.getTotalLevel()) / 4)+1);
 		long timeMod = (long) (757 * Math.abs(victors.getRemainingLife() - losrars.getRemainingLife()) * (mod == 0 ? 1 : mod));
 		victors.timeMod(timeMod);
 		losrars.timeMod(-timeMod/2);

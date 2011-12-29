@@ -8,6 +8,7 @@ import data.Item;
 import data.Playable.Alignment;
 import data.Playable.Slot;
 import data.Player;
+import events.Cataclysm;
 
 import bot.IdleBot;
 
@@ -112,6 +113,15 @@ public class CommandListener extends
 			 */
 		case "ignore":
 			doIgnore(event);
+			break;
+			
+		case "cataclysm":
+			new Cataclysm();
+			break;
+			
+		case "announce":
+			if(args.length < 2) return;
+			event.getBot().messageChannel("[ANNOUNCEMENT] "+event.getMessage().substring(8));
 			break;
 			
 		case "total":

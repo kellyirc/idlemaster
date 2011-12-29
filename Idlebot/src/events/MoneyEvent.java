@@ -12,10 +12,11 @@ import data.Player;
 
 public class MoneyEvent {
 	
-	public final int percent = 1;
+	public static final int percent = 1;
 	
 	static String[] goodEvents;
 	static String[] badEvents;
+	
 	static {
 		try {
 			goodEvents = Utilities.loadFileNoArray(new URL("http://idlemaster.googlecode.com/svn/trunk/Idlebot/data/events/gold_bless.txt")).toArray(new String[0]);
@@ -24,13 +25,18 @@ public class MoneyEvent {
 			e.printStackTrace();
 		}
 	}
+	
 	public MoneyEvent(Player p) {
+		this(p, null);
+	}
+	
+	public MoneyEvent(Player p, Boolean b) {
 		int i = (int) (p.getMoney() * (percent/100.0));
-		if(Math.random() > 0.3) {
+		if((Math.random() > 0.3 || b != null && b) && b!= null && b!=false) {
 			IdleBot.botref.messageChannel(modifyMessage(goodEvents[(int) (Math.random() * goodEvents.length)], p, i, true));
 			p.stats.moneyFound++;
 			p.setMoney(p.getMoney() + i);
-		} else {
+		} else if(b==null || !b){
 			IdleBot.botref.messageChannel(modifyMessage(badEvents[(int) (Math.random() * badEvents.length)], p, i, false));
 			p.stats.moneyLost++;
 			p.setMoney(p.getMoney() - i);

@@ -17,3 +17,4 @@ Pedobear,5750
 Big Boo,5500
 Cookie Monster,5250
 MidBoss,5000
+Null Pointer,9999

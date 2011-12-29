@@ -5,12 +5,8 @@ public class Todo {
 /**
  * Fix idlemaster picking up equipment
  * Salt password 
-	Alignment bonuses 
-		good - blessed more often
-		neut - fated more often
-		evil - forsaken more often
- * Events (cataclysms etc) 
  * team battles
+ * team boss battles
  * Items 
  * Cross-server implementation 
  * Implement remaining PM commands
