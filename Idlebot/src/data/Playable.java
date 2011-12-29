@@ -249,7 +249,7 @@ public abstract class Playable {
 	}
 	
 	private boolean isWithinLevel(Playable left, Playable right) {
-		return (left.level*BATTLE_MULTIPLIER < right.level || right.level*BATTLE_MULTIPLIER < left.level);
+		return (left.level*BATTLE_MULTIPLIER*3 < right.level || right.level*BATTLE_MULTIPLIER*3 < left.level);
 	}
 	
 	public String getBattleName() {

@@ -7,14 +7,14 @@ import java.util.Map.Entry;
 
 import org.pircbotx.hooks.events.PrivateMessageEvent;
 
+import data.DummyUsable;
 import data.Item;
-import data.Monster;
 import data.Playable.Alignment;
 import data.Playable.Slot;
 import data.Player;
+import data.Usable;
 import events.Battle;
 import events.Cataclysm;
-import generators.MonsterGenerator;
 
 import bot.IdleBot;
 
@@ -120,6 +120,26 @@ public class CommandListener extends
 		case "ignore":
 			doIgnore(event);
 			break;
+
+			/**
+			 * COMMAND: shop
+			 * ARGUMENTS: [buy|info] [itemname]
+			 * HELP: Buy or view items available for purchase.
+			 * PENALTY: None.
+			 */
+		case "shop":
+			doShop(event, args);
+			break;
+
+			/**
+			 * COMMAND: use
+			 * ARGUMENTS: itemname
+			 * HELP: Use an item.
+			 * PENALTY: None.
+			 */
+		case "use":
+			doItemUse(event, args);
+			break;
 			
 		case "cataclysm":
 			new Cataclysm();
@@ -135,8 +155,8 @@ public class CommandListener extends
 			break;
 			
 		case "levelup":
-			Player pl = event.getBot().getPlayerByUser(event.getUser().getNick());
-			pl.toNextLevel();
+			//Player pl = event.getBot().getPlayerByUser(event.getUser().getNick());
+			//pl.toNextLevel();
 			break;
 			
 		case "warpall":
@@ -167,6 +187,70 @@ public class CommandListener extends
 
 		default:
 			event.getBot().sendMessage(event.getUser(), "Your command is invalid!");
+			break;
+		}
+	}
+
+	private void doItemUse(PrivateMessageEvent<IdleBot> event, String[] args) {
+		if(args.length < 2) {
+			event.getBot().sendMessage(event.getUser(), "Invalid syntax: use [itemname]");
+			return;
+		}
+		Player p = IdleBot.botref.getPlayerByUser(event.getUser());
+		if(p == null) {
+			event.getBot().sendMessage(event.getUser(), "That player does not exist!");
+			return;
+		}
+		for(Usable u : p.getItems()) {
+			if(u.getName().equals(args[1])) {
+				event.getBot().sendMessage(event.getUser(), "You used "+u.getName()+"!"+(u.getCount() > 0  ?" You have "+u.getCount() + " left." : ""));
+				u.use(p);
+				return;
+			}
+		}
+		event.getBot().sendMessage(event.getUser(), "You don't have that item!");
+	}
+
+	private void doShop(PrivateMessageEvent<IdleBot> event, String[] args) {
+		if(args.length < 2) {
+			event.getBot().sendMessage(event.getUser(), "Invalid syntax: shop [buy|info] [itemname].");
+			return;
+		}
+		switch(args[1]) {
+		case "buy":
+			if(args.length < 3) {
+				event.getBot().sendMessage(event.getUser(), "Invalid syntax: shop buy [itemname].");
+				return;
+			}
+			Player p = IdleBot.botref.getPlayerByUser(event.getUser());
+			if(p == null) {
+				event.getBot().sendMessage(event.getUser(), "That player does not exist!");
+				return;
+			}
+			DummyUsable item = DummyUsable.findItem(args[2]);
+			if(item == null) {
+				event.getBot().sendMessage(event.getUser(), "That item does not exist!");
+				return;
+			}
+			if(p.getMoney() >= item.cost) { 
+				event.getBot().sendMessage(event.getUser(), "You bought "+args[2]+"! You have "+p.getMoney()+" gold left.");
+				p.addItem(new Usable(args[2]));
+				p.setMoney(p.getMoney() - item.cost);
+			} else {
+				event.getBot().sendMessage(event.getUser(), "You don't have enough money! You need "+(item.cost - p.getMoney())+" more!");
+			}
+			break;
+		case "info":
+			if(args.length < 3) {
+				event.getBot().sendMessage(event.getUser(), "Invalid syntax: shop info [itemname].");
+				return;
+			}
+			DummyUsable itemName = DummyUsable.findItem(args[2]);
+			if(itemName == null) {
+				event.getBot().sendMessage(event.getUser(), "That item does not exist!");
+				return;
+			}
+			event.getBot().sendMessage(event.getUser(), itemName.name+": "+itemName.desc);
 			break;
 		}
 	}

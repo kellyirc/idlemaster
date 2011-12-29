@@ -8,3 +8,4 @@
 A friend of %player gives him/her %money bits of gold, saying something about a 'debt'... Well, that doesn't happen too often.
 The Goddess of Riches, Kirierath, causes it to rain gold down at %player only, and s/he proceeds to pick up as many as %money bits of gold.
 %player finds a gold ingot with a lemon peel wrapped around it, and it was worth %money gold!
+%player tripped into a lake, and discovered someone's secret stash of %money gold.

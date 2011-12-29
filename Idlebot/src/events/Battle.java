@@ -19,6 +19,7 @@ import data.Playable.Slot;
 import data.Player;
 import data.Monster;
 
+//TODO make doppelgangers work->pick random character from opposing team, rename to that person's doppelganger
 public class Battle {
 	public static final String BATTLE = " *** ";
 	
@@ -58,8 +59,8 @@ public class Battle {
 		public void timeMod(long l) {
 			for(Playable p : members) { 
 				if(p instanceof Player){
-					((Player) p).modifyTime(l);
 					battleMessage(p.getName()+" got "+IdleBot.botref.ms2dd(Math.abs(l))+(l>0 ? " removed from " : " added to ") + "his/her level timer!");
+					((Player) p).modifyTime(l);
 				} 
 			}
 		}
@@ -219,8 +220,10 @@ public class Battle {
 				kill(second, first);
 			} 
 
-			spiritualDamage();
-			roundStatistics();
+			if(left.isAlive()  && right.isAlive()) {
+				spiritualDamage();
+				roundStatistics();
+			}
 		}
 		if(!left.isAlive()) {
 			victory(right, left);
@@ -300,19 +303,19 @@ public class Battle {
 	}
 
 	private void tryCritStrike(Playable second, Playable first) {
-		long timeMod = 757 * Math.abs(second.health - first.health) * (((second.getLevel() - first.getLevel()) / 4)+1);
+		long timeMod = 757 * Math.max(Math.abs(second.health - first.health) * (((second.getLevel() - first.getLevel()) / 4)+1), 100);
 
 		if(second.getAlignment() == Alignment.Good && first.getAlignment() == Alignment.Evil && prob(80)) {
-			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/2)+" to "+first+"'s level timer!");
+			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/2)+" to "+first.getName()+"'s level timer!");
 			((Player)first).modifyTime(-timeMod/2);
 		} else if(second.getAlignment() == Alignment.Neutral && prob(20)) {
-			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/5)+" to "+first+"'s level timer!");
+			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/5)+" to "+first.getName()+"'s level timer!");
 			((Player)first).modifyTime(-timeMod/5);
 		} else if(second.getAlignment() == Alignment.Evil && first.getAlignment() == Alignment.Good && prob(40)) {
-			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/3)+" to "+first+"'s level timer!");
+			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/3)+" to "+first.getName()+"'s level timer!");
 			((Player)first).modifyTime(-timeMod/3);
 		} else if(second.getAlignment() == Alignment.Evil && first.getAlignment() == Alignment.Neutral && prob(20)) {
-			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/4)+" to "+first+"'s level timer!");
+			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/4)+" to "+first.getName()+"'s level timer!");
 			((Player)first).modifyTime(-timeMod/4);
 		}
 	}
@@ -323,6 +326,8 @@ public class Battle {
 		
 		Item old = left.getEquipmentRaw().get(s);
 		Item pnew = right.getEquipmentRaw().get(s);
+		
+		if(old == null || pnew == null) return;
 		
 		if(pnew.getValue() > old.getValue()) {
 			IdleBot.botref.messageChannel(Colors.DARK_BLUE+left.getName()+ " stole "+pnew.getName()+" from "+right.getName()+"!");

@@ -43,10 +43,10 @@ public class TimeEvent {
 	private void doStuff(String message, Player target, Boolean negative) {
 		int perc;
 		if(negative!=null) {
-			perc = (int) (Math.random() * 16);
+			perc = (int) (Math.random() * 16)+1;
 			perc = negative ? -perc : perc;
 		} else {
-			perc = (int) (Math.random() * 80);
+			perc = (int) (Math.random() * 80)+1;
 			perc = Math.random() > 0.5 ? -perc : perc;
 		}
 		long timeMod = (long) (((Math.pow(1.16, target.getLevel() ))*650000) * (perc/100.0));

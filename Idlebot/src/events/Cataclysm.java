@@ -8,7 +8,9 @@ import bot.IdleBot;
 
 
 //TODO cataclysm that hits offline players
+//TODO make cataclysms an enum and able to cause specific ones to happen
 public class Cataclysm {
+	
 	public enum Quadrant { I, II, III, IV }
 	
 	public static final int MONEY_GAIN = 5000;
@@ -119,6 +121,7 @@ public class Cataclysm {
 			IdleBot.botref.messageChannel(Colors.DARK_GRAY + "An earthquake is tearing up Quadrant "+quad+"!");
 			for (Player p : IdleBot.botref.getOnlinePlayers()){
 				if(this.isInQuadrant(p, quad)) {
+					count++;
 
 					int perc = (int) ((Math.random() * 20 ) +1);
 					long timeGain = (long) (((Math.pow(1.16, p.getLevel() ))*3000000) * ((double)perc/100));

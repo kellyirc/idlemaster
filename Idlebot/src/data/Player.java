@@ -3,6 +3,7 @@ package data;
 import generators.ItemGenerator;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.TreeSet;
@@ -14,6 +15,13 @@ import data.Item.Type;
 import bot.IdleBot;
 
 public class Player extends Playable{
+	/**
+	 * @return the items
+	 */
+	public ArrayList<Usable> getItems() {
+		return items;
+	}
+
 	/**
 	 * @param money the money to set
 	 */
@@ -27,6 +35,7 @@ public class Player extends Playable{
 	public boolean isIgnoring;
 	public transient boolean loggedIn = false;
 	public UserData lastLogin;
+	private ArrayList<Usable> items = new ArrayList<>();
 	
 	private long money = 0;
 	private String password;
@@ -91,10 +100,10 @@ public class Player extends Playable{
 	public void fromSerialize() {
 		if(passwordEncryptor == null) passwordEncryptor = new BasicPasswordEncryptor();
 		if(stats.timeSpent == null) stats.timeSpent = new BigInteger("0");
-		if(equipment == null) { equipment = new HashMap<>(); generateNewEquipment(); System.out.println(this.getClass());}
+		if(equipment == null) { equipment = new HashMap<>(); generateNewEquipment();}
 		if(random == null) random = new Random();
 		if(aliases == null) aliases  = new TreeSet<UserData>();
-		
+		if(items == null) items = new ArrayList<Usable>();
 	}
 
 	protected void generateNewEquipment() {
@@ -189,5 +198,13 @@ public class Player extends Playable{
 	
 	public String toString() {
 		return name+", the "+(alignment != null ? alignment+" " : "")+"level "+level + " "+classType;
+	}
+
+	
+	public void addItem(Usable usable) {
+		if(items.contains(usable)){
+			Usable old = items.get(items.indexOf(usable));
+			old.addTo();
+		} else items.add(usable);
 	}
 }
