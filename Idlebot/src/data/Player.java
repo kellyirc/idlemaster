@@ -126,8 +126,13 @@ public class Player extends Playable{
 	}
 
 	private void levelUp() {
+		//if(curTime.longValue() > timeLeft.longValue()) {
+		///	System.out.println(curTime.longValue() + " " + timeLeft.longValue() + getName());
+		//	curTime = new BigInteger(""+(curTime.longValue() - timeLeft.longValue()));
+		//} else 
+		curTime = new BigInteger("0");
 		timeLeft = timeLeft.add(calcLevelTime(level+1));
-		curTime = new BigInteger(""+curTime).subtract(timeLeft);
+		//System.out.println(curTime + " " + timeLeft);
 		IdleBot.botref.signalLevelUp(this);
 		level ++;
 	}

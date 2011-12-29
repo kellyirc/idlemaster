@@ -1,14 +1,20 @@
 package listeners;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.Map.Entry;
 
 import org.pircbotx.hooks.events.PrivateMessageEvent;
 
 import data.Item;
+import data.Monster;
 import data.Playable.Alignment;
 import data.Playable.Slot;
 import data.Player;
+import events.Battle;
 import events.Cataclysm;
+import generators.MonsterGenerator;
 
 import bot.IdleBot;
 
@@ -137,6 +143,27 @@ public class CommandListener extends
 			for(Player player : event.getBot().getPlayers()) {
 				player.warp();
 			}
+			break;
+		/*	
+		case "bossbattle":
+			ArrayList<Player> left = new ArrayList<>(IdleBot.botref.getOnlinePlayers());
+			ArrayList<Monster> right = new ArrayList<>();
+			right.add(MonsterGenerator.generateMonster(Alignment.Evil, 1));
+			new Battle(left, right);
+			break;
+			*/
+		case "teambattle":
+			ArrayList<Player> left = new ArrayList<>();
+			ArrayList<Player> right = new ArrayList<>();
+			LinkedList<Player> players = IdleBot.botref.getOnlinePlayers();
+			if(players.size() < 2) return;
+			Collections.shuffle(players);
+			for(int i=0; i<players.size(); i++) {
+				if(i%2 == 0) right.add(players.get(i));
+				else left.add(players.get(i));
+			}
+			new Battle(left, right);
+			break;
 
 		default:
 			event.getBot().sendMessage(event.getUser(), "Your command is invalid!");

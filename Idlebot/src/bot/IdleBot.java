@@ -262,7 +262,7 @@ public class IdleBot extends PircBotX implements Globals {
 	public LinkedList<Player> getOnlinePlayers() {
 		LinkedList<Player> ll = new LinkedList<>();
 		for (Playable p : players) {
-			if (p instanceof Player && ((Player) p).loggedIn)
+			if (p instanceof Player && ((Player) p).loggedIn && !p.getName().equals("IdleMaster"))
 				ll.add((Player) p);
 		}
 		return ll;

@@ -23,24 +23,33 @@ public class Battle {
 	public static final String BATTLE = " *** ";
 	
 	private class Team {
-		public ArrayList<Playable> members;
+		public ArrayList<? extends Playable> members;
 		public Playable leader;
 		public int spiritual = 0;
 		public int emotional = 0;
 		
-		public Team(ArrayList<Playable> team) {
+		public Team(ArrayList<? extends Playable> team) {
 			members = team;
 			leader = team.get(rand.nextInt(team.size()));
 		}
 		
+		private String condenseMembers() {
+			String s = "";
+			for(Playable p : members) {
+				s += (p.health <= 0 ? Colors.LIGHT_GRAY :Colors.RED) + p.getName() + " ["+p.health+"] "+Colors.NORMAL;
+			}
+			return s;
+		}
+		
 		public String toString() {
-			return members.size() > 1 ? "Team "+leader.getName() + " "+members : leader.getName();
+			return members.size() > 1 ? "Team "+leader.getName() +Colors.NORMAL+" {"+condenseMembers()+"}" : leader.getName();
 		}
 		
 		public void initialize() {
 			for(Playable p : members) {
 				if(p instanceof Player) isMonsterOnly = false;
-				if(!((p instanceof Monster) && ((Monster) p).strings!=null && p.health > 0)) p.health = p.calcTotal(null);
+				if(!((p instanceof Monster) && ((Monster) p).strings!=null && p.health > 0))p.health = p.calcTotal(null);
+				if(((p instanceof Monster) && ((Monster) p).strings!=null)) p.health += ((Monster)p).getBonus();
 				emotional += p.calcTotal(Type.Emotional);
 				spiritual += p.calcTotal(Type.Spiritual);
 			}
@@ -97,14 +106,7 @@ public class Battle {
 		
 		public String toBattleString() {
 			if(members.size() == 1) return leader.toBattleString();
-			String builder = "[ ";
-			for(Playable p : members) {
-				if(p.health <= 0) builder += Colors.DARK_GRAY + p.toBattleString() + Colors.NORMAL;
-				else builder += p.toBattleString();
-				builder += " ";
-			}
-			builder += "]";
-			return builder;
+			return toString();
 		}
 	}
 	
@@ -114,7 +116,7 @@ public class Battle {
 	private int turns = 0;
 	boolean isMonsterOnly = true;
 	
-	public Battle(ArrayList<Playable> left, ArrayList<Playable> right) {
+	public Battle(ArrayList<? extends Playable> left, ArrayList<? extends Playable> right) {
 		this.left = new Team(left);
 		this.right = new Team(right);
 		run();
@@ -265,6 +267,11 @@ public class Battle {
 
 	private void kill(Playable second, Playable first) {
 		battleMessage(Colors.RED+BATTLE + second + " killed "+first+".");
+		if(second instanceof Monster && ((Monster) second).strings != null) {
+			battleMessage("["+second.getName() + "] " +((Monster)second).strings.kill);
+		} else if(first instanceof Monster && ((Monster)first).strings != null) {
+			battleMessage("["+second.getName() + "] " +((Monster)first).strings.death);
+		}
 		trySteal(second, first);
 		if(!(first instanceof Player)) {
 			((Monster)first).die(second);
