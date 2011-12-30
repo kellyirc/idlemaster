@@ -10,8 +10,15 @@ torc,12
 eye,15
 heart,20
 orb,25
+locket,35
+beads,50
+scarf,77
+bowtie,110
+ascot,240
+fake beard,262
 Amethyst Necklace,350
 Antique Brooch,450
 Aesculapius Eye,550
 Arihman's Heart,650
 Fated Orb,750
+Noose of Ascension,800

@@ -45,9 +45,10 @@ public class DummyUsable {
 		new DummyUsable("pandorasbox", 	1500000, "A black box from the age of the ancients."),
 		new DummyUsable("wishingwell", 	36000, "A giant well. How are you supposed to carry this around?"),
 		new DummyUsable("wishingfountain", 	456000, "An enormous fountain. Do you have a packmule?"),
+		new DummyUsable("mirror", 			10000, "A mirror that seems to reflect light. Who'd've thought that was possible?"),
 		new DummyUsable("darkmirror", 		500000, "A mirror that seems to reflect the darkest desires within you."),
 		new DummyUsable("genielamp", 		1000000, "A solid gold lamp."),
-		new DummyUsable("geniilamp", 		6000, "A solid bronze lamp."),
+		new DummyUsable("geniilamp", 		60000, "A solid bronze lamp."),
 		new DummyUsable("philosopherstone", 450000, "A small, chromatic gem."),
 		new DummyUsable("wingedshoes", 	100000, "A pair of shoes with wings attached to them. Nothing special."),
 	};

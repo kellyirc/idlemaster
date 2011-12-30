@@ -11,3 +11,7 @@ A stampede of wild raccoons topples %player, causing him/her to drop his/her %it
 A demon decides to play a trick on %player by placing a curse on his/her %item.
 %player's %item was exposed to spontaneous and strong Gamma radiation, and is now glowing a bright shade of red.
 %player tried using his/her %item for pleasuring purposes. Needless to say, it didn't end well.
+%player was hit by the salmon rain, and dropped %item.
+%player was baked into a cupcake, and unfortunately, %item got one too many bits of confetti on it.
+%player was forced to watch ponies on the moving picture box, and someone snuck up behind him/her and bent %item.
+%player discovered tumblr on the magic box and left %item to gather dust and rust.

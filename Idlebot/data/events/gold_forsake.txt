@@ -15,3 +15,5 @@ As %player was going around stealing cheese wheels from various shops, a guard a
 %player spent %money gold reforging his/her items, and none of them are Mythical.
 %player spent %money gold reforging his/her items, and none of them are Unreal.
 %player spent %money gold reforging his/her items, and none of them are Legendary.
+%player died. Score: %money
+%player spent %money gold playing farmville, cityville, castleville, townville, kitchenville, and shitville.

@@ -3,6 +3,7 @@ ice cream cone,2
 arrow,3
 bullet,4
 spoon,5
+cupcake,6
 rusty spoon,9
 pillow,10
 watermelon,13
@@ -81,6 +82,7 @@ ayuvir,124
 cube,125
 manual,126
 vial,127
+cheese wheel,128
 contraption,130
 utensil,131
 large trout,135
@@ -96,6 +98,7 @@ warhammer,165
 shuriken,168
 chakram,170
 sling,172
+reflector,173
 longbow,175
 crossbow,177
 greatmace,180
@@ -103,7 +106,9 @@ javelin,182
 gun,183
 partisan,184
 blowgun,185
+tears,186
 bazooka,188
+rosary,189
 king of hearts,190
 cannon,192
 queen of clubs,195
@@ -113,26 +118,50 @@ jack of diamonds,201
 flyssa,203
 flyswatter,204
 greataxe,205
+pet rock,206
 ace of spades,207
+pet turtle,208
+pet hedgehog,209
+glaive,210
+butcher blade,212
 armcannon,215
 tsurigi,221
+stompin' boots,228
 longbow,235
+zweihander,300
 grayswandir,335
+razor,375
+party cannon,404
+rock candy,410
 muramasa,435
 murasame,535
 masamune,635
+arbalest,653
+pinto,700
 mjollnir,735
+killer7,777
 graytooth,835
+pet hellhound,906
 hellbat,935
 deathswat,1035
+whatisthis,1076
 lightspear,1135
+ponybane,1215
 holyspear,1235
+crystal gun,1300
 skullcrusher,1335
 steelhorn,1403
+dragon killing bare hands,1453
 magicbane,1503
 excalibur,1603
+popsicle stick,1650
+gungnir,1703
+popsicle,1750
 Reina's Billhook,350
 Gigasword,390
 Vacuum Gun,420
 Full Ale Bottle,450
 Chaos Grid,500
+Mom's Knife,666
+MatCatz Tournament Edition Arcade Stick,895
+Lord of Vermillion,1000

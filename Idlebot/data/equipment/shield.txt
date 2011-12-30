@@ -12,6 +12,22 @@ bulwark,23
 wing,27
 escutcheon,31
 aegis,37
+magic bubble,45
+shieldkind,51
+turtle shell,59
+iron ingot,63
+mirror shield,72
+barrier birds,78
+tribal shield,90
+riot shield,124
+car door,135
+cube of meat,150
+phalanx shield,173
+spiked targe,203
+dragonscale, 250
 Shield of Four Elements,325
 Companion Cube,380
 Reinforced Chunk of Rust,450
+Summoned Swords,570
+Hero's Shield,650
+Holy Arms,777

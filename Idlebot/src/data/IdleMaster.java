@@ -22,7 +22,7 @@ public class IdleMaster extends Player {
 		equipment.put(Slot.Neck, new Item("Transcendent Torc of the Idling Gods", 1000, Type.Magical, Item.ItemClass.Special));
 		equipment.put(Slot.Shield, new Item("Supersonic Shield of the Idling Gods", 1000, Type.Physical, Item.ItemClass.Special));
 		equipment.put(Slot.Weapon, new Item("Wingsaber, the Whirling Blade", 500, Type.Emotional, Item.ItemClass.Special));
-		equipment.put(Slot.Charm, new Item("Cosmic Charm of the Idling Gods", 50, Type.Spiritual, Item.ItemClass.Special));
+		equipment.put(Slot.Charm, new Item("Cosmic Charm of the Idling Gods", 500, Type.Spiritual, Item.ItemClass.Special));
 	}
 
 	@Override

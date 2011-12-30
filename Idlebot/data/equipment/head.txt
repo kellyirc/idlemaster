@@ -23,11 +23,22 @@ pile of helms,55
 cardboard box,60
 saucer,65
 paper hat,70
+tinfoil hat,87
+hipster hat,96
+earbuds,101
+skull,165
+umbrella hat,176
+cute animal,190
+monocle,210
 Fedora,250
 Jungle Rose,300
 Dunce Cap,350
 Top Hat,450
 Holy Mitre,550
 Metal Box,600
+Fusion Earring,630
 Flying Saucer,650
+Powdered Wig,680
 Ye Olde Helm,750
+Viking Helmet,780
+Chap's Monocle,800

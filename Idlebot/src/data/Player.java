@@ -68,6 +68,16 @@ public class Player extends Playable{
 		}
 	}
 	
+	public boolean tryEquip(Item i, Slot slot) {
+		if(i.compareTo(equipment.get(slot)) > 0 && canEquip(slot, i)) {
+			equip(slot, i);
+			return true;
+		} else {
+			sell(i);
+		}
+		return false;
+	}
+	
 	public BigInteger calcLevelTime(int level) {
 		return new BigInteger(""+600).multiply(new BigInteger(""+Math.round(Math.pow(1.16, level)*100)));
 	}

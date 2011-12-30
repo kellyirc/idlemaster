@@ -257,7 +257,7 @@ public class Battle {
 	private void victory(Team victors, Team losrars) {
 		battleMessage(Colors.DARK_GREEN+BATTLE + victors + " won the battle!");
 		float mod = Math.abs(((victors.getTotalLevel() - losrars.getTotalLevel()) / 4)+1);
-		long timeMod = (long) (757 * Math.abs(victors.getRemainingLife() - losrars.getRemainingLife()) * (mod == 0 ? 1 : mod));
+		long timeMod = (long) (757 * Math.abs(victors.getRemainingLife() - Math.max(losrars.getRemainingLife(), 0)) * (mod == 0 ? 1 : mod));
 		victors.timeMod(timeMod);
 		losrars.timeMod(-timeMod/2);
 	}
@@ -320,14 +320,14 @@ public class Battle {
 		}
 	}
 	
-	public static void steal(Playable left, Playable right) {
+	public static boolean steal(Playable left, Playable right) {
 		//if(left instanceof Monster) return;
 		Slot s = Playable.Slot.values()[rand.nextInt(Playable.Slot.values().length)];
 		
 		Item old = left.getEquipmentRaw().get(s);
 		Item pnew = right.getEquipmentRaw().get(s);
 		
-		if(old == null || pnew == null) return;
+		if(old == null || pnew == null) return false;
 		
 		if(pnew.getValue() > old.getValue()) {
 			IdleBot.botref.messageChannel(Colors.DARK_BLUE+left.getName()+ " stole "+pnew.getName()+" from "+right.getName()+"!");
@@ -336,6 +336,7 @@ public class Battle {
 		} else {
 			IdleBot.botref.messageChannel(Colors.DARK_BLUE+left.getName()+ " would have stolen "+pnew.getName()+" from "+right.getName()+", if it were any good.");
 		}
+		return true;
 	}
 	
 }

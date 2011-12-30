@@ -3,11 +3,15 @@ package data;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.Map.Entry;
 import java.util.Random;
 
+import data.Item.ItemClass;
 import data.Playable.Alignment;
+import data.Playable.Slot;
 
 import events.*;
+import generators.ItemGenerator;
 import generators.MonsterGenerator;
 
 import bot.IdleBot;
@@ -57,15 +61,7 @@ public class Usable {
 			p.levelUp();
 			break;
 		case "crystalshard":
-			if(r.nextInt(100) > 35) {
-				Player rand = IdleBot.botref.getRandomPlayer();
-				IdleBot.botref.messageChannel(".. and was whisked away to "+rand.getName()+"!");
-				p.warp(rand);
-			}
-			else {
-				IdleBot.botref.messageChannel(".. and was whisked away!");
-				p.warp();
-			}
+			doCrystalShard(p);
 			break;
 		case "crystalball":
 			p.stats.cataCaused++;
@@ -93,11 +89,187 @@ public class Usable {
 			p.levelUp();
 			break;
 		case "geniilamp":
+			doGeniiLamp(p);
+			break;
+		case "boo":
+			doBoo();
+			break;
+		case "megaboo":
+			doMegaboo();
+			break;
+		case "pocketwatch":
+			doPocketwatch(p);
+			break;
+		case "bomb":
+			doBomb(p);
+			break;
+		case "mirv":
+			doMIRV(p);
+			break;
+		case "lottoticket":
+			doLotto(p);
+			break;
+		case "luckydice":
+			doDice(p);
+			break;
+		case "wishingwell":
+			doWishingWell();
+			break;
+		case "wishingfountain":
+			for(Player player : IdleBot.botref.getOnlinePlayers()) {
+				Item i = ItemEvent.getRandomItem(player);
+				IdleBot.botref.messageChannel("Suddenly, "+player.getName()+"'s "+i.getName()+" became more powerful! ["+i.getValue()+"->"+Math.round(i.getValue()*1.1)+"]");
+				i.setValue((int) (i.getValue()*1.1));
+			}
+			break;
+		case "mirror":
+			break;
+		case "pandorasbox":
+			for(int i=0; i<7; i++) {
+				new Cataclysm();
+			}
+			break;
+		case "darkmirror":
+			//TODO doppelganger
 			break;
 		}
 		count--;
 		p.stats.itemUses++;
 		return true;
+	}
+
+	private void doWishingWell() {
+		Player rand = IdleBot.botref.getRandomPlayer();
+		for(Entry<Slot, Item> i : rand.getEquipment()) {
+			i.getValue().setValue((int) (i.getValue().getValue()*1.05));
+		}
+		IdleBot.botref.messageChannel("...and suddenly, "+rand.getName()+" feels more powerful!");
+	}
+
+	private void doDice(Player p) {
+		int rolls=0;
+		while(rolls++>0 && (r.nextInt(6) == r.nextInt(6)));
+		if(rolls == 0) {
+			IdleBot.botref.messageChannel("...but couldn't roll the dice to save his/her life!");
+		} else {
+			long gain = (long) (rolls*(Math.pow(1.16, p.getLevel()))*90000);
+			IdleBot.botref.messageChannel("...and got "+IdleBot.botref.ms2dd(gain)+" taken away from his/her level timer!");
+			p.modifyTime(gain);
+		}
+	}
+
+	private void doLotto(Player p) {
+		int value=10;
+		while(Battle.prob(33)) {
+			value*=10;
+		}
+		IdleBot.botref.messageChannel("...and won "+value+" gold!");
+		p.setMoney(p.getMoney()+value);
+	}
+
+	private void doMIRV(Player p) {
+		for(int i=0; i<7; i++) {
+			doBomb(p);
+		}
+	}
+
+	private void doBomb(Player p) {
+		Player rand = IdleBot.botref.getRandomPlayer();
+		Item left = ItemEvent.getRandomItem(p);
+		if(Math.random() > 0.8) {
+			IdleBot.botref.messageChannel("..."+rand.getName()+" dodged the bomb!");
+		} else {
+			long l = (long) (Math.random() * 500000);
+			IdleBot.botref.messageChannel("..."+rand.getName()+" got hit by the bomb, causing "+left.getName()+" to crack ("+left.getValue()+"->"+Math.round(left.getValue()*0.8)+") and taking a "+IdleBot.botref.ms2dd(l)+" to his/her level timer!");
+			left.setValue((int) (left.getValue() * 0.8));
+			p.modifyTime(l);
+		}
+	}
+
+	private void doCrystalShard(Player p) {
+		if(r.nextInt(100) > 35) {
+			Player rand = IdleBot.botref.getRandomPlayer();
+			IdleBot.botref.messageChannel(".. and was whisked away to "+rand.getName()+"!");
+			p.warp(rand);
+		}
+		else {
+			IdleBot.botref.messageChannel(".. and was whisked away!");
+			p.warp();
+		}
+	}
+	
+	private void doBoo() {
+		Player rand = IdleBot.botref.getRandomPlayer();
+		Player recip = IdleBot.botref.getRandomPlayer();
+		int i = (int) ((Math.random() * rand.getMoney()-1)+1);
+		IdleBot.botref.messageChannel("...the ghost took "+i+"gold from "+rand.getName()+"!");
+		if(rand.equals(recip)) {
+			IdleBot.botref.messageChannel("...and gave it right back!");
+			return;
+		} else {
+			IdleBot.botref.messageChannel("...and gave it to "+recip.getName()+"!");
+			rand.setMoney(rand.getMoney() - i);
+			recip.setMoney(recip.getMoney() + i);
+		}
+	}
+
+	private void doPocketwatch(Player p) {
+		if(r.nextBoolean()) {
+			IdleBot.botref.messageChannel("...and realized s/he was late for a very important date!");
+			new TimeEvent(p, TimeEvent.Type.Forsaken);
+			new ItemEvent(p, false);
+			new MoneyEvent(p, false);
+		} else {
+			IdleBot.botref.messageChannel("...and realized s/he is meant to arrive precisely when s/he feels like it!");
+			new TimeEvent(p, TimeEvent.Type.Blessing);
+			new ItemEvent(p, true);
+			new MoneyEvent(p, true);
+		}
+	}
+
+	private void doMegaboo() {
+		Player left = IdleBot.botref.getRandomPlayer();
+		Player right;
+		do {
+			right = IdleBot.botref.getRandomPlayer();
+		} while(left.equals(right));
+		if(!Battle.steal(left, right)) {
+			IdleBot.botref.messageChannel("...but it failed!");
+		}
+	}
+
+	private void doGeniiLamp(Player p) {
+		int i = r.nextInt(100);
+		if(i < 10) {
+			Slot slot = Playable.Slot.values()[r.nextInt(Playable.Slot.values().length)];
+			Item item = ItemGenerator.generateItem(slot, ItemClass.Avatar, null);
+			if(p.tryEquip(item, slot)) { 
+				IdleBot.botref.messageChannel("...and got a/n "+item.getName() + " <<"+item.getValue()+">>!");
+			} else
+				IdleBot.botref.messageChannel("...but had to sell his/her new "+item.getName() + "...");
+		} else if(i < 30) {
+			IdleBot.botref.messageChannel("...but nothing happened!");
+		} else if(i < 65) {
+			IdleBot.botref.messageChannel("...and got a terrible occurrence!");
+			switch(r.nextInt(3)) {
+			case 0:
+				new ItemEvent(p, false);
+				break;
+			case 1:
+				new TimeEvent(p, TimeEvent.Type.Forsaken);
+				break;
+			case 2:
+				new MoneyEvent(p, false);
+				break;
+			}
+		} else if(i < 85) {
+			IdleBot.botref.messageChannel("...and lost a level!");
+			p.setLevel((short) (p.getLevel()-1));
+		} else {
+			IdleBot.botref.messageChannel("...and got a cataclysmic occurrence!!");
+			p.stats.cataCaused++;
+			new Cataclysm();
+		}
 	}
 
 	private void doFight(Player p) {
@@ -191,18 +363,33 @@ public class Usable {
 		case "starshard":
 			return "%player wishes death upon all others in the world!";
 		case "boo":
+			return "%player calls upon the ghost of gold thievery!";
 		case "megaboo":
+			return "%player calls upon the idol of item thievery!";
 		case "pocketwatch":
+			return "%player looks at his/her pocketwatch...";
 		case "bomb":
+			return "%player lights the fuse of a bomb and tosses it in the air!";
 		case "mirv":
+			return "%player fires a MIRV. Uh-oh!";
 		case "lottoticket":
+			return "%player reads the winning lotto numbers...";
 		case "luckydice":
+			return "%player rolls a pair of ancient dice...";
 		case "pandorasbox":
+			return "%player opened pandora's box!";
 		case "wishingwell":
+			return "%player took a sip of water from his/her wishing well, which seems to just follow him/her around...";
 		case "wishingfountain":
+			return "%player took a dip in his/her wishing fountain...";
+		case "mirror":
+			return "%player gazes into a mirror...";
 		case "darkmirror":
+			return "%player gazes deeply into a darkened mirror...";
 		case "genielamp":
+			return "%player rubs a shiny gold lamp..";
 		case "geniilamp":
+			return "%player rubs an old bronze lamp..";
 		case "philosopherstone": case "wingedshoes": return "";
 		default:
 			return "THIS MESSAGE IS NOT CORRECT FOR "+name;
