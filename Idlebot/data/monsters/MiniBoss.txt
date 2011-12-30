@@ -1,20 +1,20 @@
-Doppleganger,0
-Supersonic Wave,8080
-Wumpus,8000
-False Prophet,7800
-False Deity,7700
-Quetzacoatl,7600
-KR's Brain,7250
-Queen Gnat,7125
-Satoko,7000
-Professor Oak,6750
-Rival Blue,6625
-Book of the Night Sky Defense,6500
-Ze Sveden,6250
-Scarlet Devil,6125
-Cthulhu,6000
-Pedobear,5750
-Big Boo,5500
-Cookie Monster,5250
+Null Pointer,14000
+Supersonic Wave,13500
+Wumpus,13000
+False Prophet,12500
+False Deity,12000
+Quetzacoatl,11500
+KR's Brain,11000
+Queen Gnat,10500
+Satoko,10000
+Professor Oak,9500
+Rival Blue,9000
+Book of the Night Sky Defense,8500
+Ze Sveden,8000
+Scarlet Devil,7500
+Cthulhu,7000
+Pedobear,6500
+Big Boo,6000
+Cookie Monster,5500
 MidBoss,5000
-Null Pointer,9999
+Doppleganger,0

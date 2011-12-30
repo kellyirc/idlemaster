@@ -2,15 +2,32 @@ rarespawn,0
 gnat,1
 sick and dying animal,2
 godmonster,3
+bear,7
+viper,10
 louse,13
-mouse,25
+pig,14
+fish,17
+barbarian,20
+sly fish,22
+dog,24
+snake,25
+mouse,26
+wonderful fish,29
+snorting squirrel,30
+insect,33
 rat,50
+radioactive rabbit,65
 owl,75
+silly snake,80
 cat,100
+welsh warthog,120
+helpful hedgehog,130
 bat,150
 salamander,175
+red-eyed programmer,190
 slime,200
 ooze,225
+bustling badger,226
 insect swarm,227
 human nudist,230
 human farmer,236
@@ -29,14 +46,19 @@ kobold warrior,355
 kobold thief,357
 kobold,363
 kobold mage,364
+jumping jackalope,368
+castrated cat,369
 orc nudist,370
 orc brawler,375
 imp,383
 goblin,400
+vicious viking,410
+goofy gopher,425
 mimic,425
 orc witch,433
 orc,450
 orc fighter,451
+slippery seal,455
 half-orc,460
 half-orc warmage,461
 pygmy,462
@@ -44,11 +66,14 @@ hellhound,463
 ogre nudist,464
 ogre fighter,467
 ogre,475
+ogre barbarian,478
 ogre sorceror,480
 ogre oracle,485
 ogre alchemist,490
 ogre jouster,495
 will-o-wisp,500
+gelatinous jabberwocky,510
+lucid lynx,525
 ninja,550
 pirate,550
 caveman,550
@@ -61,16 +86,19 @@ geoduck,625
 jellyfish,633
 demon,650
 mist,700
-ye olde zombie,701
+olde zombie,701
 old zombie,735
 zombie,750
 zombie fighter,760
 smart zombie,770
 wight,775
 ghost,800
+diaphanous drake,810
 poltergeist,825
 ghoul,850
 mutant,875
+ornery ocelot,880
+gory giraffe,890
 skeleton,900
 skeletal knight,925
 skeletal magician,950
@@ -78,25 +106,35 @@ skeletal gnat,999
 skeletal rogue,1000
 vengeful soul,1025
 heretic,1033
+batcat,1040
 vampire,1050
 vampyre,1075
 minotaur,1100
 roc,1150
+daring duck,1160
 supergnat,1175
 giant,1200
+horny hornet,1210
+malicious meerkat,1225
 gryphon,1250
 mudman,1275
+never-narwhal,1280
 golem,1300
+intrepid iguana,1325
 hydra,1350
+derpig,1360
 gorgon,1375
 unicorn,1400
 dragon,1450
 behemoth,1475
 wyvern,1500
+kraken,1550
 phoenix,1600
 demogorgon,1800
+pixie,1900
 abomination,2000
 zealot,2100
+furious fawn,2150
 conjuror,2200
 laser cannon,2400
 incubator,2425
@@ -105,10 +143,13 @@ warmech,2500
 black knight,2600
 ninja pirate zombie robot,2700
 kappa,3100
+karmic koala,3200
 deity avatar,3300
 succubus,3333
 incubus,3333
 demigod,3400
+herping heron,3450
+derping deer,3475
 memory,3500
 manifestation,3550
 wandering spirit,3600

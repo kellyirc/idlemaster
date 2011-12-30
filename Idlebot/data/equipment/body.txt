@@ -26,5 +26,18 @@ fullplate,45
 riot armor,51
 scale mail,60
 dragonscale mail,70
+tempered chestplate,85
+squishy squish,95
+lifesaver,115
+combat vest,134
+holy garb,157
+dragonscale armor,186
+invisible armor,200
+Viking Armor,250
+Pokemon Pelt,352
 Invisibility Cloak,400
 Tuxedo,450
+Space Suit,504
+Baron's Cape,550
+Sentinel Armor,600
+Mazinger Z,700

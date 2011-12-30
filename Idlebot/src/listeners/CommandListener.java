@@ -1,8 +1,5 @@
 package listeners;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.Map.Entry;
 
 import org.pircbotx.hooks.events.PrivateMessageEvent;
@@ -13,8 +10,6 @@ import data.Playable.Alignment;
 import data.Playable.Slot;
 import data.Player;
 import data.Usable;
-import events.Battle;
-import events.Cataclysm;
 
 import bot.IdleBot;
 
@@ -106,10 +101,6 @@ public class CommandListener extends
 		case "align":
 			doAlignChange(event, args);
 			break;
-			
-		case "reload":
-			event.getBot().reload();
-			break;
 
 			/**
 			 * COMMAND: ignore
@@ -139,6 +130,30 @@ public class CommandListener extends
 			 */
 		case "use":
 			doItemUse(event, args);
+			break;
+
+			/**
+			 * COMMAND: class
+			 * ARGUMENTS: new class name
+			 * HELP: Change your class name.
+			 * PENALTY: None.
+			 */
+		case "class":
+			doClassChange(event, args);
+			break;
+
+			/**
+			 * COMMAND: gold
+			 * ARGUMENTS: None.
+			 * HELP: Shows your current amount of gold.
+			 * PENALTY: None.
+			 */
+		case "gold":
+			doGold(event);
+			break;
+			
+		case "reload":
+			event.getBot().reload();
 			break;
 			
 		case "cataclysm":
@@ -190,6 +205,30 @@ public class CommandListener extends
 			event.getBot().sendMessage(event.getUser(), "Your command is invalid!");
 			break;
 		}
+	}
+
+	private void doGold(PrivateMessageEvent<IdleBot> event) {
+		Player p = IdleBot.botref.getPlayerByUser(event.getUser());
+		if(p == null) {
+			event.getBot().sendMessage(event.getUser(), "You aren't logged in.");
+			return;
+		}
+		event.getBot().sendMessage(event.getUser(), "Gold: "+p.getMoney());
+	}
+
+	private void doClassChange(PrivateMessageEvent<IdleBot> event, String[] args) {
+		if(args.length<2) {
+			event.getBot().sendMessage(event.getUser(), "Invalid arguments: class my-new-class");
+			return;
+		}
+		Player p = IdleBot.botref.getPlayerByUser(event.getUser());
+		if(p == null) {
+			event.getBot().sendMessage(event.getUser(), "You aren't logged in.");
+			return;
+		}
+		p.setClassType(event.getMessage().substring(event.getMessage().indexOf(args[1])));
+		IdleBot.botref.messageChannel(p.getName() + " is now a/n: "+p.getClassType());
+		IdleBot.botref.penalize(event.getUser(), 100);
 	}
 
 	private void doItemUse(PrivateMessageEvent<IdleBot> event, String[] args) {

@@ -18,6 +18,8 @@ public class Statistics {
 	public int itemForsake=0;
 	public int moneyFound=0;
 	public int moneyLost=0;
+	public int timesStolen=0;
+	public int timesStolenFrom=0;
 	public boolean hasPhilStone=false;
 	public boolean hasWingShoes=false;
 	

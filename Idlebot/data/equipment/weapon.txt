@@ -163,5 +163,5 @@ Vacuum Gun,420
 Full Ale Bottle,450
 Chaos Grid,500
 Mom's Knife,666
-MatCatz Tournament Edition Arcade Stick,895
+MadCatz Tournament Edition Arcade Stick,895
 Lord of Vermillion,1000

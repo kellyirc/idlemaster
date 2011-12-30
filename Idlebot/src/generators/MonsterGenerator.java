@@ -115,7 +115,7 @@ public class MonsterGenerator {
 			monName = normal[(int) (Math.random() * normal.length)];
 		}
 		
-		while(Battle.prob(30) || (name.equals("rarespawn") && tries++ < 10)) {
+		while(Battle.prob(30) || (monName.equals("rarespawn") && tries++ < 10)) {
 
 			Data[] array;
 			Data choice;

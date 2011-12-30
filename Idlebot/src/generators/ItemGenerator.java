@@ -99,6 +99,9 @@ public class ItemGenerator {
 
 			types.put(curtype, temp.toArray(GeneratorData.DUMMYARRAY));
 		}
+		
+		types.put(ItemClass.Animal, Utilities.loadFile(new URL("https://idlemaster.googlecode.com/svn/trunk/Idlebot/data/monsters/Monsters.txt")).toArray(GeneratorData.DUMMYARRAY));
+
 	}
 
 	public static Item generateItem(Slot slot) {

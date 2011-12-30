@@ -1,4 +1,4 @@
-Dark Falz,20000
-Ghost of KWRPG,30000
-Omega Shenron,50000
-Deity,100000
+Dark Falz,60000
+Ghost of KWRPG,90000
+Omega Shenron,120000
+Deity,150000

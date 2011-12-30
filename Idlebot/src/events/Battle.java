@@ -333,6 +333,9 @@ public class Battle {
 			IdleBot.botref.messageChannel(Colors.DARK_BLUE+left.getName()+ " stole "+pnew.getName()+" from "+right.getName()+"!");
 			left.getEquipmentRaw().put(s,pnew);
 			right.getEquipmentRaw().put(s,old);
+			
+			if(left instanceof Player) ((Player) left).stats.timesStolen++;
+			if(right instanceof Player) ((Player) right).stats.timesStolenFrom++;
 		} else {
 			IdleBot.botref.messageChannel(Colors.DARK_BLUE+left.getName()+ " would have stolen "+pnew.getName()+" from "+right.getName()+", if it were any good.");
 		}

@@ -172,8 +172,8 @@ public class Player extends Playable{
 
 	protected void sell(Item i) {
 		int gain = 0;
-		gain += i.getValue()/7;
-		gain *= Math.max(level/10,1);
+		gain += i.getValue()/5;
+		gain *= Math.max(level/5,1);
 		if(gain > 0) {
 			if(!isIgnoring && !(name.equals("IdleMaster"))) {
 				IdleBot.botref.sendNotice(IdleBot.botref.getUserByPlayer(this), "You gained "+gain+" gold from selling "+i+".");
@@ -193,7 +193,7 @@ public class Player extends Playable{
 		stats.timeSpent = stats.timeSpent.add(new BigInteger("10"));
 		
 		ticks++;
-		if(ticks % 1000 == 0) {
+		if(ticks % 9000 == 0) {
 			addNewItem();
 		} else if(ticks % (30)/(this.stats.hasWingShoes ? 3 : 1) == 0){
 			move();

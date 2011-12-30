@@ -4,5 +4,19 @@ band,4
 ring,6
 thimble,8
 knuckle,10
+poison touch,25
+tape,31
+knuckleduster,45
+uncut nails,67
+fingerblades,79
+miniature world,110
+fingerpuppet,165
+painted nails,225
+Egregiously Long Nails,250
+Blood of the Victims,275
 Ring of Slow Digestion,350
+Family Jewels,367
 Thickly Twisted Wire,450
+Magnetic Gloves,487
+Midas Touch,560
+Wolverine,635
