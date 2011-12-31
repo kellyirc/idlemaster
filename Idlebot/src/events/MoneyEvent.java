@@ -18,6 +18,10 @@ public class MoneyEvent {
 	static String[] badEvents;
 	
 	static {
+		initialize();
+	}
+
+	public static void initialize() {
 		try {
 			goodEvents = Utilities.loadFileNoArray(new URL("http://idlemaster.googlecode.com/svn/trunk/Idlebot/data/events/gold_bless.txt")).toArray(new String[0]);
 			badEvents = Utilities.loadFileNoArray(new URL("http://idlemaster.googlecode.com/svn/trunk/Idlebot/data/events/gold_forsake.txt")).toArray(new String[0]);

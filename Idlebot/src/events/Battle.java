@@ -293,7 +293,7 @@ public class Battle {
 		if(second instanceof Player && first instanceof Monster) ((Player)second).stats.monsterKilled++;
 		if(first.getGroup()!=null) {
 			if(left.members.contains(first) && first.equals(left.leader) && left.members.size() > 1) left.pickNewLeader();
-			if(right.members.contains(first) && right.equals(right.leader) && right.members.size() > 1) right.pickNewLeader();
+			if(right.members.contains(first) && first.equals(right.leader) && right.members.size() > 1) right.pickNewLeader();
 			first.getGroup().remove(first); 
 			first.setGroup(null);
 		}

@@ -6,6 +6,7 @@ import org.pircbotx.hooks.events.DisconnectEvent;
 import data.IdleMaster;
 import data.Player;
 
+import bot.Globals;
 import bot.IdleBot;
 
 public class SaveListener extends org.pircbotx.hooks.ListenerAdapter<IdleBot> {
@@ -46,16 +47,15 @@ public class SaveListener extends org.pircbotx.hooks.ListenerAdapter<IdleBot> {
 	public void onDisconnect(DisconnectEvent<IdleBot> event) throws Exception {
 		IdleBot.botref.savePlayers(false);
 		super.onDisconnect(event);
-		System.err.println("I died.");
 		for(Player p : event.getBot().getPlayers()) {
 			if(p.loggedIn) event.getBot().handleLogout(p);
 		}
 		while(!event.getBot().isConnected()){
 			System.err.println("Reconnecting attempt..");
 			event.getBot().reconnect();
-			System.err.println(event.getBot().isConnected());
 			Thread.sleep(10000);
 		}
+		event.getBot().joinChannel(Globals.Channel);
 	}
 
 }

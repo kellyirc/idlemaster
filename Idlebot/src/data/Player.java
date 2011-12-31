@@ -90,7 +90,7 @@ public class Player extends Playable{
 		Item current = equipment.get(s);
 		if(current.getValue() > i.getValue()) return false;
 		
-		if(i.getValue() > level * ((level/7)+2)*1.5) return false;
+		if(i.getValue() > (level * ((level/7)+2)*1.5)) return false;
 		
 		return true;
 	}

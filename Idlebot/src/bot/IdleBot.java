@@ -45,6 +45,9 @@ import data.Player;
 import data.Playable.Alignment;
 import data.UserData;
 import events.Event;
+import events.ItemEvent;
+import events.MoneyEvent;
+import events.TimeEvent;
 
 public class IdleBot extends PircBotX implements Globals {
 
@@ -412,6 +415,9 @@ public class IdleBot extends PircBotX implements Globals {
 		messageChannel("Reloading my generators...");
 		MonsterGenerator.initialize();
 		ItemGenerator.initialize();
+		ItemEvent.initialize();
+		MoneyEvent.initialize();
+		TimeEvent.initialize();
 		messageChannel("Reloaded.");
 	}
 

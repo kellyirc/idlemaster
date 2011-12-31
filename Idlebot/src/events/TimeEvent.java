@@ -1,5 +1,10 @@
 package events;
 
+import generators.Utilities;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.pircbotx.Colors;
 
 import bot.IdleBot;
@@ -12,6 +17,22 @@ public class TimeEvent {
 		Blessing, Fatehand, Forsaken
 	};
 
+	static String[] goodEvents;
+	static String[] badEvents;
+	
+	static {
+		initialize();
+	}
+
+	public static void initialize() {
+		try {
+			goodEvents = Utilities.loadFileNoArray(new URL("http://idlemaster.googlecode.com/svn/trunk/Idlebot/data/events/item_bless.txt")).toArray(new String[0]);
+			badEvents = Utilities.loadFileNoArray(new URL("http://idlemaster.googlecode.com/svn/trunk/Idlebot/data/events/item_forsake.txt")).toArray(new String[0]);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public TimeEvent(Player target) {
 		this(target, null);
 	}
@@ -22,7 +43,7 @@ public class TimeEvent {
 		case Blessing:
 			if(cusType!=null || Battle.prob(100 - target.getLevel()) && Battle.prob((int)(15*getModifier(target.getAlignment(), type)))) {
 				target.stats.blessed++;
-				doStuff("was blessed", target, false);
+				doStuff(goodEvents[(int) (Math.random() * goodEvents.length)], target, false);
 			}
 			break;
 		case Fatehand:
@@ -34,7 +55,7 @@ public class TimeEvent {
 		case Forsaken:
 			if(cusType!=null || Battle.prob(100 - target.getLevel()) && Battle.prob((int)(7*getModifier(target.getAlignment(), type)))) {
 				target.stats.forsaken++;
-				doStuff("was forsaken", target, true);
+				doStuff(badEvents[(int) (Math.random() * badEvents.length)], target, true);
 			}
 			break;
 		}
