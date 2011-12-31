@@ -64,6 +64,9 @@ public abstract class Playable {
 		return rev;
 	}
 	private boolean canBattle(Playable playable, Playable other) {
+		if(playable.group!=null) {
+			
+		}
 		if(playable.getGroup()!= null && other.getGroup()!= null && playable.getGroup().equals(other.getGroup())) return false;
 		return ( !isWithinLevel(playable, other) && !isWithinRange(playable, other));
 	}
@@ -192,12 +195,38 @@ public abstract class Playable {
 	}
 	
 	private boolean isWithinLevel(Playable left, Playable right) {
-		return (left.level*BATTLE_MULTIPLIER*3 < right.level || right.level*BATTLE_MULTIPLIER*3 < left.level);
-	}
-	private boolean isWithinRange(Playable left, Playable right) {
-		return (left.calcTotal(Type.Physical)*BATTLE_MULTIPLIER < right.calcTotal(Type.Physical) || right.calcTotal(Type.Physical)*BATTLE_MULTIPLIER < left.calcTotal(Type.Physical));
+		return (calcLevelGroup(left)*BATTLE_MULTIPLIER*3 < calcLevelGroup(right) || calcLevelGroup(right)*BATTLE_MULTIPLIER*3 < calcLevelGroup(left));
 	}
 	
+	private boolean isWithinRange(Playable left, Playable right) {
+		return (calcTotalGroup(left)*BATTLE_MULTIPLIER < calcTotalGroup(right) || calcTotalGroup(right)*BATTLE_MULTIPLIER < calcTotalGroup(left));
+	}
+	
+	private int calcLevelGroup(Playable left) {
+		if(left.getGroup() == null) return left.level;
+		int rev = 0;
+		for(Playable p : left.getGroup()) {
+			rev += p.getLevel();
+		}
+		return rev;
+	}
+	
+	private int calcTotalGroup(Playable left) {
+		if(left.getGroup() == null) return left.calcTotal(Type.Physical);
+		int rev = 0;
+		for(Playable p : left.getGroup()) {
+			rev += p.calcTotal(Type.Physical);
+		}
+		return rev;
+	}
+	
+	/**
+	 * @param equipment the equipment to set
+	 */
+	public void setEquipment(HashMap<Slot, Item> equipment) {
+		this.equipment = equipment;
+	}
+
 	public void move() {
 		if(x<0 || x>MAX_X) x=0;
 		if(y<0 || y>MAX_Y) y=0;

@@ -47,9 +47,7 @@ public class SaveListener extends org.pircbotx.hooks.ListenerAdapter<IdleBot> {
 	public void onDisconnect(DisconnectEvent<IdleBot> event) throws Exception {
 		IdleBot.botref.savePlayers(false);
 		super.onDisconnect(event);
-		for(Player p : event.getBot().getPlayers()) {
-			if(p.loggedIn) event.getBot().handleLogout(p);
-		}
+		
 		while(!event.getBot().isConnected()){
 			System.err.println("Reconnecting attempt..");
 			event.getBot().reconnect();

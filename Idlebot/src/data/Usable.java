@@ -86,7 +86,7 @@ public class Usable {
 			doBossBattle();
 			break;
 		case "genielamp":
-			p.levelUp();
+			doGenieLamp(p);
 			break;
 		case "geniilamp":
 			doGeniiLamp(p);
@@ -116,26 +116,94 @@ public class Usable {
 			doWishingWell();
 			break;
 		case "wishingfountain":
-			for(Player player : IdleBot.botref.getOnlinePlayers()) {
-				Item i = ItemEvent.getRandomItem(player);
-				IdleBot.botref.messageChannel("Suddenly, "+player.getName()+"'s "+i.getName()+" became more powerful! ["+i.getValue()+"->"+Math.round(i.getValue()*1.1)+"]");
-				i.setValue((int) (i.getValue()*1.1));
-			}
+			doWishingFountain();
 			break;
 		case "pandorasbox":
-			for(int i=0; i<7; i++) {
-				new Cataclysm();
-			}
+			doPandorasBox();
 			break;
 		case "mirror":
+			doMirror(p);
 			break;
 		case "darkmirror":
-			//TODO doppelganger
+			doDarkmirror(p);
 			break;
 		}
 		count--;
 		p.stats.itemUses++;
 		return true;
+	}
+
+	private void doDarkmirror(Player p) {
+		Battle b = new Battle(p, new Monster("Doppleganger", p.getAlignment()));
+		if(b.getVictor().members.contains(p)) {
+			generateItem(p, ItemClass.Idle);
+		}
+	}
+	
+	private void doMirror(Player p) {
+		if(r.nextBoolean()) {
+			if(p.getAlignment() != Alignment.Good) {
+				IdleBot.botref.messageChannel("...and felt a warped sense of duty, becoming good!");
+				p.setAlignment(Alignment.Good);
+				return;
+			}
+			new TimeEvent(p, TimeEvent.Type.Fatehand);
+			
+		} else {
+			if(p.getAlignment() != Alignment.Evil) {
+				IdleBot.botref.messageChannel("...and tasted the blood of the devil, becoming evil!");
+				p.setAlignment(Alignment.Evil);
+				return;
+			}
+			new TimeEvent(p, TimeEvent.Type.Fatehand);
+		}
+	}
+
+	private void doPandorasBox() {
+		for(int i=0; i<7; i++) {
+			new Cataclysm();
+		}
+	}
+
+	private void doWishingFountain() {
+		for(Player player : IdleBot.botref.getOnlinePlayers()) {
+			Item i = ItemEvent.getRandomItem(player);
+			IdleBot.botref.messageChannel("Suddenly, "+player.getName()+"'s "+i.getName()+" became more powerful! ["+i.getValue()+"->"+Math.round(i.getValue()*1.1)+"]");
+			i.setValue((int) (i.getValue()*1.1));
+		}
+	}
+
+	private void doGenieLamp(Player p) {
+		IdleBot.botref.messageChannel(p.getName() + " has three wishes!");
+		if(Math.random() < 0.05) {
+			IdleBot.botref.messageChannel("One of them was a level up!");
+			p.levelUp();
+		} else if(Math.random() < 0.5) { 
+			IdleBot.botref.messageChannel("One of them was more money!");
+			new MoneyEvent(p, true);
+		} else {
+			IdleBot.botref.messageChannel("One of them was more pain in the world!");
+			new TimeEvent(IdleBot.botref.getRandomPlayer(), TimeEvent.Type.Forsaken);
+		}
+		if(Math.random() < 0.1) {
+			IdleBot.botref.messageChannel("The second was worldly destruction!");
+			p.stats.cataCaused++;
+			new Cataclysm();
+		} else if(Math.random() < 0.3) {
+			IdleBot.botref.messageChannel("The second was more material possessions!");
+			new ItemFindEvent(p);
+		} else {
+			IdleBot.botref.messageChannel("The second was world peace!");
+		}
+		if(Math.random() < 0.3) {
+			IdleBot.botref.messageChannel("The third was power!");
+			IdleBot.botref.messageChannel(p.getName() +" prayed..");
+			generateItem(p);
+			
+		} else {
+			IdleBot.botref.messageChannel("The third was anything in the world!");
+			new Event(p);
+		}
 	}
 
 	private void doWishingWell() {
@@ -241,12 +309,7 @@ public class Usable {
 	private void doGeniiLamp(Player p) {
 		int i = r.nextInt(100);
 		if(i < 10) {
-			Slot slot = Playable.Slot.values()[r.nextInt(Playable.Slot.values().length)];
-			Item item = ItemGenerator.generateItem(slot, ItemClass.Avatar, null);
-			if(p.tryEquip(item, slot)) { 
-				IdleBot.botref.messageChannel("...and got a/n "+item.getName() + " <<"+item.getValue()+">>!");
-			} else
-				IdleBot.botref.messageChannel("...but had to sell his/her new "+item.getName() + "...");
+			generateItem(p);
 		} else if(i < 30) {
 			IdleBot.botref.messageChannel("...but nothing happened!");
 		} else if(i < 65) {
@@ -270,6 +333,19 @@ public class Usable {
 			p.stats.cataCaused++;
 			new Cataclysm();
 		}
+	}
+	
+	private void generateItem(Player p) {
+		generateItem(p, ItemClass.Avatar);
+	}
+
+	private void generateItem(Player p, ItemClass i) {
+		Slot slot = Playable.Slot.values()[r.nextInt(Playable.Slot.values().length)];
+		Item item = ItemGenerator.generateItem(slot, i, null);
+		if(p.tryEquip(item, slot)) { 
+			IdleBot.botref.messageChannel("...and got a/n "+item.getName() + " <<"+item.getValue()+">>!");
+		} else
+			IdleBot.botref.messageChannel("...but had to sell his/her new "+item.getName() + "...");
 	}
 
 	private void doFight(Player p) {

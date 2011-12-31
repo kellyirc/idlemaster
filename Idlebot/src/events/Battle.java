@@ -20,11 +20,12 @@ import data.Playable.Slot;
 import data.Player;
 import data.Monster;
 
-//TODO make doppelgangers work->pick random character from opposing team, rename to that person's doppelganger
 public class Battle {
 	public static final String BATTLE = " *** ";
 	
-	private class Team {
+	private Team victor;
+	
+	public class Team {
 		public CopyOnWriteArrayList<? extends Playable> members;
 		public Playable leader;
 		public int spiritual = 0;
@@ -49,6 +50,7 @@ public class Battle {
 		
 		public void initialize() {
 			for(Playable p : members) {
+				checkDoppleganger(p);
 				if(p instanceof Player) isMonsterOnly = false;
 				if(!((p instanceof Monster) && ((Monster) p).strings!=null && p.health > 0))p.health = p.calcTotal(null);
 				if(((p instanceof Monster) && ((Monster) p).strings!=null)) p.health += ((Monster)p).getBonus();
@@ -57,6 +59,18 @@ public class Battle {
 			}
 		}
 		
+		private void checkDoppleganger(Playable p) {
+			if(!(p.getName().equals("Doppleganger") && p instanceof Monster)) return;
+			Playable copy;
+			if(this.equals(right)) {
+				copy = left.pickAliveMember();
+			} else {
+				copy = right.pickAliveMember();
+			}
+			p.setEquipment(copy.getEquipmentRaw());
+			p.setName(copy.getName()+"'s Doppleganger");
+		}
+
 		public void timeMod(long l) {
 			for(Playable p : members) { 
 				if(p instanceof Player){
@@ -280,6 +294,8 @@ public class Battle {
 		long timeMod = (long) (456 * playerMod  * (mod == 0 ? 1 : mod));
 		victors.timeMod(timeMod);
 		losrars.timeMod(-timeMod/2);
+		
+		this.victor = victors;
 	}
 
 	private void battleMessage(String string) {
@@ -306,6 +322,11 @@ public class Battle {
 		trySteal(second, first);
 		if(!(first instanceof Player)) {
 			((Monster)first).die(second);
+			if(second instanceof Player) {
+				if(Battle.prob(3)) {
+					new ItemFindEvent((Player) second, (Monster)first);
+				}
+			}
 		} else {
 			tryCritStrike(second, first);
 			if(second instanceof Player)((Player)second).stats.battlesWon++;
@@ -350,6 +371,7 @@ public class Battle {
 	}
 	
 	public static boolean steal(Playable left, Playable right) {
+		if(right.getName().contains("Doppleganger") && right instanceof Monster)return false;
 		//if(left instanceof Monster) return;
 		Slot s = Playable.Slot.values()[rand.nextInt(Playable.Slot.values().length)];
 		
@@ -371,4 +393,8 @@ public class Battle {
 		return true;
 	}
 
+	public Team getVictor() {
+		return victor;
+	}
+	
 }

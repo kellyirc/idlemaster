@@ -10,7 +10,10 @@ public class Event {
 	public static final int EVENT_TIME = 15000;
 	
 	public Event() {
-		Player p = IdleBot.botref.getRandomPlayer();
+		this(IdleBot.botref.getRandomPlayer());
+	}
+	
+	public Event(Player p) {
 		
 		int i = (int) (Math.random() * 250);
 		Random r = new Random();
@@ -22,8 +25,10 @@ public class Event {
 			new ItemEvent(p, r.nextBoolean());
 		} else if(i<216){
 			new TimeEvent(p);
-		}  else {
+		}  else if(i < 232){
 			new TeamEvent();
+		} else {
+			new ItemFindEvent(p);
 		}
 	}
 	

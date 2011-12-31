@@ -151,6 +151,25 @@ public class CommandListener extends
 		case "gold":
 			doGold(event);
 			break;
+
+			/**
+			 * COMMAND: items
+			 * ARGUMENTS: None.
+			 * HELP: Shows your current items and their amounts.
+			 * PENALTY: None.
+			 */
+		case "items":
+			Player p = IdleBot.botref.getPlayerByUser(event.getUser());
+			if(p == null) {
+				event.getBot().sendMessage(event.getUser(), "You aren't logged in.");
+				return;
+			}
+			for(Usable u : p.getItems()) {
+				if(u.getCount() > 0) {
+					event.getBot().sendMessage(event.getUser(), u.getName() + ": "+u.getCount());
+				}
+			}
+			break;			
 			
 		case "reload":
 			event.getBot().reload();
@@ -161,12 +180,12 @@ public class CommandListener extends
 			break;
 			
 		case "team":
-			new events.TeamEvent();
+			//new events.TeamEvent();
 			break;
 			
 		case "announce":
 			if(args.length < 2) return;
-			event.getBot().messageChannel("[ANNOUNCEMENT] "+event.getMessage().substring(8));
+			//event.getBot().messageChannel("[ANNOUNCEMENT] "+event.getMessage().substring(8));
 			break;
 			
 		case "total":

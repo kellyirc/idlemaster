@@ -26,8 +26,8 @@ public class TimeEvent {
 
 	public static void initialize() {
 		try {
-			goodEvents = Utilities.loadFileNoArray(new URL("http://idlemaster.googlecode.com/svn/trunk/Idlebot/data/events/item_bless.txt")).toArray(new String[0]);
-			badEvents = Utilities.loadFileNoArray(new URL("http://idlemaster.googlecode.com/svn/trunk/Idlebot/data/events/item_forsake.txt")).toArray(new String[0]);
+			goodEvents = Utilities.loadFileNoArray(new URL("http://idlemaster.googlecode.com/svn/trunk/Idlebot/data/events/time_bless.txt")).toArray(new String[0]);
+			badEvents = Utilities.loadFileNoArray(new URL("http://idlemaster.googlecode.com/svn/trunk/Idlebot/data/events/time_forsake.txt")).toArray(new String[0]);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
@@ -71,7 +71,11 @@ public class TimeEvent {
 			perc = Math.random() > 0.5 ? -perc : perc;
 		}
 		long timeMod = (long) (((Math.pow(1.16, target.getLevel() ))*650000) * (perc/100.0));
-		IdleBot.botref.messageChannel((timeMod < 0 ? Colors.RED : Colors.DARK_GREEN) + target.getName() + " " + message + ", "+((timeMod < 0 ? "adding " : "removing ")+ IdleBot.botref.ms2dd(Math.abs(timeMod)) + (timeMod < 0 ? " to " : " from ")+"his/her level timer! ["+Math.abs(perc)+"%]"));
+		if(negative == null) {
+			IdleBot.botref.messageChannel((timeMod < 0 ? Colors.RED : Colors.DARK_GREEN) + target.getName() + " " + message + ", "+((timeMod < 0 ? "adding " : "removing ")+ IdleBot.botref.ms2dd(Math.abs(timeMod)) + (timeMod < 0 ? " to " : " from ")+"his/her level timer! ["+Math.abs(perc)+"%]"));
+		} else {
+			IdleBot.botref.messageChannel((timeMod < 0 ? Colors.RED : Colors.DARK_GREEN) + target.getName() + " " + message + " ["+IdleBot.botref.ms2dd(Math.abs(timeMod))+"]");
+		}
 		target.modifyTime(timeMod);
 	}
 

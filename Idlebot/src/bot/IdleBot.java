@@ -286,6 +286,7 @@ public class IdleBot extends PircBotX implements Globals {
 	}
 
 	public Player getRandomPlayer() {
+		if(getOnlinePlayers().size()  == 0) return null;
 		return getOnlinePlayers().toArray(new Player[0])[(int) (Math.random() *( getOnlinePlayers().size()-1))];
 	}
 
@@ -366,7 +367,11 @@ public class IdleBot extends PircBotX implements Globals {
 	}
 
 	public void messageChannel(String s) {
-		sendMessage(getGlobalChannel(), s);
+		try {
+			sendMessage(getGlobalChannel(), s);
+		} catch(Exception e) {
+			
+		}
 	}
 
 	public void movePlayerToNewNick(String oldNick, String newNick) {
