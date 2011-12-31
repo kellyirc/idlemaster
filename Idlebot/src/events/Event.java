@@ -22,7 +22,9 @@ public class Event {
 			new ItemEvent(p, r.nextBoolean());
 		} else if(i<216){
 			new TimeEvent(p);
-		} 
+		}  else {
+			new TeamEvent();
+		}
 	}
 	
 }

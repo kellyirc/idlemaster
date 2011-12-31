@@ -40,7 +40,7 @@ public class DummyUsable {
 		new DummyUsable("pocketwatch", 	25000, "A small pocketwatch."),
 		new DummyUsable("bomb", 				50000, "A dangerous explosive."),
 		new DummyUsable("mirv", 				450000, "A really dangerous explosive."),
-		new DummyUsable("lottoticket", 		1000, "A ticket to your dreamland."),
+		new DummyUsable("lottoticket", 		10000, "A ticket to your dreamland."),
 		new DummyUsable("luckydice", 		16000, "A pair of dice once used by a famous gambler."),
 		new DummyUsable("pandorasbox", 	1500000, "A black box from the age of the ancients."),
 		new DummyUsable("wishingwell", 	36000, "A giant well. How are you supposed to carry this around?"),

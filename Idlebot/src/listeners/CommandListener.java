@@ -160,6 +160,10 @@ public class CommandListener extends
 			//new Cataclysm();
 			break;
 			
+		case "team":
+			//new TeamEvent();
+			break;
+			
 		case "announce":
 			if(args.length < 2) return;
 			event.getBot().messageChannel("[ANNOUNCEMENT] "+event.getMessage().substring(8));
@@ -228,7 +232,7 @@ public class CommandListener extends
 		}
 		p.setClassType(event.getMessage().substring(event.getMessage().indexOf(args[1])));
 		IdleBot.botref.messageChannel(p.getName() + " is now a/n: "+p.getClassType());
-		IdleBot.botref.penalize(event.getUser(), 100);
+		IdleBot.botref.penalize(event.getUser(), p.getClassType().length());
 	}
 
 	private void doItemUse(PrivateMessageEvent<IdleBot> event, String[] args) {
@@ -274,7 +278,7 @@ public class CommandListener extends
 				return;
 			}
 			if(p.getMoney() >= item.cost) { 
-				event.getBot().sendMessage(event.getUser(), "You bought "+args[2]+"! You have "+p.getMoney()+" gold left.");
+				event.getBot().sendMessage(event.getUser(), "You bought "+args[2]+"! You have "+(p.getMoney()-item.cost)+" gold left.");
 				p.addItem(new Usable(args[2]));
 				p.setMoney(p.getMoney() - item.cost);
 				if(item.name.equals("philosopherstone")) p.stats.hasPhilStone = true;

@@ -82,7 +82,8 @@ public class Player extends Playable{
 		return new BigInteger(""+600).multiply(new BigInteger(""+Math.round(Math.pow(1.16, level)*100)));
 	}
 
-	protected boolean canEquip(Slot s, Item i) {
+	@Override
+	public boolean canEquip(Slot s, Item i) {
 		if(i.getItemClass() == data.Item.ItemClass.Avatar)
 			return true;
 		
@@ -145,13 +146,10 @@ public class Player extends Playable{
 	}
 
 	void levelUp() {
-		//if(curTime.longValue() > timeLeft.longValue()) {
-		///	System.out.println(curTime.longValue() + " " + timeLeft.longValue() + getName());
-		//	curTime = new BigInteger(""+(curTime.longValue() - timeLeft.longValue()));
-		//} else 
 		curTime = new BigInteger("0");
-		timeLeft = timeLeft.add(calcLevelTime(level+1));
-		//System.out.println(curTime + " " + timeLeft);
+		if(level < 100) {
+			timeLeft = timeLeft.add(calcLevelTime(level+1));
+		}
 		IdleBot.botref.signalLevelUp(this);
 		level ++;
 	}
@@ -172,7 +170,7 @@ public class Player extends Playable{
 
 	protected void sell(Item i) {
 		int gain = 0;
-		gain += i.getValue()/5;
+		gain += i.getValue()/6;
 		gain *= Math.max(level/5,1);
 		if(gain > 0) {
 			if(!isIgnoring && !(name.equals("IdleMaster"))) {

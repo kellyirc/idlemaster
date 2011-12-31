@@ -122,12 +122,12 @@ public class Usable {
 				i.setValue((int) (i.getValue()*1.1));
 			}
 			break;
-		case "mirror":
-			break;
 		case "pandorasbox":
 			for(int i=0; i<7; i++) {
 				new Cataclysm();
 			}
+			break;
+		case "mirror":
 			break;
 		case "darkmirror":
 			//TODO doppelganger

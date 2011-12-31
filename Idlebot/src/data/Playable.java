@@ -1,5 +1,6 @@
 package data;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -14,23 +15,25 @@ import bot.IdleBot;
 
 public abstract class Playable {
 	
-	public static final int MAX_X = 250;
-	public static final int MAX_Y = 250;
+	public enum Alignment { Evil, Good, Neutral }
+
+	public enum Direction { EAST, NORTH, NORTHEAST, NORTHWEST, SOUTH, SOUTHEAST, SOUTHWEST, WEST }
+	public enum Slot { Body, Charm, Feet, Finger, Hands, Head, Legs, Neck, Shield, Weapon }
 	
 	public static final double BATTLE_MULTIPLIER = 1.5;
 	
-	public enum Direction { NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST };
-	public enum Alignment { Evil, Good, Neutral };
-	public enum Slot { Neck, Head, Charm, Hands, Feet, Legs, Finger, Shield, Body, Weapon };
+	public static final int MAX_X = 250;;
+	public static final int MAX_Y = 250;;
+	protected Alignment alignment;;
 
-	protected Alignment alignment;
+	protected String classType;
+	
+	protected HashMap<Slot, Item> equipment = new HashMap<>();
+
+	private transient volatile ArrayList<? extends Playable> group;
 	
 	public transient int health = 0;
 	
-	protected String classType;
-
-	protected HashMap<Slot, Item> equipment = new HashMap<>();
-
 	protected short level = 0;
 
 	protected String name;
@@ -44,66 +47,14 @@ public abstract class Playable {
 		this.classType = classtype2;
 		this.alignment = align;
 	}
-	/**
-	 * @return the alignment
-	 */
-	public Alignment getAlignment() {
-		return alignment;
-	}
-	/**
-	 * @return the classType
-	 */
-	public String getClassType() {
-		return classType;
-	}
-	/**
-	 * @return the level
-	 */
-	public short getLevel() {
-		return level;
+
+	private boolean aboveX() {
+		return x-1 > 0;
 	}
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
+	private boolean aboveY() {
+		return y-1 > 0;
 	}
-
-	/**
-	 * @param alignment the alignment to set
-	 */
-	public void setAlignment(Alignment alignment) {
-		this.alignment = alignment;
-	}
-
-	/**
-	 * @return the equipment
-	 */
-	public Set<Entry<Slot, Item>> getEquipment() {
-		return equipment.entrySet();
-	}
-	/**
-	 * @param classType the classType to set
-	 */
-	public void setClassType(String classType) {
-		this.classType = classType;
-	}
-
-	/**
-	 * @param level the level to set
-	 */
-	public void setLevel(short level) {
-		this.level = level;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public int calcTotal(data.Item.Type type) {
 		int rev = 0;
 		for(Item i : equipment.values()) {
@@ -112,9 +63,115 @@ public abstract class Playable {
 		//if(type == null && this instanceof Monster) rev += ((Monster)this).getBonus();
 		return rev;
 	}
+	private boolean canBattle(Playable playable, Playable other) {
+		if(playable.getGroup()!= null && other.getGroup()!= null && playable.getGroup().equals(other.getGroup())) return false;
+		return ( !isWithinLevel(playable, other) && !isWithinRange(playable, other));
+	}
+	public boolean canEquip(Slot s, Item i) {
+		if(i.getItemClass() == data.Item.ItemClass.Avatar)
+			return true;
+		
+		Item current = equipment.get(s);
+		
+		if(current == null) return true;
+		
+		if(current.getValue() > i.getValue()) return false;
+		
+		if(i.getValue() > level * ((level/7)+2)*1.5) return false;
+		
+		return true;
+	}
+
+	public void dropItem() {
+		
+	}
+
+	public void engage(Playable other) {
+		if(canBattle(this, other)) {
+			if(this.alignment == Alignment.Good && other.alignment == Alignment.Neutral && Battle.prob(10)) {
+				IdleBot.botref.messageChannel(Battle.BATTLE + getName() + " greeted "+other.getName()+" and went on his/her merry way.");
+				return;
+			}
+			if(this.alignment == Alignment.Neutral && Battle.prob(20)) {
+				IdleBot.botref.messageChannel(Battle.BATTLE + getName() + " glanced at "+other.getName()+" and kept walking.");
+				return;
+			}
+			if(this.alignment == Alignment.Evil && Battle.prob(10)){
+				IdleBot.botref.messageChannel(Battle.BATTLE + getName() + " snickered as s/he walked by "+other.getName()+".");
+				if(Battle.prob(10)) {
+					Battle.steal(this, other);
+				}
+				return;
+			}
+			if(this instanceof Player) ((Player)this).stats.battlesCaused++;
+			new Battle(this, other);
+		} else {
+			if((this.level > other.level + 3 || this.calcTotal(null) > other.calcTotal(null) * BATTLE_MULTIPLIER) && Battle.prob(10)) {
+				IdleBot.botref.messageChannel(Battle.BATTLE + getName() + " walked past "+other.getName()+", laughing so hard, s/he was crying.");
+			} else if((this.level < other.level - 3 || this.calcTotal(null) * BATTLE_MULTIPLIER < other.calcTotal(null)) && Battle.prob(10)) {
+				IdleBot.botref.messageChannel(Battle.BATTLE + other.getName() + " passed by "+getName()+", laughing and gloating.");
+			} else if(Battle.prob(10)){
+				IdleBot.botref.messageChannel(Battle.BATTLE + other.getName() + " and "+getName() + " wave as they pass by each other.");
+			}
+			
+			if(other instanceof Monster) {
+				((Monster) other).die(null);
+			}
+		}
+		warp();
+	}
+
+	/**
+	 * @return the alignment
+	 */
+	public Alignment getAlignment() {
+		return alignment;
+	}
+	public String getBattleName() {
+		return Colors.BOLD + getName() + Colors.NORMAL;
+	}
+
+	/**
+	 * @return the classType
+	 */
+	public String getClassType() {
+		return classType;
+	}
+
+	public String getColorNumber(String color, Type type) {
+		return calcTotal(type) == 0 ? "" : "["+color+calcTotal(type)+Colors.NORMAL+"] ";
+	}
+
+	/**
+	 * @return the equipment
+	 */
+	public Set<Entry<Slot, Item>> getEquipment() {
+		return equipment.entrySet();
+	}
 	
-	public void takeTurn() {
-		move();
+	public HashMap<Slot,Item> getEquipmentRaw() {
+		return equipment;
+	}
+	
+	/**
+	 * @return the group
+	 */
+	public ArrayList<? extends Playable> getGroup() {
+		return group;
+	}
+	
+	/**
+	 * @return the level
+	 */
+	public short getLevel() {
+		return level;
+	}
+	
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
 	}
 	
 	/**
@@ -123,14 +180,7 @@ public abstract class Playable {
 	public int getX() {
 		return x;
 	}
-	
-	/**
-	 * @param x the x to set
-	 */
-	public void setX(int x) {
-		this.x = x;
-	}
-	
+
 	/**
 	 * @return the y
 	 */
@@ -138,16 +188,11 @@ public abstract class Playable {
 		return y;
 	}
 	
-	/**
-	 * @param y the y to set
-	 */
-	public void setY(int y) {
-		this.y = y;
+	private boolean isWithinLevel(Playable left, Playable right) {
+		return (left.level*BATTLE_MULTIPLIER*3 < right.level || right.level*BATTLE_MULTIPLIER*3 < left.level);
 	}
-
-	public void move(int xoff, int yoff) {
-		x += xoff;
-		y += yoff;
+	private boolean isWithinRange(Playable left, Playable right) {
+		return (left.calcTotal(Type.Physical)*BATTLE_MULTIPLIER < right.calcTotal(Type.Physical) || right.calcTotal(Type.Physical)*BATTLE_MULTIPLIER < left.calcTotal(Type.Physical));
 	}
 	
 	public void move() {
@@ -184,103 +229,75 @@ public abstract class Playable {
 			engage(p);
 		}
 	}
-	private boolean underX() {
-		return x+1 < MAX_X;
+	
+	public void move(int xoff, int yoff) {
+		x += xoff;
+		y += yoff;
 	}
 	
-	private boolean aboveY() {
-		return y-1 > 0;
+	/**
+	 * @param alignment the alignment to set
+	 */
+	public void setAlignment(Alignment alignment) {
+		this.alignment = alignment;
 	}
 	
-	private boolean aboveX() {
-		return x-1 > 0;
+	/**
+	 * @param classType the classType to set
+	 */
+	public void setClassType(String classType) {
+		this.classType = classType;
 	}
 	
-	private boolean underY() {
-		return y+1 < MAX_Y;
+	/**
+	 * @param group the group to set
+	 */
+	public void setGroup(ArrayList<? extends Playable> group) {
+		this.group = group;
 	}
 	
-	public void dropItem() {
-		
+	/**
+	 * @param level the level to set
+	 */
+	public void setLevel(short level) {
+		this.level = level;
 	}
 	
-	public void engage(Playable other) {
-	//	if(!(this instanceof Monster && other instanceof Monster && Battle.prob(5) && Battle.prob(5))) return;
-		if(canBattle(this, other)) {
-			if(this.alignment == Alignment.Good && other.alignment == Alignment.Neutral && Battle.prob(10)) {
-				IdleBot.botref.messageChannel(Battle.BATTLE + getName() + " greeted "+other.getName()+" and went on his/her merry way.");
-				return;
-			}
-			if(this.alignment == Alignment.Neutral && Battle.prob(20)) {
-				IdleBot.botref.messageChannel(Battle.BATTLE + getName() + " glanced at "+other.getName()+" and kept walking.");
-				return;
-			}
-			if(this.alignment == Alignment.Evil && Battle.prob(10)){
-				IdleBot.botref.messageChannel(Battle.BATTLE + getName() + " snickered as s/he walked by "+other.getName()+".");
-				if(Battle.prob(10)) {
-					Battle.steal(this, other);
-				}
-				return;
-			}
-			if(this instanceof Player) ((Player)this).stats.battlesCaused++;
-			new Battle(this, other);
-		} else {
-			if((this.level > other.level + 3 || this.calcTotal(null) > other.calcTotal(null) * BATTLE_MULTIPLIER) && Battle.prob(10)) {
-				IdleBot.botref.messageChannel(Battle.BATTLE + getName() + " walked past "+other.getName()+", laughing so hard, s/he was crying.");
-			} else if((this.level < other.level - 3 || this.calcTotal(null) * BATTLE_MULTIPLIER < other.calcTotal(null)) && Battle.prob(10)) {
-				IdleBot.botref.messageChannel(Battle.BATTLE + other.getName() + " passed by "+getName()+", laughing and gloating.");
-			} else if(Battle.prob(10)){
-				IdleBot.botref.messageChannel(Battle.BATTLE + other.getName() + " and "+getName() + " wave as they pass by each other.");
-			}
-			
-			if(other instanceof Monster) {
-				((Monster) other).die(null);
-			}
-		}
-		warp();
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 	
-	private boolean canBattle(Playable playable, Playable other) {
-		return ( !isWithinLevel(playable, other) && !isWithinRange(playable, other));
+	/**
+	 * @param x the x to set
+	 */
+	public void setX(int x) {
+		this.x = x;
 	}
 	
-	private boolean isWithinRange(Playable left, Playable right) {
-		return (left.calcTotal(Type.Physical)*BATTLE_MULTIPLIER < right.calcTotal(Type.Physical) || right.calcTotal(Type.Physical)*BATTLE_MULTIPLIER < left.calcTotal(Type.Physical));
+	/**
+	 * @param y the y to set
+	 */
+	public void setY(int y) {
+		this.y = y;
 	}
 	
-	private boolean isWithinLevel(Playable left, Playable right) {
-		return (left.level*BATTLE_MULTIPLIER*3 < right.level || right.level*BATTLE_MULTIPLIER*3 < left.level);
-	}
-	
-	public String getBattleName() {
-		return Colors.BOLD + getName() + Colors.NORMAL;
+	public void takeTurn() {
+		move();
 	}
 	
 	public String toBattleString() {
 		return getName() + Colors.BOLD +" ("+Colors.RED+health+Colors.NORMAL+"/"+Colors.RED+calcTotal(null)+Colors.NORMAL+") "+getColorNumber(Colors.BROWN, Type.Physical)+getColorNumber(Colors.BLUE, Type.Magical)+getColorNumber(Colors.PURPLE, Type.Emotional)+getColorNumber(Colors.DARK_BLUE, Type.Spiritual);
 	}
 	
-	public String getColorNumber(String color, Type type) {
-		return calcTotal(type) == 0 ? "" : "["+color+calcTotal(type)+Colors.NORMAL+"] ";
+	private boolean underX() {
+		return x+1 < MAX_X;
 	}
 	
-	public HashMap<Slot,Item> getEquipmentRaw() {
-		return equipment;
-	}
-	
-	protected boolean canEquip(Slot s, Item i) {
-		if(i.getItemClass() == data.Item.ItemClass.Avatar)
-			return true;
-		
-		Item current = equipment.get(s);
-		
-		if(current == null) return true;
-		
-		if(current.getValue() > i.getValue()) return false;
-		
-		if(i.getValue() > level * ((level/7)+2)*1.5) return false;
-		
-		return true;
+	private boolean underY() {
+		return y+1 < MAX_Y;
 	}
 	
 	public void warp() {

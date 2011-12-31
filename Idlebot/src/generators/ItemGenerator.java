@@ -133,7 +133,7 @@ public class ItemGenerator {
 
 		// try to make avatar (3/1000)
 		if (cl == ItemClass.Idle || cl == ItemClass.Avatar
-				|| GeneratorData.random.nextInt(1000) > 999) {
+				|| GeneratorData.random.nextInt(1000) > 997) {
 			itemClass = ItemClass.Avatar;
 			choice = types.get(ItemClass.Avatar)[GeneratorData.random.nextInt(types
 					.get(ItemClass.Avatar).length)];

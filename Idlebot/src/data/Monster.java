@@ -51,7 +51,7 @@ public class Monster extends Playable {
 	
 	public void addToBonus(int i) {
 		bonus += i;
-		this.level = (short) (bonus/25);
+		this.level = (short) (bonus/50);
 	}
 	
 	public int getBonus() {

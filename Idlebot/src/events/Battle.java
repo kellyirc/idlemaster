@@ -52,7 +52,7 @@ public class Battle {
 				if(!((p instanceof Monster) && ((Monster) p).strings!=null && p.health > 0))p.health = p.calcTotal(null);
 				if(((p instanceof Monster) && ((Monster) p).strings!=null)) p.health += ((Monster)p).getBonus();
 				emotional += p.calcTotal(Type.Emotional);
-				spiritual += p.calcTotal(Type.Spiritual);
+				spiritual += p.calcTotal(Type.Spiritual)/10;
 			}
 		}
 		
@@ -68,7 +68,7 @@ public class Battle {
 		public long getRemainingLife() { 
 			long ret = 0;
 			for(Playable p : members) { 
-				ret += p.health;
+				ret += p.health > 0 ? p.health : 0;
 			}
 			return ret;
 		}
@@ -82,10 +82,12 @@ public class Battle {
 		}
 		
 		public void takeDamage(Playable opp, int damage) {
-			for(Playable p : members) {
-				p.health -= damage;
-				if(p.health <= 0) {
-					kill(opp, p);
+			synchronized(members) {
+				for(Playable p : members) {
+					p.health -= damage;
+					if(p.health <= 0) {
+						kill(opp, p);
+					}
 				}
 			}
 		}
@@ -109,6 +111,10 @@ public class Battle {
 			if(members.size() == 1) return leader.toBattleString();
 			return toString();
 		}
+	
+		public void pickNewLeader() {
+			leader = pickAliveMember();
+		}
 	}
 	
 	Team left, right;
@@ -124,12 +130,20 @@ public class Battle {
 	}
 	
 	public Battle(Playable playable, Playable other) {
-		ArrayList<Playable> left = new ArrayList<>();
-		ArrayList<Playable> right = new ArrayList<>();
-		left.add(playable);
-		right.add(other);
-		this.left = new Team(left);
-		this.right = new Team(right);
+		if(playable.getGroup() != null) {
+			this.left = new Team(playable.getGroup());
+		} else {
+			ArrayList<Playable> left = new ArrayList<>();
+			left.add(playable);
+			this.left = new Team(left);
+		}
+		if(other.getGroup() != null) {
+			this.right = new Team(other.getGroup());
+		} else {
+			ArrayList<Playable> right = new ArrayList<>();
+			right.add(other);
+			this.right = new Team(right);
+		}
 		run();
 	}
 	
@@ -249,15 +263,21 @@ public class Battle {
 	}
 	
 	private void initialSpeech() {
-		if(left.members.size() == 1 && right.members.size() == 1) {
-			battleMessage(Colors.RED+BATTLE + left + " is raging up to "+right+"..!");
-		}
+		battleMessage(Colors.RED+BATTLE + (left.members.size() > 1 ? "Team " : "")+left.leader.getName() + " is raging up to "+(right.members.size() > 1 ? "Team " : "")+right.leader.getName()+"..!");
 	}
 
 	private void victory(Team victors, Team losrars) {
 		battleMessage(Colors.DARK_GREEN+BATTLE + victors + " won the battle!");
-		float mod = Math.abs(((victors.getTotalLevel() - losrars.getTotalLevel()) / 4)+1);
-		long timeMod = (long) (757 * Math.abs(victors.getRemainingLife() - Math.max(losrars.getRemainingLife(), 0)) * (mod == 0 ? 1 : mod));
+		
+		float vicMod = (victors.getTotalLevel()/(victors.members.size() == 0 ? 1 : victors.members.size()));
+		float losMod = (losrars.getTotalLevel()/(losrars.members.size() == 0 ? 1 : losrars.members.size()));
+		float mod = Math.abs( (vicMod - losMod) / 4) + 1;
+		
+		float victorLifeAvg = (victors.getRemainingLife() / (victors.members.size() == 0 ? 1 : victors.members.size()*2));
+		float losrarLifeAvg = (losrars.getRemainingLife() / (losrars.members.size() == 0 ? 1 : losrars.members.size()*2));
+		float playerMod = Math.abs(victorLifeAvg - Math.max(losrarLifeAvg, 0));
+		
+		long timeMod = (long) (757 * playerMod  * (mod == 0 ? 1 : mod));
 		victors.timeMod(timeMod);
 		losrars.timeMod(-timeMod/2);
 	}
@@ -270,12 +290,22 @@ public class Battle {
 
 	private void kill(Playable second, Playable first) {
 		battleMessage(Colors.RED+BATTLE + second + " killed "+first+".");
+		System.out.println("checking group");
+		if(first.getGroup()!=null) {
+			if(left.members.contains(first) && first.equals(left.leader)) left.pickNewLeader();
+			if(right.members.contains(first) && right.equals(right.leader)) right.pickNewLeader();
+			first.getGroup().remove(first); first.setGroup(null);
+		}
+		System.out.println("passed group; checking monster");
+		
 		if(second instanceof Monster && ((Monster) second).strings != null) {
 			battleMessage("["+second.getName() + "] " +((Monster)second).strings.kill);
 		} else if(first instanceof Monster && ((Monster)first).strings != null) {
 			battleMessage("["+second.getName() + "] " +((Monster)first).strings.death);
 		}
+		System.out.println("attempting steal");
 		trySteal(second, first);
+		System.out.println("try crit strike");
 		if(!(first instanceof Player)) {
 			((Monster)first).die(second);
 		} else {
@@ -303,7 +333,8 @@ public class Battle {
 	}
 
 	private void tryCritStrike(Playable second, Playable first) {
-		long timeMod = 757 * Math.max(Math.abs(second.health - first.health) * (((second.getLevel() - first.getLevel()) / 4)+1), 100);
+		float mod = Math.abs(((second.getLevel() - first.getLevel()) / 4)+1);
+		long timeMod = (long) (757 * Math.abs(second.health - Math.max(first.health, 0)) * (mod == 0 ? 1 : mod));
 
 		if(second.getAlignment() == Alignment.Good && first.getAlignment() == Alignment.Evil && prob(80)) {
 			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/2)+" to "+first.getName()+"'s level timer!");
@@ -329,7 +360,7 @@ public class Battle {
 		
 		if(old == null || pnew == null) return false;
 		
-		if(pnew.getValue() > old.getValue()) {
+		if(pnew.getValue() > old.getValue() && left.canEquip(s, pnew)) {
 			IdleBot.botref.messageChannel(Colors.DARK_BLUE+left.getName()+ " stole "+pnew.getName()+" from "+right.getName()+"!");
 			left.getEquipmentRaw().put(s,pnew);
 			right.getEquipmentRaw().put(s,old);
@@ -341,5 +372,5 @@ public class Battle {
 		}
 		return true;
 	}
-	
+
 }

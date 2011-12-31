@@ -20,7 +20,7 @@ public class Cataclysm {
 		Quadrant quad = Quadrant.values()[(int) (Math.random() * Quadrant
 				.values().length)];
 		int count = 0;
-		switch ((int) (Math.random() * 12)) {
+		switch ((int) (Math.random() * 13)) {
 
 		case 0:
 			IdleBot.botref
@@ -231,6 +231,12 @@ public class Cataclysm {
 				new ItemEvent(p, true);
 				new MoneyEvent(p, true);
 			}
+			break;
+			
+		case 13:
+			IdleBot.botref.messageChannel(Colors.DARK_GRAY
+					+ "Rays of black pour down from the sky!");
+			IdleBot.botref.generateMonsters();
 			break;
 		}
 	}

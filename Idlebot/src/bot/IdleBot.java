@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.TimeZone;
@@ -65,7 +67,7 @@ public class IdleBot extends PircBotX implements Globals {
 					new Event();
 				}
 				
-				if(ticks++%(Event.EVENT_TIME*5) == 0) {
+				if(ticks++%(Event.EVENT_TIME*10) == 0) {
 					Player pl = IdleBot.botref.getRandomPlayer();
 					Playable m = IdleBot.botref.getRandomMonster();
 					if(m != null) {
@@ -157,7 +159,7 @@ public class IdleBot extends PircBotX implements Globals {
 
 		// this.setModerated(getGlobalChannel());
 		this.setTopic(getGlobalChannel(), getCustomTopic());
-		new Thread(new EventThread()).run();
+		new Thread(new EventThread(), "Event Thread").run();
 	}
 
 	private void addListeners() {
@@ -436,7 +438,15 @@ public class IdleBot extends PircBotX implements Globals {
 
 	        signalStart();
 	        
-			for (Player p : getPlayers()) {
+	        LinkedList<Player> tempList = new LinkedList<>(getPlayers());
+	        Collections.sort(tempList, new Comparator<Player>(){
+
+				@Override
+				public int compare(Player o1, Player o2) {
+					return o2.calcTotal(null) - o1.calcTotal(null);
+				}});
+	        
+			for (Player p : tempList) {
 				String gsonstr = gson.toJson(p);
 				out.write(gsonstr + "\n\n");
 				
