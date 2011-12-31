@@ -161,7 +161,7 @@ public class CommandListener extends
 			break;
 			
 		case "team":
-			//new TeamEvent();
+			new events.TeamEvent();
 			break;
 			
 		case "announce":
@@ -431,7 +431,6 @@ public class CommandListener extends
 	}
 
 	private void doRegister(PrivateMessageEvent<IdleBot> event, String[] args) {
-		//TODO make classes support more  than one word
 		if(args.length < 4) {
 			event.getBot().sendMessage(event.getUser(), "You didn't tell me enough information.");
 			return;

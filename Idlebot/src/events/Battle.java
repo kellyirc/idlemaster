@@ -273,11 +273,12 @@ public class Battle {
 		float losMod = (losrars.getTotalLevel()/(losrars.members.size() == 0 ? 1 : losrars.members.size()));
 		float mod = Math.abs( (vicMod - losMod) / 4) + 1;
 		
-		float victorLifeAvg = (victors.getRemainingLife() / (victors.members.size() == 0 ? 1 : victors.members.size()*2));
-		float losrarLifeAvg = (losrars.getRemainingLife() / (losrars.members.size() == 0 ? 1 : losrars.members.size()*2));
-		float playerMod = Math.abs(victorLifeAvg - Math.max(losrarLifeAvg, 0));
+		float victorLifeAvg = (victors.getRemainingLife() / (victors.members.size() == 0 ? 1 : victors.members.size()*8));
+		float losrarLifeAvg = (losrars.getRemainingLife() / (losrars.members.size() == 0 ? 1 : losrars.members.size()*8));
+		//float playerMod = Math.abs(victorLifeAvg - Math.max(losrarLifeAvg, 0));
+		float playerMod = Math.abs(victorLifeAvg - losrarLifeAvg);
 		
-		long timeMod = (long) (757 * playerMod  * (mod == 0 ? 1 : mod));
+		long timeMod = (long) (456 * playerMod  * (mod == 0 ? 1 : mod));
 		victors.timeMod(timeMod);
 		losrars.timeMod(-timeMod/2);
 	}
@@ -290,22 +291,19 @@ public class Battle {
 
 	private void kill(Playable second, Playable first) {
 		battleMessage(Colors.RED+BATTLE + second + " killed "+first+".");
-		System.out.println("checking group");
 		if(first.getGroup()!=null) {
-			if(left.members.contains(first) && first.equals(left.leader)) left.pickNewLeader();
-			if(right.members.contains(first) && right.equals(right.leader)) right.pickNewLeader();
-			first.getGroup().remove(first); first.setGroup(null);
+			if(left.members.contains(first) && first.equals(left.leader) && left.members.size() > 1) left.pickNewLeader();
+			if(right.members.contains(first) && right.equals(right.leader) && right.members.size() > 1) right.pickNewLeader();
+			first.getGroup().remove(first); 
+			first.setGroup(null);
 		}
-		System.out.println("passed group; checking monster");
 		
 		if(second instanceof Monster && ((Monster) second).strings != null) {
 			battleMessage("["+second.getName() + "] " +((Monster)second).strings.kill);
 		} else if(first instanceof Monster && ((Monster)first).strings != null) {
 			battleMessage("["+second.getName() + "] " +((Monster)first).strings.death);
 		}
-		System.out.println("attempting steal");
 		trySteal(second, first);
-		System.out.println("try crit strike");
 		if(!(first instanceof Player)) {
 			((Monster)first).die(second);
 		} else {
@@ -334,7 +332,7 @@ public class Battle {
 
 	private void tryCritStrike(Playable second, Playable first) {
 		float mod = Math.abs(((second.getLevel() - first.getLevel()) / 4)+1);
-		long timeMod = (long) (757 * Math.abs(second.health - Math.max(first.health, 0)) * (mod == 0 ? 1 : mod));
+		long timeMod = (long) (456 * Math.abs(second.health - Math.max(first.health, 0)) * (mod == 0 ? 1 : mod));
 
 		if(second.getAlignment() == Alignment.Good && first.getAlignment() == Alignment.Evil && prob(80)) {
 			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/2)+" to "+first.getName()+"'s level timer!");

@@ -178,7 +178,6 @@ public class ItemGenerator {
 			} else if (i < 33) {
 				array = GeneratorData.downvalue;
 				modPercent = 0.5;
-				// TODO make individualized mod percents
 			} else if (i < 58) {
 				array = GeneratorData.upvalue;
 				modPercent = 1.5;

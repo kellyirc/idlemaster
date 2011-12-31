@@ -23,6 +23,5 @@ public class Statistics {
 	public boolean hasPhilStone=false;
 	public boolean hasWingShoes=false;
 	
-	//TODO karma cookies
 	//TODO temporarily sell items to other players (they can try to equip it then)
 }
