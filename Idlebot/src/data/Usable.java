@@ -27,7 +27,7 @@ public class Usable {
 
 	private String name;
 	private int count=1;
-	private Random r = new Random();
+	private transient Random r = new Random();
 	
 	public Usable(String name) {
 		this.name = name;
