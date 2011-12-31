@@ -6,6 +6,7 @@ import generators.SpellGenerator.Spell;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.pircbotx.Colors;
 
@@ -24,13 +25,13 @@ public class Battle {
 	public static final String BATTLE = " *** ";
 	
 	private class Team {
-		public ArrayList<? extends Playable> members;
+		public CopyOnWriteArrayList<? extends Playable> members;
 		public Playable leader;
 		public int spiritual = 0;
 		public int emotional = 0;
 		
 		public Team(ArrayList<? extends Playable> team) {
-			members = team;
+			members = new CopyOnWriteArrayList<>(team);
 			leader = team.get(rand.nextInt(team.size()));
 		}
 		
@@ -82,12 +83,10 @@ public class Battle {
 		}
 		
 		public void takeDamage(Playable opp, int damage) {
-			synchronized(members) {
-				for(Playable p : members) {
-					p.health -= damage;
-					if(p.health <= 0) {
-						kill(opp, p);
-					}
+			for(Playable p : members) {
+				p.health -= damage;
+				if(p.health <= 0) {
+					kill(opp, p);
 				}
 			}
 		}
@@ -291,6 +290,7 @@ public class Battle {
 
 	private void kill(Playable second, Playable first) {
 		battleMessage(Colors.RED+BATTLE + second + " killed "+first+".");
+		if(second instanceof Player && first instanceof Monster) ((Player)second).stats.monsterKilled++;
 		if(first.getGroup()!=null) {
 			if(left.members.contains(first) && first.equals(left.leader) && left.members.size() > 1) left.pickNewLeader();
 			if(right.members.contains(first) && right.equals(right.leader) && right.members.size() > 1) right.pickNewLeader();

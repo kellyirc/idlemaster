@@ -25,6 +25,10 @@ public class ItemGenerator {
 	static HashMap<data.Item.ItemClass, Data[]> types = new HashMap<>();
 
 	static{
+		initialize();
+	}
+
+	public static void initialize() {
 		try {
 			loadEquipment();
 			loadTypes();

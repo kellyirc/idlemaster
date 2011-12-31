@@ -6,8 +6,7 @@ import data.Playable;
 import data.Player;
 import bot.IdleBot;
 
-//TODO cataclysm that hits offline players
-//TODO make cataclysms an enum and able to cause specific ones to happen
+
 public class Cataclysm {
 
 	public enum Quadrant {

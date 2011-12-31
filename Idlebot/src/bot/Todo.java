@@ -2,6 +2,8 @@ package bot;
 
 public class Todo {
 }
+
+//TODO temporarily sell items to other players (they can try to equip it then)
 /**
  * show items command
  * doppleganger can't be stolen from, make exception in canFight, directly reference other users array

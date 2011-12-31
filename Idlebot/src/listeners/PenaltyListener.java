@@ -46,7 +46,6 @@ public class PenaltyListener extends org.pircbotx.hooks.ListenerAdapter<PircBotX
 	 */
 	@Override
 	public void onNickChange(NickChangeEvent<PircBotX> event) throws Exception {
-		//TODO make this work
 		IdleBot.botref.penalize(event.getNewNick(), 40);
 		super.onNickChange(event);
 	}

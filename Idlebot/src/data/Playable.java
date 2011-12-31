@@ -90,14 +90,17 @@ public abstract class Playable {
 		if(canBattle(this, other)) {
 			if(this.alignment == Alignment.Good && other.alignment == Alignment.Neutral && Battle.prob(10)) {
 				IdleBot.botref.messageChannel(Battle.BATTLE + getName() + " greeted "+other.getName()+" and went on his/her merry way.");
+				warp();
 				return;
 			}
 			if(this.alignment == Alignment.Neutral && Battle.prob(20)) {
 				IdleBot.botref.messageChannel(Battle.BATTLE + getName() + " glanced at "+other.getName()+" and kept walking.");
+				warp();
 				return;
 			}
 			if(this.alignment == Alignment.Evil && Battle.prob(10)){
 				IdleBot.botref.messageChannel(Battle.BATTLE + getName() + " snickered as s/he walked by "+other.getName()+".");
+				warp();
 				if(Battle.prob(10)) {
 					Battle.steal(this, other);
 				}

@@ -35,6 +35,10 @@ public class MonsterGenerator {
 	}
 	
 	static {
+		initialize();
+	}
+
+	public static void initialize() {
 		try {
 			loadMonsters();
 			loadStrings();

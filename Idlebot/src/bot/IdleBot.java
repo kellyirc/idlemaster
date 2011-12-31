@@ -104,7 +104,6 @@ public class IdleBot extends PircBotX implements Globals {
 	}
 
 	private Gson gson = new Gson();
-	private ItemGenerator itemgen = new ItemGenerator();
 
 	private HashMap<String, Player> loggedIn = new HashMap<>();
 
@@ -157,7 +156,6 @@ public class IdleBot extends PircBotX implements Globals {
 			return;
 		}
 
-		// this.setModerated(getGlobalChannel());
 		this.setTopic(getGlobalChannel(), getCustomTopic());
 		new Thread(new EventThread(), "Event Thread").run();
 	}
@@ -252,13 +250,6 @@ public class IdleBot extends PircBotX implements Globals {
 
 	public org.pircbotx.Channel getGlobalChannel() {
 		return this.getChannel(Globals.Channel);
-	}
-
-	/**
-	 * @return the itemgen
-	 */
-	public ItemGenerator getItemgen() {
-		return itemgen;
 	}
 
 	public LinkedList<Player> getOnlinePlayers() {
@@ -419,7 +410,8 @@ public class IdleBot extends PircBotX implements Globals {
 
 	public void reload() {
 		messageChannel("Reloading my generators...");
-		itemgen = new ItemGenerator();
+		MonsterGenerator.initialize();
+		ItemGenerator.initialize();
 		messageChannel("Reloaded.");
 	}
 
