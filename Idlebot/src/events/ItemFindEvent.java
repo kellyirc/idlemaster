@@ -38,7 +38,7 @@ public class ItemFindEvent {
 		if(m != null) {
 			IdleBot.botref.messageChannel(Colors.DARK_BLUE+p.getName() + " found "+u.name+" in "+m.getName()+"'s corpse!");
 		} else {
-			modifyMessage(p, u, events[(int) (Math.random() * events.length-1)]);
+			modifyMessage(p, u, events[(int) (Math.random() * (events.length-1))]);
 		}
 		p.addItem(new Usable(u.name));
 	}

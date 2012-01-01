@@ -37,11 +37,11 @@ public class MoneyEvent {
 	public MoneyEvent(Player p, Boolean b) {
 		int i = (int) (p.getMoney() * (percent/100.0));
 		if((Math.random() > 0.3 || b != null && b) && b!= null && b!=false) {
-			IdleBot.botref.messageChannel(modifyMessage(goodEvents[(int) (Math.random() * goodEvents.length)], p, i, true));
+			IdleBot.botref.messageChannel(modifyMessage(goodEvents[(int) (Math.random() * (goodEvents.length-1))], p, i, true));
 			p.stats.moneyFound++;
 			p.setMoney(p.getMoney() + i);
 		} else if(b==null || !b){
-			IdleBot.botref.messageChannel(modifyMessage(badEvents[(int) (Math.random() * badEvents.length)], p, i, false));
+			IdleBot.botref.messageChannel(modifyMessage(badEvents[(int) (Math.random() * (badEvents.length-1))], p, i, false));
 			p.stats.moneyLost++;
 			p.setMoney(p.getMoney() - i);
 		}

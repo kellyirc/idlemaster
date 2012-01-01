@@ -380,7 +380,7 @@ public class Usable {
 	private void doBossBattle() {
 		ArrayList<Player> players = new ArrayList<>(IdleBot.botref.getOnlinePlayers());
 		ArrayList<Monster> bossguy = new ArrayList<>();
-		bossguy.add(MonsterGenerator.generateMonster(Alignment.Evil, (int) (Math.random() * MonsterGenerator.bossct)));
+		bossguy.add(MonsterGenerator.generateMonster(Alignment.Evil, (int) (Math.random() * (MonsterGenerator.bossct-1))));
 		new Battle(players, bossguy);
 	}
 

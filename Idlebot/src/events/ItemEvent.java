@@ -38,11 +38,11 @@ public class ItemEvent {
 	public ItemEvent(Player p, Boolean b) {
 		Item i = getRandomItem(p);
 		if((Math.random() > 0.3 || b != null && b) && b!= null && b!=false) {
-			IdleBot.botref.messageChannel(modifyMessage(goodEvents[(int) (Math.random() * goodEvents.length)], p, i, true));
+			IdleBot.botref.messageChannel(modifyMessage(goodEvents[(int) (Math.random() * (goodEvents.length-1))], p, i, true));
 			p.stats.itemBless++;
 			i.setValue((int) (i.getValue()*1.1));
 		} else if(b == null || !b){
-			IdleBot.botref.messageChannel(modifyMessage(badEvents[(int) (Math.random() * badEvents.length)], p, i, false));
+			IdleBot.botref.messageChannel(modifyMessage(badEvents[(int) (Math.random() * (badEvents.length-1))], p, i, false));
 			p.stats.itemForsake++;
 			i.setValue((int) (i.getValue()*0.9));
 		}
@@ -55,6 +55,6 @@ public class ItemEvent {
 	}
 
 	public static Item getRandomItem(Player p) {
-		return p.getEquipmentRaw().get(Slot.values()[(int) (Math.random() * Slot.values().length)]);
+		return p.getEquipmentRaw().get(Slot.values()[(int) (Math.random() * (Slot.values().length-1))]);
 	}
 }

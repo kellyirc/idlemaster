@@ -508,7 +508,7 @@ public class IdleBot extends PircBotX implements Globals {
 		
 		do {
 			
-			Playable choice = p[(int) (Math.random() * p.length)];
+			Playable choice = p[(int) (Math.random() * (p.length-1))];
 			
 			if( choice instanceof Monster) {
 				m = (Monster) choice;

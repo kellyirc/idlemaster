@@ -230,7 +230,7 @@ public abstract class Playable {
 	public void move() {
 		if(x<0 || x>MAX_X) x=0;
 		if(y<0 || y>MAX_Y) y=0;
-		switch(Direction.values()[(int) (Math.random() * Direction.values().length)]) {
+		switch(Direction.values()[(int) (Math.random() * (Direction.values().length-1))]) {
 		case NORTH:
 			if(underY()) move(0,1);
 			break;

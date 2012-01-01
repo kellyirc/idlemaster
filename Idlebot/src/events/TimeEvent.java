@@ -38,12 +38,12 @@ public class TimeEvent {
 	}
 	
 	public TimeEvent(Player target,Type cusType) {
-		Type type = cusType != null ? cusType : Type.values()[(int) (Math.random() * Type.values().length)];
+		Type type = cusType != null ? cusType : Type.values()[(int) (Math.random() * (Type.values().length-1))];
 		switch(type) {
 		case Blessing:
 			if(cusType!=null || Battle.prob(100 - target.getLevel()) && Battle.prob((int)(15*getModifier(target.getAlignment(), type)))) {
 				target.stats.blessed++;
-				doStuff(goodEvents[(int) (Math.random() * goodEvents.length)], target, false);
+				doStuff(goodEvents[(int) (Math.random() * (goodEvents.length-1))], target, false);
 			}
 			break;
 		case Fatehand:
@@ -55,7 +55,7 @@ public class TimeEvent {
 		case Forsaken:
 			if(cusType!=null || Battle.prob(100 - target.getLevel()) && Battle.prob((int)(7*getModifier(target.getAlignment(), type)))) {
 				target.stats.forsaken++;
-				doStuff(badEvents[(int) (Math.random() * badEvents.length)], target, true);
+				doStuff(badEvents[(int) (Math.random() * (badEvents.length-1))], target, true);
 			}
 			break;
 		}
