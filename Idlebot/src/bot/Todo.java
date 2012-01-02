@@ -4,9 +4,8 @@ public class Todo {
 }
 
 /**
- * add a -1 to all of the array indexes in the events.
+ * make finding items determined by their price.
  * show how much time is lost via karma cookie
- * fix the space between gold and name on the boo item
  * fix battles showing a space between team names: Team Sei {name [], name[] }
  * add offhand weapons to shields
  * temporarily sell items to other players (they can try to equip it then) (charisma potion?)
