@@ -270,7 +270,7 @@ public class Usable {
 		Player rand = IdleBot.botref.getRandomPlayer();
 		Player recip = IdleBot.botref.getRandomPlayer();
 		int i = (int) ((Math.random() * rand.getMoney()-1)+1);
-		IdleBot.botref.messageChannel("...the ghost took "+i+"gold from "+rand.getName()+"!");
+		IdleBot.botref.messageChannel("...the ghost took "+i+" gold from "+rand.getName()+"!");
 		if(rand.equals(recip)) {
 			IdleBot.botref.messageChannel("...and gave it right back!");
 			return;
