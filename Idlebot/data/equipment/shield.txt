@@ -24,6 +24,7 @@ car door,135
 cube of meat,150
 phalanx shield,173
 spiked targe,203
+pavis,225
 dragonscale, 250
 Shield of Four Elements,325
 Companion Cube,380
@@ -31,3 +32,4 @@ Reinforced Chunk of Rust,450
 Summoned Swords,570
 Hero's Shield,650
 Holy Arms,777
+Hoplon Guard,999
