@@ -7,11 +7,17 @@ import data.Playable;
 
 public class TeamEvent {
 	
-	public TeamEvent() {
+	public ArrayList<Playable> group;
+	
+	public TeamEvent() { 
+		this(false);
+	}
+	
+	public TeamEvent(boolean pgroup) {
 		ArrayList<Playable> group = new ArrayList<>();
 		int tries = 0;
-		boolean isPlayer=false;
-		if(Math.random() > 0.3)  isPlayer = true;
+		boolean isPlayer=pgroup;
+		if(!pgroup && Math.random() > 0.3)  isPlayer = true;
 		while(group.size() < 4 && tries++ < 10) {
 			Playable p = isPlayer ? IdleBot.botref.getRandomPlayer() : IdleBot.botref.getRandomMonster();
 			if(p.getGroup() == null) {
@@ -26,6 +32,7 @@ public class TeamEvent {
 			group.get(0).setGroup(null);
 			return;
 		}
+		this.group = group;
 		
 		IdleBot.botref.messageChannel("A new group of "+(isPlayer ? "players" : "monsters")+" has formed: "+group);
 		

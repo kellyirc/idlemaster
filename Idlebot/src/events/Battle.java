@@ -113,10 +113,10 @@ public class Battle {
 		}
 
 		public Playable pickAliveMember() {
-			Playable p;
+			Playable p=null;
 			do {
 				p = members.get(rand.nextInt(members.size()));
-			} while(p.health <= 0);
+			} while((p==null || p.health <= 0) && isAlive());
 			return p;
 		}
 		
@@ -227,7 +227,17 @@ public class Battle {
 		initialize();
 		while(left.isAlive() && right.isAlive() && ++turns>0) {
 			Playable first = left.pickAliveMember();
+			/*if(first == null) {
+				System.err.println("NOT HAPPENING 1");
+			} else {
+				System.out.println(first + " " + first.health);
+			}*/
 			Playable second = right.pickAliveMember();
+			/*if(second == null) {
+				System.err.println("NOT HAPPENING 2");
+			} else {
+				System.out.println(second + " " + second.health);
+			}*/
 			
 			attack(first, second);
 			if((first.getAlignment() == Alignment.Evil && prob(7)) || (second.getAlignment() == Alignment.Neutral && prob(1))) {
@@ -308,10 +318,14 @@ public class Battle {
 		battleMessage(Colors.RED+BATTLE + second + " killed "+first+".");
 		if(second instanceof Player && first instanceof Monster) ((Player)second).stats.monsterKilled++;
 		if(first.getGroup()!=null) {
-			if(left.members.contains(first) && first.equals(left.leader) && left.members.size() > 1) left.pickNewLeader();
-			if(right.members.contains(first) && first.equals(right.leader) && right.members.size() > 1) right.pickNewLeader();
+			//System.out.println("dead");
+			if(left.members.size() > 1 && left.members.contains(first) && first.equals(left.leader)) left.pickNewLeader();
+			//System.out.println("picked leader left");
+			if(right.members.size() > 1 && right.members.contains(first) && first.equals(right.leader)) right.pickNewLeader();
+			//System.out.println("picked leader right");
 			first.getGroup().remove(first); 
 			first.setGroup(null);
+			//System.out.println("finalized lefts group");
 		}
 		
 		if(second instanceof Monster && ((Monster) second).strings != null) {
@@ -319,18 +333,21 @@ public class Battle {
 		} else if(first instanceof Monster && ((Monster)first).strings != null) {
 			battleMessage("["+second.getName() + "] " +((Monster)first).strings.death);
 		}
+		//System.out.println("attempting steal");
 		trySteal(second, first);
-		if(!(first instanceof Player)) {
+		if(first instanceof Monster) {
+			//System.out.println("dead is monster");
 			((Monster)first).die(second);
 			if(second instanceof Player) {
-				if(Battle.prob(3)) {
+				//System.out.println("killer is player");
+				if(Battle.prob(1)) {
 					new ItemFindEvent((Player) second, (Monster)first);
 				}
 			}
 		} else {
 			tryCritStrike(second, first);
 			if(second instanceof Player)((Player)second).stats.battlesWon++;
-			((Player)first).stats.battlesLost++;
+			if(first instanceof Player) ((Player)first).stats.battlesLost++;
 		}
 	}
 

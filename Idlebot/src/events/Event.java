@@ -26,7 +26,8 @@ public class Event {
 		} else if(i<216){
 			new TimeEvent(p);
 		}  else if(i < 232){
-			new TeamEvent();
+			//TODO These are broken for battles
+			//new TeamEvent();
 		} else {
 			new ItemFindEvent(p);
 		}

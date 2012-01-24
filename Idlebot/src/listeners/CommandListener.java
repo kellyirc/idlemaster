@@ -212,16 +212,30 @@ public class CommandListener extends
 			*/
 			/*
 		case "teambattle":
-			ArrayList<Player> left = new ArrayList<>();
-			ArrayList<Player> right = new ArrayList<>();
-			LinkedList<Player> players = IdleBot.botref.getOnlinePlayers();
+			java.util.ArrayList<Player> left = new java.util.ArrayList<>();
+			java.util.ArrayList<Player> right = new java.util.ArrayList<>();
+			java.util.LinkedList<Player> players = IdleBot.botref.getOnlinePlayers();
 			if(players.size() < 2) return;
-			Collections.shuffle(players);
+			java.util.Collections.shuffle(players);
 			for(int i=0; i<players.size(); i++) {
 				if(i%2 == 0) right.add(players.get(i));
 				else left.add(players.get(i));
 			}
-			new Battle(left, right);
+			new events.Battle(left, right);
+			break;
+		case "group":
+			new events.TeamEvent();
+			break;*/
+		/*case "groupbattle":
+			events.TeamEvent left;
+			events.TeamEvent right;
+			do {
+				left = new events.TeamEvent(true);
+			} while(left.group == null);
+			do {
+				right = new events.TeamEvent(false);
+			} while(right.group == null);
+			new events.Battle(left.group, right.group);
 			break;*/
 
 		default:
