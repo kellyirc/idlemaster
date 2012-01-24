@@ -34,7 +34,10 @@ public class ItemFindEvent {
 	}
 	
 	public ItemFindEvent(Player p, Monster m) {
-		DummyUsable u = DummyUsable.dummyItems[(int) (Math.random() * (DummyUsable.dummyItems.length-1))];
+		DummyUsable u;
+		do {
+			u = DummyUsable.dummyItems[(int) (Math.random() * (DummyUsable.dummyItems.length-1))];
+		} while(!u.findable);
 		if(m != null) {
 			IdleBot.botref.messageChannel(Colors.DARK_BLUE+p.getName() + " found "+u.name+" in "+m.getName()+"'s corpse!");
 		} else {

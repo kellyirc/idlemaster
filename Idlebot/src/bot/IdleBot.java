@@ -57,6 +57,7 @@ public class IdleBot extends PircBotX implements Globals {
 
 		@Override
 		public void run() {
+			try{
 			while (true) {
 
 				for (Playable p : players) {
@@ -92,6 +93,8 @@ public class IdleBot extends PircBotX implements Globals {
 						savePlayers(false);
 					}
 				}
+			}}catch(Exception e) {
+				e.printStackTrace();
 			}
 		}
 

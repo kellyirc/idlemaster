@@ -296,6 +296,10 @@ public class CommandListener extends
 				event.getBot().sendMessage(event.getUser(), "That item does not exist!");
 				return;
 			}
+			if(!item.buyable) {
+				event.getBot().sendMessage(event.getUser(), "I don't carry that item, sorry!");
+				return;
+			}
 			if(p.getMoney() >= item.cost) { 
 				event.getBot().sendMessage(event.getUser(), "You bought "+args[2]+"! You have "+(p.getMoney()-item.cost)+" gold left.");
 				p.addItem(new Usable(args[2]));
