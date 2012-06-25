@@ -15,21 +15,27 @@ public class Event {
 	
 	public Event(Player p) {
 		
-		int i = (int) (Math.random() * 300);
+		int i = (int) (Math.random() * 1000);
 		Random r = new Random();
+		
 		if(i == 1) {
 			new Cataclysm();
-		} else if(i<21) {
+			
+		} else if(i < 40) {
 			new MoneyEvent(p, r.nextBoolean());
-		} else if(i<31) {
+			
+		} else if(i < 90) {
 			new ItemEvent(p, r.nextBoolean());
-		} else if(i<51){
+			
+		} else if(i < 150) {
 			new TimeEvent(p);
-		}  else if(i < 71){
+			
+		} else if(i < 155) {
+			new ItemFindEvent(p);
+			
+		} else if(i < 160) {
 			//TODO These are broken for battles
 			//new TeamEvent();
-		} else if(i < 81){
-			new ItemFindEvent(p);
 		}
 	}
 	

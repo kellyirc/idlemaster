@@ -4,8 +4,8 @@
 %player went spelunking in a cave, and found a room full of ancient artifacts. %player also found %money gold!
 %player won the lottery and gained %money gold, after taxes of course.
 %player discovered what no alchemist could in many years: how to turn a bit of lead into %money bits of gold.
-%player found some kind of high-technologic device, which s/he proceeds to bash against a rock and then loots %money bits of gold from inside.
-A friend of %player gives him/her %money bits of gold, saying something about a 'debt'... Well, that doesn't happen too often.
-The Goddess of Riches, Kirierath, causes it to rain gold down at %player only, and s/he proceeds to pick up as many as %money bits of gold.
+%player found some kind of high-technologic device, which %she proceeds to bash against a rock and then loots %money bits of gold from inside.
+A friend of %player gives %himher %money bits of gold, saying something about a 'debt'... Well, that doesn't happen too often.
+The Goddess of Riches, Kirierath, causes it to rain gold down at %player only, and %she proceeds to pick up as many as %money bits of gold.
 %player finds a gold ingot with a lemon peel wrapped around it, and it was worth %money gold!
 %player tripped into a lake, and discovered someone's secret stash of %money gold.

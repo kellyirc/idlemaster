@@ -1,4 +1,4 @@
-has found his/her windfall.
+has found %hisher windfall.
 found a golden coin.
 has found a dead grue.
 began to faintly glow.
@@ -8,7 +8,7 @@ got a welfare check!
 returned a stray faerie to the forest.
 poured acid on that mean old lady.
 won the lottery.
-found a can of Green Viper, and it give him/her wii~ings!
+found a can of Green Viper, and it give %himher wii~ings!
 found a nugget of pure win.
 found a golden nugget.
 came across a shiny object.
@@ -20,5 +20,5 @@ practices in cake decoration, and succeeds in proportions greater than cheesecak
 was given a golden axe by an axe-fairy.
 divided by zero.
 caught a magikarp and sold it to some stupid kid who thought it would actually be useful.
-sold an organ on the black market, and it certainly wasn't his/hers, obviously.
+sold an organ on the black market, and it certainly wasn't %hishers, obviously.
 took a left at Albuquerque.

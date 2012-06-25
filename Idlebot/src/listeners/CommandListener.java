@@ -155,6 +155,15 @@ public class CommandListener extends
 			break;
 
 			/**
+			 * COMMAND: gender
+			 * ARGUMENTS: male|female|reset
+			 * HELP: Change the gender the bot refers to you as.
+			 * PENALTY: None.
+			 */
+		case "gender":
+			doGender(event, args);
+			break;
+			/**
 			 * COMMAND: items
 			 * ARGUMENTS: None.
 			 * HELP: Shows your current items and their amounts.
@@ -248,6 +257,33 @@ public class CommandListener extends
 			event.getBot().sendMessage(event.getUser(), "Your command is invalid!");
 			break;
 		}
+	}
+
+	private void doGender(PrivateMessageEvent<IdleBot> event, String[] args) {
+		if(args.length < 2) {
+			event.getBot().sendMessage(event.getUser(), "Invalid arguments: gender new-gender");
+			return;
+		}
+		Player p = IdleBot.botref.getPlayerByUser(event.getUser());
+		if(p == null) {
+			event.getBot().sendMessage(event.getUser(), "You aren't logged in.");
+			return;
+		}
+		switch(args[1]) {
+		case "male":
+			p.setIsMale(true);
+			event.getBot().sendMessage(event.getUser(), "You are now referred to as male.");
+			break;
+		case "female":
+			p.setIsMale(false);
+			event.getBot().sendMessage(event.getUser(), "You are now referred to as female.");
+			break;
+		default:
+			p.setIsMale(null);
+			event.getBot().sendMessage(event.getUser(), "Your referred gender has been reset.");
+			break;	
+		}
+		
 	}
 
 	private void doGold(PrivateMessageEvent<IdleBot> event) {

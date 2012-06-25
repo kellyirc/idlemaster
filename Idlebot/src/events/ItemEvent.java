@@ -50,7 +50,7 @@ public class ItemEvent {
 	}
 	
 	private String modifyMessage(String string, Player p, Item i, boolean isGood) {
-		String message = (isGood ? Colors.DARK_GREEN : Colors.RED) + string.replaceAll("%player", p.getName()).replaceAll("%item", i.getName());
+		String message = (isGood ? Colors.DARK_GREEN : Colors.RED) + string.replaceAll("%player", p.getName()).replaceAll("%item", i.getName()).replaceAll("%hisher", getGenderName(p));
 		message += " ["+i.getValue()+"->"+Math.round(i.getValue()*(isGood ? 1.1 : 0.9))+"]";
 		return message;
 	}
