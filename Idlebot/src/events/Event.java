@@ -7,7 +7,7 @@ import bot.IdleBot;
 
 public class Event {
 	
-	public static final int EVENT_TIME = 15000;
+	public static final int EVENT_TIME = 5000;
 	
 	public Event() {
 		this(IdleBot.botref.getRandomPlayer());
@@ -19,16 +19,16 @@ public class Event {
 		Random r = new Random();
 		if(i == 1) {
 			new Cataclysm();
-		} else if(i<71) {
+		} else if(i<21) {
 			new MoneyEvent(p, r.nextBoolean());
-		} else if(i<144) {
+		} else if(i<31) {
 			new ItemEvent(p, r.nextBoolean());
-		} else if(i<216){
+		} else if(i<51){
 			new TimeEvent(p);
-		}  else if(i < 232){
+		}  else if(i < 71){
 			//TODO These are broken for battles
 			//new TeamEvent();
-		} else if(i < 235){
+		} else if(i < 81){
 			new ItemFindEvent(p);
 		}
 	}
