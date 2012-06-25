@@ -37,6 +37,7 @@ public class ItemEvent {
 	
 	public ItemEvent(Player p, Boolean b) {
 		Item i = getRandomItem(p);
+		if(i == null) return;
 		if((Math.random() > 0.3 || b != null && b) && b!= null && b!=false) {
 			IdleBot.botref.messageChannel(modifyMessage(goodEvents[(int) (Math.random() * (goodEvents.length-1))], p, i, true));
 			p.stats.itemBless++;
@@ -55,6 +56,7 @@ public class ItemEvent {
 	}
 
 	public static Item getRandomItem(Player p) {
+		if(p == null) return null;
 		return p.getEquipmentRaw().get(Slot.values()[(int) (Math.random() * (Slot.values().length-1))]);
 	}
 }

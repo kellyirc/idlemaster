@@ -35,7 +35,9 @@ public class MoneyEvent {
 	}
 	
 	public MoneyEvent(Player p, Boolean b) {
+		if(p == null) return;
 		int i = (int) (p.getMoney() * (percent/100.0));
+		if(i == 0) return;
 		if((Math.random() > 0.3 || b != null && b) && b!= null && b!=false) {
 			IdleBot.botref.messageChannel(modifyMessage(goodEvents[(int) (Math.random() * (goodEvents.length-1))], p, i, true));
 			p.stats.moneyFound++;

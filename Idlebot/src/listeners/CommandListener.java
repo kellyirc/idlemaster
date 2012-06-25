@@ -83,12 +83,12 @@ public class CommandListener extends
 			break;
 
 			/**
-			 * COMMAND: online
+			 * COMMAND: online, who
 			 * ARGUMENTS: none
 			 * HELP: Show all currently logged in players.
 			 * PENALTY: None.
 			 */
-		case "online":
+		case "online": case "who":
 			event.getBot().sendMessage(event.getUser(), event.getBot().getOnlinePlayers().toString());
 			break;
 			
@@ -173,6 +173,10 @@ public class CommandListener extends
 			
 		case "reload":
 			event.getBot().reload();
+			break;
+			
+		case "help":
+			event.getBot().sendMessage(event.getUser(), "Please view the link in the channel topic.");
 			break;
 			
 		case "cataclysm":
@@ -469,7 +473,7 @@ public class CommandListener extends
 
 	private void doRegister(PrivateMessageEvent<IdleBot> event, String[] args) {
 		if(args.length < 4) {
-			event.getBot().sendMessage(event.getUser(), "You didn't tell me enough information.");
+			event.getBot().sendMessage(event.getUser(), "You didn't tell me enough information. Format: register [player-name] [password] [player-class] -- Player class can be anything.");
 			return;
 		}
 		

@@ -38,6 +38,7 @@ public class TimeEvent {
 	}
 	
 	public TimeEvent(Player target,Type cusType) {
+		if(target == null) return;
 		Type type = cusType != null ? cusType : Type.values()[(int) (Math.random() * (Type.values().length-1))];
 		switch(type) {
 		case Blessing:

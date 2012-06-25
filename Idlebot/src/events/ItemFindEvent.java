@@ -34,6 +34,7 @@ public class ItemFindEvent {
 	}
 	
 	public ItemFindEvent(Player p, Monster m) {
+		if(p == null) return;
 		DummyUsable u;
 		do {
 			u = DummyUsable.dummyItems[(int) (Math.random() * (DummyUsable.dummyItems.length-1))];
