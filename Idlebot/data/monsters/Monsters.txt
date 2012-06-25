@@ -65,6 +65,7 @@ pygmy,462
 hellhound,463
 ogre nudist,464
 ogre fighter,467
+pygmy warrior,470
 ogre,475
 ogre barbarian,478
 ogre sorceror,480
@@ -80,7 +81,11 @@ caveman,550
 hero,563
 acolyte,575
 zephyr,586
+flaming ninja,587
+frozen ninja,588
+shocking ninja,589
 elemental,600
+invisible ninja,610
 druid,613
 geoduck,625
 jellyfish,633
@@ -90,6 +95,7 @@ olde zombie,701
 old zombie,735
 zombie,750
 zombie fighter,760
+zombie mage,765
 smart zombie,770
 wight,775
 ghost,800
