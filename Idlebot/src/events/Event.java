@@ -15,7 +15,7 @@ public class Event {
 	
 	public Event(Player p) {
 		
-		int i = (int) (Math.random() * 250);
+		int i = (int) (Math.random() * 300);
 		Random r = new Random();
 		if(i == 1) {
 			new Cataclysm();
@@ -28,7 +28,7 @@ public class Event {
 		}  else if(i < 232){
 			//TODO These are broken for battles
 			//new TeamEvent();
-		} else {
+		} else if(i < 235){
 			new ItemFindEvent(p);
 		}
 	}

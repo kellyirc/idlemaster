@@ -126,7 +126,7 @@ public class CommandListener extends
 			 * COMMAND: use
 			 * ARGUMENTS: itemname
 			 * HELP: Use an item.
-			 * PENALTY: None.
+			 * PENALTY: p10
 			 */
 		case "use":
 			doItemUse(event, args);
@@ -136,7 +136,7 @@ public class CommandListener extends
 			 * COMMAND: class
 			 * ARGUMENTS: new class name
 			 * HELP: Change your class name.
-			 * PENALTY: None.
+			 * PENALTY: p50
 			 */
 		case "class":
 			doClassChange(event, args);
@@ -269,7 +269,7 @@ public class CommandListener extends
 		}
 		p.setClassType(event.getMessage().substring(event.getMessage().indexOf(args[1])));
 		IdleBot.botref.messageChannel(p.getName() + " is now a/n: "+p.getClassType());
-		IdleBot.botref.penalize(event.getUser(), p.getClassType().length());
+		IdleBot.botref.penalize(event.getUser(), 50);
 	}
 
 	private void doItemUse(PrivateMessageEvent<IdleBot> event, String[] args) {
@@ -285,6 +285,7 @@ public class CommandListener extends
 		for(Usable u : p.getItems()) {
 			if(u.getName().equals(args[1]) && u.getCount() > 0) {
 				if(u.use(p)) {
+					IdleBot.botref.penalize(event.getUser(), 10);
 					event.getBot().sendMessage(event.getUser(), "You used "+u.getName()+"!"+(u.getCount()-1 > 0  ?" You have "+(u.getCount()) + " left." : ""));
 				}
 				return;
@@ -324,6 +325,7 @@ public class CommandListener extends
 				p.setMoney(p.getMoney() - item.cost);
 				if(item.name.equals("philosopherstone")) p.stats.hasPhilStone = true;
 				if(item.name.equals("wingedshoes")) p.stats.hasWingShoes = true;
+				IdleBot.botref.penalize(event.getUser(), 10);
 			} else {
 				event.getBot().sendMessage(event.getUser(), "You don't have enough money! You need "+(item.cost - p.getMoney())+" more!");
 			}
@@ -365,7 +367,7 @@ public class CommandListener extends
 			break;
 		case "neutral":
 			play.setAlignment(Alignment.Neutral);
-			IdleBot.botref.penalize(event.getUser(), 10);
+			IdleBot.botref.penalize(event.getUser(), 15);
 			break;
 		default:
 			event.getBot().sendMessage(event.getUser(), "Invalid alignment: align [Good|Neutral|Evil].");

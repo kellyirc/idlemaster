@@ -352,7 +352,7 @@ public class Battle {
 	}
 
 	private void trySteal(Playable second, Playable first) {
-		if(second.getAlignment() == Alignment.Neutral && prob(100)) {
+		if(second.getAlignment() == Alignment.Neutral && prob(10)) {
 			steal(second, first);
 		} else if(second.getAlignment() == Alignment.Evil && prob(getEvilStealProb(first.getAlignment()))) {
 			steal(second, first);
