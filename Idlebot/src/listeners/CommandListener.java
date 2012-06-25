@@ -16,8 +16,6 @@ import bot.IdleBot;
 public class CommandListener extends
 		org.pircbotx.hooks.ListenerAdapter<IdleBot> {
 
-  //TODO gender command, {hisher} token
-
 	/*
 	 * (non-Javadoc)
 	 * @see
