@@ -64,6 +64,7 @@ public class TimeEvent {
 	
 	private void doStuff(String message, Player target, Boolean negative) {
 		int perc;
+		message = Event.replaceGender(message, target);
 		if(negative!=null) {
 			perc = (int) (Math.random() * 16)+1;
 			perc = negative ? -perc : perc;

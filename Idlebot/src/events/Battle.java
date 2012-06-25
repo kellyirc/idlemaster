@@ -207,7 +207,7 @@ public class Battle {
 
 	private void physicalAttack(Playable left, Playable right) {
 		int damage = rand.nextInt(left.calcTotal(Type.Physical)+1);
-		battleMessage(BATTLE + left.getBattleName()+" took a swing at "+right.getBattleName()+" with his/her "+getWeapon(left) + " for "+Colors.RED+damage+Colors.NORMAL+" damage!");
+		battleMessage(Event.replaceGender(BATTLE + left.getBattleName()+" took a swing at "+right.getBattleName()+" with %hisher "+getWeapon(left) + " for "+Colors.RED+damage+Colors.NORMAL+" damage!", left));
 		if(right.getAlignment() == Alignment.Good && prob(4)) {
 			battleMessage(BATTLE + "..but "+right.getBattleName()+" dodged!");
 			return;

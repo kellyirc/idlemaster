@@ -51,8 +51,6 @@ public class Player extends Playable {
 
 	private BigInteger timeLeft = new BigInteger("0");
 
-	private Boolean isMale = null;
-
 	public Player(String name, String password, String classtype,
 			Alignment align) {
 		super(name, classtype, align);
@@ -248,11 +246,5 @@ public class Player extends Playable {
 			items.add(usable);
 	}
 
-	public Boolean getIsMale() {
-		return isMale;
-	}
-
-	public void setIsMale(Boolean isMale) {
-		this.isMale = isMale;
-	}
+	
 }

@@ -2,6 +2,7 @@ package events;
 
 import java.util.Random;
 
+import data.Playable;
 import data.Player;
 import bot.IdleBot;
 
@@ -37,6 +38,18 @@ public class Event {
 			//TODO These are broken for battles
 			//new TeamEvent();
 		}
+	}
+
+	
+	public static String replaceGender(String string, Playable player) {
+		if(player.getIsMale() == null) {
+			string = string.replaceAll("%hisher", "his/her").replaceAll("%himher", "him/her").replaceAll("%she", "s/he").replaceAll("%hishers", "his/hers");
+		} else if(player.getIsMale() == true) {
+			string = string.replaceAll("%hisher", "his").replaceAll("%himher", "him").replaceAll("%she", "he").replaceAll("%hishers", "his");
+		} else {
+			string = string.replaceAll("%hisher", "her").replaceAll("%himher", "her").replaceAll("%she", "she").replaceAll("%hishers", "hers");
+		}
+		return string;
 	}
 	
 }

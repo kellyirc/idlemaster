@@ -48,6 +48,6 @@ public class ItemFindEvent {
 	}
 	
 	private void modifyMessage(Player p, DummyUsable u, String s) {
-		IdleBot.botref.messageChannel(Colors.DARK_BLUE+s.replaceAll("%player", p.getName()).replaceAll("%item", u.name));
+		IdleBot.botref.messageChannel(Colors.DARK_BLUE+Event.replaceGender(s.replaceAll("%player", p.getName()).replaceAll("%item", u.name), p));
 	}
 }

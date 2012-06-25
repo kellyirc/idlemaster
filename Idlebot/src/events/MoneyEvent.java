@@ -51,6 +51,6 @@ public class MoneyEvent {
 	
 	private String modifyMessage(String string, Player p, int i, boolean isGood) {
 		String message = (isGood ? Colors.DARK_GREEN : Colors.RED) + string.replaceAll("%player", p.getName()).replaceAll("%money", ""+i);
-		return message;
+		return Event.replaceGender(message, p);
 	}
 }

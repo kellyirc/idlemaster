@@ -10,6 +10,7 @@ import org.pircbotx.Colors;
 import data.Item.Type;
 
 import events.Battle;
+import events.Event;
 
 import bot.IdleBot;
 
@@ -26,6 +27,7 @@ public abstract class Playable {
 	public static final int MAX_Y = 250;;
 	protected Alignment alignment;;
 
+	private Boolean isMale = null;
 	protected String classType;
 	
 	protected HashMap<Slot, Item> equipment = new HashMap<>();
@@ -47,7 +49,13 @@ public abstract class Playable {
 		this.classType = classtype2;
 		this.alignment = align;
 	}
+	public Boolean getIsMale() {
+		return isMale;
+	}
 
+	public void setIsMale(Boolean isMale) {
+		this.isMale = isMale;
+	}
 	private boolean aboveX() {
 		return x-1 > 0;
 	}
@@ -102,7 +110,7 @@ public abstract class Playable {
 				return;
 			}
 			if(this.alignment == Alignment.Evil && Battle.prob(10)){
-				IdleBot.botref.messageChannel(Battle.BATTLE + getName() + " snickered as s/he walked by "+other.getName()+".");
+				IdleBot.botref.messageChannel(Event.replaceGender(Battle.BATTLE + getName() + " snickered as s/he walked by "+other.getName()+".", this));
 				warp();
 				if(Battle.prob(10)) {
 					Battle.steal(this, other);
@@ -113,7 +121,7 @@ public abstract class Playable {
 			new Battle(this, other);
 		} else {
 			if((this.level > other.level + 3 || this.calcTotal(null) > other.calcTotal(null) * BATTLE_MULTIPLIER) && Battle.prob(10)) {
-				IdleBot.botref.messageChannel(Battle.BATTLE + getName() + " walked past "+other.getName()+", laughing so hard, s/he was crying.");
+				IdleBot.botref.messageChannel(Event.replaceGender(Battle.BATTLE + getName() + " walked past "+other.getName()+", laughing so hard, s/he was crying.",this));
 			} else if((this.level < other.level - 3 || this.calcTotal(null) * BATTLE_MULTIPLIER < other.calcTotal(null)) && Battle.prob(10)) {
 				IdleBot.botref.messageChannel(Battle.BATTLE + other.getName() + " passed by "+getName()+", laughing and gloating.");
 			} else if(Battle.prob(10)){

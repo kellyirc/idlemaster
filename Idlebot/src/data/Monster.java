@@ -25,6 +25,7 @@ public class Monster extends Playable {
 		}
 		generateEquipment();
 		warp();
+		this.setIsMale(Math.random() > 0.5 ? true : false);
 	}
 	
 	private void generateEquipment() {
