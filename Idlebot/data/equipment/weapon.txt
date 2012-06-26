@@ -18,6 +18,7 @@ kunai,24
 hammer,27
 scriptures,28
 axe,30
+whip,31
 kris,32
 dirk,34
 tome,35
@@ -36,6 +37,7 @@ mandolin,51
 ukelele,52
 lyre,53
 kukri,55
+nunchucks,56
 sword,57
 shamshir,58
 war-axe,61
@@ -56,7 +58,8 @@ fleuret,86
 scepter,87
 pole,88
 baton,89
-broadsword,90
+lute,90
+claws,91
 epee,92
 bell,93
 trumpet,94
@@ -67,8 +70,10 @@ claymore,98
 lance,99
 halberd,100
 spear,101
+broadsword,102
 voulge,104
 saber,106
+gladius,107
 talwar,109
 longsword,110
 staff,113
@@ -92,6 +97,7 @@ shard of glass,150
 twig,151
 tail,153
 device,155
+snowball,157
 perpetually spinning object,160
 scythe,162
 warhammer,165
@@ -115,6 +121,7 @@ queen of clubs,195
 rifle,197
 raygun,199
 jack of diamonds,201
+chunk of ice,202
 flyssa,203
 flyswatter,204
 greataxe,205
@@ -123,29 +130,55 @@ ace of spades,207
 pet turtle,208
 pet hedgehog,209
 glaive,210
+ace of spades,211
 butcher blade,212
+runeaxe,213
 armcannon,215
 tsurigi,221
 stompin' boots,228
 longbow,235
+swordcane,260
 zweihander,300
 grayswandir,335
 razor,375
+fireflower,380
+wand,385
+bastardsword,395
 party cannon,404
 rock candy,410
+flaming arrow,415
 muramasa,435
+bloodsword,450
+sleepsword,460
+sunsword,470
+frozen arrow,500
 murasame,535
+mythblade,555
+flamewhip,565
+frostwhip,575
+shockwhip,585
 masamune,635
 arbalest,653
+sniper rifle,670
+m80,675
+deagle,680
+uzi,685
+shotgun,690
+minigun,695
 pinto,700
+whisker,705
+flametongue,710
+icebrand,715
 mjollnir,735
 killer7,777
+swordchucks,800
 graytooth,835
 pet hellhound,906
-hellbat,935
+crossblade,935
 deathswat,1035
 whatisthis,1076
 lightspear,1135
+lightsword,1175
 ponybane,1215
 holyspear,1235
 crystal gun,1300
@@ -165,3 +198,8 @@ Chaos Grid,500
 Mom's Knife,666
 MadCatz Tournament Edition Arcade Stick,895
 Lord of Vermillion,1000
+Punisher,1100
+Deathbringer,1250
+Excalibur,1500
+Phantom Tiny Bluescreen,1600
+Kikuichimonki,1750
