@@ -17,6 +17,7 @@ coronet,25
 horned cap,30
 cornuthaum,35
 mitre,40
+cowl,42
 rose,45
 pile of hats,50
 pile of helms,55
