@@ -121,7 +121,7 @@ public abstract class Playable {
 			new Battle(this, other);
 		} else {
 			if((this.level > other.level + 3 || this.calcTotal(null) > other.calcTotal(null) * BATTLE_MULTIPLIER) && Battle.prob(10)) {
-				IdleBot.botref.messageChannel(Event.replaceGender(Battle.BATTLE + getName() + " walked past "+other.getName()+", laughing so hard, s/he was crying.",this));
+				IdleBot.botref.messageChannel(Event.replaceGender(Battle.BATTLE + getName() + " walked past "+other.getName()+", laughing so hard, %she was crying.",this));
 			} else if((this.level < other.level - 3 || this.calcTotal(null) * BATTLE_MULTIPLIER < other.calcTotal(null)) && Battle.prob(10)) {
 				IdleBot.botref.messageChannel(Battle.BATTLE + other.getName() + " passed by "+getName()+", laughing and gloating.");
 			} else if(Battle.prob(10)){

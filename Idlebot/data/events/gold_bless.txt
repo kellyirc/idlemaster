@@ -1,6 +1,6 @@
 %player found a gold mine containing %money bits of gold!
 %player found a pot of gold at the end of the rainbow, and it contained %money gold pieces!
-%player sneezed on a rock, cleaning it off, and revealing a golden lustre. It sold for %money gold!
+%player sneezed on a rock, and cleaning it off revealed a golden lustre. It sold for %money gold!
 %player went spelunking in a cave, and found a room full of ancient artifacts. %player also found %money gold!
 %player won the lottery and gained %money gold, after taxes of course.
 %player discovered what no alchemist could in many years: how to turn a bit of lead into %money bits of gold.

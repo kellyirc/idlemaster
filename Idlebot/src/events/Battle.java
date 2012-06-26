@@ -300,8 +300,13 @@ public class Battle {
 		float losrarLifeAvg = (losrars.getRemainingLife() / (losrars.members.size() == 0 ? 1 : losrars.members.size()*8));
 		//float playerMod = Math.abs(victorLifeAvg - Math.max(losrarLifeAvg, 0));
 		float playerMod = Math.abs(victorLifeAvg - losrarLifeAvg);
+		playerMod = (playerMod < 1 && playerMod > -1 ? 0 : playerMod);
+		if(playerMod == 0 && Math.abs(victors.getTotalLevel() - losrars.getTotalLevel()) > 1) {
+			playerMod = Math.abs(victors.getTotalLevel() - losrars.getTotalLevel());
+			if(victors.getTotalLevel() < losrars.getTotalLevel()) playerMod*=20;
+		}
 		
-		long timeMod = (long) (456 * playerMod  * (mod == 0 ? 1 : mod));
+		long timeMod = (long) (456 * (playerMod == 0 ? 5 : playerMod)  * (-1<mod  && mod<1 ? 1 : mod));
 		victors.timeMod(timeMod);
 		losrars.timeMod(-timeMod/2);
 		

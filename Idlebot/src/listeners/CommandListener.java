@@ -427,7 +427,7 @@ public class CommandListener extends
 	private void doTimeleft(PrivateMessageEvent<IdleBot> event) {
 		Player p = event.getBot().getPlayerByUser(event.getUser().getNick());
 		if(p == null) {
-			event.getBot().sendMessage(event.getUser(), "You are already logged in. Cheater.");
+			event.getBot().sendMessage(event.getUser(), "You are not logged in.");
 			return;
 		}
 		event.getBot().sendMessage(event.getUser(), "You have "+event.getBot().ms2dd(p.getTimeLeft()) + " to next level.");
