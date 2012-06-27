@@ -21,7 +21,7 @@ public abstract class Playable {
 	public enum Direction { EAST, NORTH, NORTHEAST, NORTHWEST, SOUTH, SOUTHEAST, SOUTHWEST, WEST }
 	public enum Slot { Body, Charm, Feet, Finger, Hands, Head, Legs, Neck, Shield, Weapon }
 	
-	public static final double BATTLE_MULTIPLIER = 1.77;
+	public static final double BATTLE_MULTIPLIER = 1.56;
 	
 	public static final int MAX_X = 250;;
 	public static final int MAX_Y = 250;;
@@ -71,13 +71,7 @@ public abstract class Playable {
 		//if(type == null && this instanceof Monster) rev += ((Monster)this).getBonus();
 		return rev;
 	}
-	public boolean canBattle(Playable other) {
-		if(group!=null) {
-			
-		}
-		if(getGroup()!= null && other.getGroup()!= null && getGroup().equals(other.getGroup())) return false;
-		return ( !isWithinLevel(other) && !isWithinRange(other));
-	}
+	
 	public boolean canEquip(Slot s, Item i) {
 		if(i.getItemClass() == data.Item.ItemClass.Avatar)
 			return true;
@@ -204,12 +198,20 @@ public abstract class Playable {
 		return y;
 	}
 	
+	public boolean canBattle(Playable other) {
+		if(group!=null) {
+			
+		}
+		if(getGroup()!= null && other.getGroup()!= null && getGroup().equals(other.getGroup())) return false;
+		return ( isWithinLevel(other) && isWithinRange(other));
+	}
+	
 	private boolean isWithinLevel(Playable right) {
-		return (calcLevelGroup(this)*BATTLE_MULTIPLIER*2 < calcLevelGroup(right) || calcLevelGroup(right)*BATTLE_MULTIPLIER*2 < calcLevelGroup(this));
+		return (calcLevelGroup(this)/BATTLE_MULTIPLIER < calcLevelGroup(right) && calcLevelGroup(right) < calcLevelGroup(this)*BATTLE_MULTIPLIER);
 	}
 	
 	private boolean isWithinRange(Playable right) {
-		return (calcTotalGroup(this)*BATTLE_MULTIPLIER < calcTotalGroup(right) || calcTotalGroup(right)*BATTLE_MULTIPLIER < calcTotalGroup(this));
+		return (calcTotalGroup(this)/BATTLE_MULTIPLIER < calcTotalGroup(right) && calcTotalGroup(right) < calcTotalGroup(this)*BATTLE_MULTIPLIER);
 	}
 	
 	private int calcLevelGroup(Playable left) {
