@@ -142,6 +142,7 @@ public class IdleBot extends PircBotX implements Globals {
 			this.setAutoNickChange(true);
 			this.connect(server, port);
 			this.identify("cake");
+			this.setMessageDelay(500);
 
 		} catch (NickAlreadyInUseException e) {
 			e.printStackTrace();

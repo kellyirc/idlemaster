@@ -18,7 +18,7 @@ public class TeamEvent {
 		int tries = 0;
 		boolean isPlayer=pgroup;
 		if(!pgroup && Math.random() > 0.3)  isPlayer = true;
-		while(group.size() < 4 && tries++ < 10) {
+		while(group.size() < 4 && tries++ < 100) {
 			Playable p = isPlayer ? IdleBot.botref.getRandomPlayer() : IdleBot.botref.getRandomMonster();
 			if(p.getGroup() == null) {
 				group.add(p);
