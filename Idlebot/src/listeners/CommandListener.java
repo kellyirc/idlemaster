@@ -439,6 +439,7 @@ public class CommandListener extends
 		if(args.length > 1) { snick = args[1]; }
 		else snick = event.getUser().getNick();
 		Player play = event.getBot().getPlayerByUser(snick);
+		play = (play == null ? event.getBot().getPlayerByName(snick) : play);
 		if(play == null) { 
 			event.getBot().sendMessage(event.getUser(), "That user doesn't exist.");
 			return;

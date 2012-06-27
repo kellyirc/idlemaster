@@ -282,6 +282,13 @@ public class IdleBot extends PircBotX implements Globals {
 	public Player getPlayerByUser(User user) {
 		return getPlayerByUser(user.getNick());
 	}
+	
+	public Player getPlayerByName(String name) {
+		for(Player p : getPlayers()){
+			if(p.getName().toLowerCase().equals(name.toLowerCase())) return p;
+		}
+		return null;
+	}
 
 	public LinkedList<Player> getPlayers() {
 		LinkedList<Player> ll = new LinkedList<>();
