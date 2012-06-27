@@ -202,7 +202,7 @@ public class Usable {
 			
 		} else {
 			IdleBot.botref.messageChannel("The third was anything in the world!");
-			new Event(p);
+			new Event(p,Event.EVENT_MAX_PROB);
 		}
 	}
 

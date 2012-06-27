@@ -71,7 +71,7 @@ public class IdleBot extends PircBotX implements Globals {
 					new Event();
 				}
 				
-				if(ticks++%(Event.EVENT_TIME*10) == 0) {
+				if(ticks%(Event.EVENT_TIME*10) == 0) {
 					Player pl = IdleBot.botref.getRandomPlayer();
 					Playable m = IdleBot.botref.getRandomMonster();
 					if(m != null) {
@@ -85,7 +85,7 @@ public class IdleBot extends PircBotX implements Globals {
 					e.printStackTrace();
 				}
 
-				if (ticks++%10000 == 0) {
+				if (ticks%10000 == 0) {
 					if(ticks > 100000) {
 						ticks = 0;
 						savePlayers(true);

@@ -9,14 +9,20 @@ import bot.IdleBot;
 public class Event {
 	
 	public static final int EVENT_TIME = 5000;
+	public static final int EVENT_MAX_PROB = 155;
+	public static final int EVENT_BASE_PROB = 1000;
 	
 	public Event() {
-		this(IdleBot.botref.getRandomPlayer());
+		this(IdleBot.botref.getRandomPlayer(), EVENT_BASE_PROB);
 	}
 	
-	public Event(Player p) {
+	public Event(int maxProb) {
+		this(IdleBot.botref.getRandomPlayer(), maxProb);
+	}
+	
+	public Event(Player p, int maxProb) {
 		
-		int i = (int) (Math.random() * 1000);
+		int i = (int) (Math.random() * maxProb);
 		Random r = new Random();
 		
 		if(i == 1) {

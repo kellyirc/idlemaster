@@ -21,7 +21,7 @@ public abstract class Playable {
 	public enum Direction { EAST, NORTH, NORTHEAST, NORTHWEST, SOUTH, SOUTHEAST, SOUTHWEST, WEST }
 	public enum Slot { Body, Charm, Feet, Finger, Hands, Head, Legs, Neck, Shield, Weapon }
 	
-	public static final double BATTLE_MULTIPLIER = 1.5;
+	public static final double BATTLE_MULTIPLIER = 1.77;
 	
 	public static final int MAX_X = 250;;
 	public static final int MAX_Y = 250;;
@@ -203,7 +203,7 @@ public abstract class Playable {
 	}
 	
 	private boolean isWithinLevel(Playable left, Playable right) {
-		return (calcLevelGroup(left)*BATTLE_MULTIPLIER*3 < calcLevelGroup(right) || calcLevelGroup(right)*BATTLE_MULTIPLIER*3 < calcLevelGroup(left));
+		return (calcLevelGroup(left)*BATTLE_MULTIPLIER*2 < calcLevelGroup(right) || calcLevelGroup(right)*BATTLE_MULTIPLIER*2 < calcLevelGroup(left));
 	}
 	
 	private boolean isWithinRange(Playable left, Playable right) {
