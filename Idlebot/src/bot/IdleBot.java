@@ -391,6 +391,14 @@ public class IdleBot extends PircBotX implements Globals {
 			
 		}
 	}
+	
+	public void messageChannel(String s, Player p) {
+		try {
+			sendMessage(getGlobalChannel(), Event.replaceGender(s,p));
+		} catch(Exception e) {
+			
+		}
+	}
 
 	public void movePlayerToNewNick(String oldNick, String newNick) {
 		Player p = loggedIn.get(oldNick);

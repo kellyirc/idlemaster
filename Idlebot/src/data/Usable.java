@@ -218,10 +218,10 @@ public class Usable {
 		int rolls=0;
 		while(rolls++>0 && (r.nextInt(6) == r.nextInt(6)));
 		if(rolls == 0) {
-			IdleBot.botref.messageChannel("...but couldn't roll the dice to save his/her life!");
+			IdleBot.botref.messageChannel("...but couldn't roll the dice to save %hisher life!",p);
 		} else {
 			long gain = (long) (rolls*(Math.pow(1.16, p.getLevel()))*90000);
-			IdleBot.botref.messageChannel("...and got "+IdleBot.botref.ms2dd(gain)+" taken away from his/her level timer!");
+			IdleBot.botref.messageChannel("...and got "+IdleBot.botref.ms2dd(gain)+" taken away from %hisher level timer!",p);
 			p.modifyTime(gain);
 		}
 	}
@@ -248,7 +248,7 @@ public class Usable {
 			IdleBot.botref.messageChannel("..."+rand.getName()+" dodged the bomb!");
 		} else {
 			long l = (long) (Math.random() * 500000);
-			IdleBot.botref.messageChannel("..."+rand.getName()+" got hit by the bomb, causing "+left.getName()+" to crack ("+left.getValue()+"->"+Math.round(left.getValue()*0.8)+") and taking a "+IdleBot.botref.ms2dd(l)+" to his/her level timer!");
+			IdleBot.botref.messageChannel("..."+rand.getName()+" got hit by the bomb, causing "+left.getName()+" to crack ("+left.getValue()+"->"+Math.round(left.getValue()*0.8)+") and taking a "+IdleBot.botref.ms2dd(l)+" to %hisher level timer!",p);
 			left.setValue((int) (left.getValue() * 0.8));
 			p.modifyTime(l);
 		}
@@ -283,12 +283,12 @@ public class Usable {
 
 	private void doPocketwatch(Player p) {
 		if(r.nextBoolean()) {
-			IdleBot.botref.messageChannel("...and realized s/he was late for a very important date!");
+			IdleBot.botref.messageChannel("...and realized %she was late for a very important date!",p);
 			new TimeEvent(p, TimeEvent.Type.Forsaken);
 			new ItemEvent(p, false);
 			new MoneyEvent(p, false);
 		} else {
-			IdleBot.botref.messageChannel("...and realized s/he is meant to arrive precisely when s/he feels like it!");
+			IdleBot.botref.messageChannel("...and realized %she is meant to arrive precisely when %she feels like it!",p);
 			new TimeEvent(p, TimeEvent.Type.Blessing);
 			new ItemEvent(p, true);
 			new MoneyEvent(p, true);
@@ -345,7 +345,7 @@ public class Usable {
 		if(p.tryEquip(item, slot)) { 
 			IdleBot.botref.messageChannel("...and got a/n "+item.getName() + " <<"+item.getValue()+">>!");
 		} else
-			IdleBot.botref.messageChannel("...but had to sell his/her new "+item.getName() + "...");
+			IdleBot.botref.messageChannel("...but had to sell %hisher new "+item.getName() + "...");
 	}
 
 	private void doFight(Player p) {
@@ -413,27 +413,27 @@ public class Usable {
 		case "fortunecookie":
 			return "%player ate a fortune cookie...";
 		case "minuteglass":
-			return "%player flipped over his minuteglass!";
+			return "%player flipped over %hisher minuteglass!";
 		case "hourglass":
-			return "%player flipped over his hourglass!";
+			return "%player flipped over %hisher hourglass!";
 		case "dayglass":
-			return "%player flipped over his dayglass!";
+			return "%player flipped over %hisher dayglass!";
 		case "weekglass":
-			return "%player flipped over his weekglass!";
+			return "%player flipped over %hisher weekglass!";
 		case "lifeglass":
-			return "%player flipped over his lifeglass!";
+			return "%player flipped over %hisher lifeglass!";
 		case "crystalshard":
-			return "%player grips his/her crystal shard tightly..";
+			return "%player grips %hisher crystal shard tightly..";
 		case "crystalball":
-			return "%player gazes deeply into his/her crystal ball..";
+			return "%player gazes deeply into %hisher crystal ball..";
 		case "karmacookie":
 			return "%player takes a bite out of karma!";
 		case "sledgehammer":
-			return "%player readies his/her sledgehammer!";
+			return "%player readies %hisher sledgehammer!";
 		case "duelshard":
-			return "%player is getting bloodthirsty, and tightly grips his/her duelshard!";
+			return "%player is getting bloodthirsty, and tightly grips %hisher duelshard!";
 		case "fightshard":
-			return "%player is ready for some fresh meat, and tightly grips his/her fightshard!";
+			return "%player is ready for some fresh meat, and tightly grips %hisher fightshard!";
 		case "goldshard":
 			return "%player is causing some chaos!";
 		case "starshard":
@@ -443,7 +443,7 @@ public class Usable {
 		case "megaboo":
 			return "%player calls upon the idol of item thievery!";
 		case "pocketwatch":
-			return "%player looks at his/her pocketwatch...";
+			return "%player looks at %hisher pocketwatch...";
 		case "bomb":
 			return "%player lights the fuse of a bomb and tosses it in the air!";
 		case "mirv":
@@ -455,9 +455,9 @@ public class Usable {
 		case "pandorasbox":
 			return "%player opened pandora's box!";
 		case "wishingwell":
-			return "%player took a sip of water from his/her wishing well, which seems to just follow him/her around...";
+			return "%player took a sip of water from %hisher wishing well, which seems to just follow %himher around...";
 		case "wishingfountain":
-			return "%player took a dip in his/her wishing fountain...";
+			return "%player took a dip in %hisher wishing fountain...";
 		case "mirror":
 			return "%player gazes into a mirror...";
 		case "darkmirror":
@@ -505,7 +505,7 @@ public class Usable {
 	}
 
 	private void announce(String s, Player p) {
-		if(!s.equals(""))IdleBot.botref.messageChannel(s.replaceAll("%player", p.getName()));
+		if(!s.equals(""))IdleBot.botref.messageChannel(s.replaceAll("%player", p.getName()),p);
 	}
 	
 	public String toString() { 

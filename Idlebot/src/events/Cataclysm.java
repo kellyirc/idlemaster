@@ -32,7 +32,7 @@ public class Cataclysm {
 				long timeGain = (long) (((Math.pow(1.16, p.getLevel())) * 3250000) * ((double) perc / 100));
 				IdleBot.botref.messageChannel(Colors.DARK_GRAY + p.getName()
 						+ " had " + IdleBot.botref.ms2dd(timeGain)
-						+ " added to his/her level timer!");
+						+ " added to %hisher level timer!",p);
 				p.modifyTime(-timeGain);
 
 				int moneyLoss = (int) (p.getMoney() * (MoneyEvent.percent / 100.0));
@@ -55,7 +55,7 @@ public class Cataclysm {
 					IdleBot.botref.messageChannel(Colors.DARK_GRAY
 							+ p.getName() + " had "
 							+ IdleBot.botref.ms2dd(timeGain)
-							+ " taken away from his/her level timer!");
+							+ " taken away from %hisher level timer!",p);
 					p.modifyTime(timeGain);
 
 				}
@@ -78,7 +78,7 @@ public class Cataclysm {
 					IdleBot.botref.messageChannel(Colors.DARK_GRAY
 							+ p.getName() + " had "
 							+ IdleBot.botref.ms2dd(timeGain)
-							+ " added to his/her level timer!");
+							+ " added to %hisher level timer!",p);
 					p.modifyTime(-timeGain);
 				}
 			}
@@ -100,7 +100,7 @@ public class Cataclysm {
 					IdleBot.botref.messageChannel(Colors.DARK_GRAY
 							+ p.getName() + " had "
 							+ IdleBot.botref.ms2dd(timeGain)
-							+ " added to his/her level timer!");
+							+ " added to %hisher level timer!",p);
 					p.modifyTime(-timeGain);
 					p.warp();
 				}
@@ -119,7 +119,7 @@ public class Cataclysm {
 				long timeGain = (long) (((Math.pow(1.16, p.getLevel())) * 225000) * 0.357);
 				IdleBot.botref.messageChannel(Colors.DARK_GRAY + p.getName()
 						+ " had " + IdleBot.botref.ms2dd(timeGain)
-						+ " taken away from his/her level timer!");
+						+ " taken away from %hisher level timer!",p);
 				p.modifyTime(timeGain);
 			}
 			break;
@@ -134,7 +134,7 @@ public class Cataclysm {
 				long timeGain = (long) (((Math.pow(1.16, p.getLevel())) * 1000000) * ((double) perc / 100));
 				IdleBot.botref.messageChannel(Colors.DARK_GRAY + p.getName()
 						+ " had " + IdleBot.botref.ms2dd(timeGain)
-						+ " added to his/her level timer!");
+						+ " added to %hisher level timer!",p);
 				p.modifyTime(-timeGain);
 				p.warp();
 			}
@@ -173,7 +173,7 @@ public class Cataclysm {
 					IdleBot.botref.messageChannel(Colors.DARK_GRAY
 							+ p.getName() + " had "
 							+ IdleBot.botref.ms2dd(timeGain)
-							+ " added to his/her level timer!");
+							+ " added to %hisher level timer!",p);
 					p.modifyTime(-timeGain);
 
 					int moneyLoss = (int) (p.getMoney() * ((MoneyEvent.percent * 5) / 100.0));
@@ -193,7 +193,7 @@ public class Cataclysm {
 			IdleBot.botref
 					.messageChannel(Colors.DARK_GRAY
 							+ rand.getName()
-							+ " has become a very massive object, pulling all players to him/her!");
+							+ " has become a very massive object, pulling all players to %himher!",rand);
 			for (Player p : IdleBot.botref.getOnlinePlayers()) {
 				p.stats.cataSuffered++;
 				p.warp(rand);

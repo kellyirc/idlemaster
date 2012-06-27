@@ -126,7 +126,7 @@ public class CommandListener extends
 			 * COMMAND: use
 			 * ARGUMENTS: itemname
 			 * HELP: Use an item.
-			 * PENALTY: p10
+			 * PENALTY: p1
 			 */
 		case "use":
 			doItemUse(event, args);
@@ -321,7 +321,7 @@ public class CommandListener extends
 		for(Usable u : p.getItems()) {
 			if(u.getName().equals(args[1]) && u.getCount() > 0) {
 				if(u.use(p)) {
-					IdleBot.botref.penalize(event.getUser(), 10);
+					IdleBot.botref.penalize(event.getUser(), 1);
 					event.getBot().sendMessage(event.getUser(), "You used "+u.getName()+"!"+(u.getCount()-1 > 0  ?" You have "+(u.getCount()) + " left." : ""));
 				}
 				return;
