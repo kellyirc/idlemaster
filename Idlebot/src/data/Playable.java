@@ -224,10 +224,10 @@ public abstract class Playable {
 	}
 	
 	private int calcTotalGroup(Playable left) {
-		if(left.getGroup() == null) return left.calcTotal(Type.Physical);
+		if(left.getGroup() == null) return left.calcTotal(null);
 		int rev = 0;
 		for(Playable p : left.getGroup()) {
-			rev += p.calcTotal(Type.Physical);
+			rev += p.calcTotal(null);
 		}
 		return rev;
 	}
