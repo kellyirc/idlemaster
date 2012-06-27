@@ -319,7 +319,7 @@ public class Battle {
 		sumHealth -= victors.getRemainingLife();
 		
 		double constant = 467.524693;
-		if(victors.getTotalLevel() < losrars.getTotalLevel()) constant*=20;
+		if(victors.getTotalLevel() < losrars.getTotalLevel()) constant*=3;
 		
 		long timeMod = (long) (constant * sumHealth);
 		
@@ -390,8 +390,14 @@ public class Battle {
 	}
 
 	private void tryCritStrike(Playable second, Playable first) {
-		float mod = Math.abs(((second.getLevel() - first.getLevel()) / 4)+1);
-		long timeMod = (long) (456 * Math.abs(second.health - Math.max(first.health, 0)) * (mod == 0 ? 1 : mod));
+		long sumHealth = second.calcTotal(null) + first.calcTotal(null);
+		if(first.health < 0) sumHealth += Math.abs(first.health);
+		sumHealth -= second.health;
+		
+		double constant = 467.524693;
+		if(second.getLevel() < first.getLevel()) constant*=5;
+		
+		long timeMod = (long) (constant * sumHealth);
 
 		if(second.getAlignment() == Alignment.Good && first.getAlignment() == Alignment.Evil && prob(80)) {
 			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/2)+" to "+first.getName()+"'s level timer!");
