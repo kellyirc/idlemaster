@@ -2,11 +2,19 @@ package generators;
 
 import java.util.Random;
 
+import org.pircbotx.Colors;
+
 import events.Battle;
 
 public class SpellGenerator {
 	
 	Random r = new Random();
+	
+	static String[] names = { "wave", "sphere", "orb", "fist", "slash", "storm",
+		"fireball", "ray", "beam", "shooter", "arrow", "soul", "knife",
+		"disc", "ring", "geyser", "wall", "star", "rain", "missile",
+		"pool", "pillar", "amulet", "aura", "blast", "rain", "cone", "cube", "phantom sword"
+		};
 	
 	public class Spell {
 		
@@ -60,18 +68,13 @@ public class SpellGenerator {
 	public Spell generateGoodSpell(int maxDamage) {
 		
 		if(Battle.prob(5)) {
-			return new Spell("Judgment of the Angels", maxDamage);
+			return new Spell(Colors.BOLD + "Judgment of the Angels" + Colors.NORMAL, maxDamage);
 		}
 		
 		String[] prefixes = { "holy", "electric", "starry", "winding",
 				"fantasmic", "piercing", "purifying", "smiting", "pure",
 				"thunder", "stormy", "cloudy", "gigantic", "heavenly",
-				"spiritual", "earthen", "white", "light", "magic" };
-
-		String[] names = { "wave", "sphere", "orb", "fist", "slash", "storm",
-				"fireball", "ray", "beam", "shooter", "arrow", "soul", "knife",
-				"disc", "ring", "geyser", "wall", "star", "rain", "missile",
-				"pool", "pillar", "amulet", "aura" };
+				"spiritual", "earthen", "white", "light", "magic", "sonic" };
 
 		String[] suffixes = { "of holiness", "of electricity", "of smiting",
 				"of the stars", "of the typhoon", "of the deities",
@@ -84,22 +87,18 @@ public class SpellGenerator {
 	public Spell generateEvilSpell(int maxDamage) {
 		
 		if(Battle.prob(5)) {
-			return new Spell("Breath of Anubis", maxDamage);
+			return new Spell(Colors.BOLD + "Breath of Anubis" + Colors.NORMAL, maxDamage);
 		}
 		
 		String[] prefixes = { "unholy", "flaming", "demonic", "dark", "evil",
 				"unjust", "enshadowed", "envenomed", "ensorcelled", "illusory",
 				"vector", "blazing", "freezing", "destroying", "obliterating",
-				"menacing" };
-
-		String[] names = { "wave", "sphere", "orb", "fist", "slash", "storm",
-				"fireball", "ray", "beam", "shooter", "arrow", "soul", "knife",
-				"disc", "ring", "geyser", "wall", "star", "rain", "missile",
-				"pool", "pillar", "amulet", "aura" };
+				"menacing", "grim", "gross", "poisonous", "mean", "cruel",
+				"unfair", "rude"};
 
 		String[] suffixes = { "of the demon", "of fire", "of darkness",
 				"of shadows", "of binding", "of cruelty", "of the netherworld",
-				"of the deity", "from the demons" };
+				"of the deity", "of the demons" };
 
 		return new Spell(genSpellName(prefixes, names, suffixes), r.nextInt(maxDamage)+1);
 	}
