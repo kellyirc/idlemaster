@@ -30,6 +30,7 @@ public class Battle {
 		public Playable leader;
 		public int spiritual = 0;
 		public int emotional = 0;
+		public int totalHealth = 0;
 		
 		public Team(ArrayList<? extends Playable> team) {
 			members = new CopyOnWriteArrayList<>(team);
@@ -56,6 +57,7 @@ public class Battle {
 				if(((p instanceof Monster) && ((Monster) p).strings!=null)) p.health += ((Monster)p).getBonus();
 				emotional += p.calcTotal(Type.Emotional);
 				spiritual += p.calcTotal(Type.Spiritual)/10;
+				totalHealth += p.health;
 			}
 		}
 		
@@ -74,7 +76,7 @@ public class Battle {
 		public void timeMod(long l) {
 			for(Playable p : members) { 
 				if(p instanceof Player){
-					battleMessage(p.getName()+" got "+IdleBot.botref.ms2dd(Math.abs(l))+(l>0 ? " removed from " : " added to ") + "his/her level timer!");
+					battleMessage(Event.replaceGender(p.getName()+" got "+IdleBot.botref.ms2dd(Math.abs(l))+(l>0 ? " removed from " : " added to ") + "%hisher level timer!", p));
 					((Player) p).modifyTime(l);
 				} 
 			}
@@ -83,7 +85,8 @@ public class Battle {
 		public long getRemainingLife() { 
 			long ret = 0;
 			for(Playable p : members) { 
-				ret += p.health > 0 ? p.health : 0;
+				//ret += p.health > 0 ? p.health : 0;
+				ret += p.health;
 			}
 			return ret;
 		}
@@ -294,7 +297,7 @@ public class Battle {
 	private void victory(Team victors, Team losrars) {
 		battleMessage(Colors.DARK_GREEN+BATTLE + victors + " won the battle!");
 		
-		float vicMod = (victors.getTotalLevel()/(victors.members.size() == 0 ? 1 : victors.members.size()));
+		/*float vicMod = (victors.getTotalLevel()/(victors.members.size() == 0 ? 1 : victors.members.size()));
 		float losMod = (losrars.getTotalLevel()/(losrars.members.size() == 0 ? 1 : losrars.members.size()));
 		float mod = Math.abs( (vicMod - losMod) / 4) + 1;
 		
@@ -305,10 +308,21 @@ public class Battle {
 		playerMod = (playerMod < 1 && playerMod > -1 ? 0 : playerMod);
 		if(playerMod == 0 && Math.abs(victors.getTotalLevel() - losrars.getTotalLevel()) > 1) {
 			playerMod = Math.abs(victors.getTotalLevel() - losrars.getTotalLevel());
-			if(victors.getTotalLevel() < losrars.getTotalLevel()) playerMod*=20;
+			
 		}
 		
 		long timeMod = (long) (456 * (playerMod == 0 ? 5 : playerMod)  * (-1<mod  && mod<1 ? 1 : mod));
+		*/
+		
+		long sumHealth = victors.totalHealth + losrars.totalHealth;
+		if(losrars.getRemainingLife() < 0) sumHealth += Math.abs(losrars.getRemainingLife());
+		sumHealth -= victors.getRemainingLife();
+		
+		double constant = 467.524693;
+		if(victors.getTotalLevel() < losrars.getTotalLevel()) constant*=20;
+		
+		long timeMod = (long) (constant * sumHealth);
+		
 		victors.timeMod(timeMod);
 		losrars.timeMod(-timeMod/2);
 		
@@ -317,7 +331,7 @@ public class Battle {
 
 	private void battleMessage(String string) {
 		//if(!isMonsterOnly)
-			IdleBot.botref.messageChannel(string);
+		IdleBot.botref.messageChannel(string);
 		
 	}
 

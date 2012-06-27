@@ -75,7 +75,7 @@ public class IdleBot extends PircBotX implements Globals {
 					Player pl = IdleBot.botref.getRandomPlayer();
 					Playable m;
 					if(Math.random() > 0.9)
-						m = IdleBot.botref.getRandomMonster();
+						m = IdleBot.botref.getMonsterInRangeOf(pl);
 					else {
 						do{
 							m = IdleBot.botref.getRandomPlayer();
@@ -522,6 +522,24 @@ public class IdleBot extends PircBotX implements Globals {
 			
 			if( choice instanceof Monster) {
 				m = (Monster) choice;
+			}
+			
+		} while (tries++<100 && m == null);
+		
+		return m;
+	}
+	
+	public Monster getMonsterInRangeOf(Playable p) {
+		Monster m = null;
+		Playable[] array = players.toArray(new Playable[0]);
+		int tries = 0;
+		do {
+			
+			Playable choice = array[(int) (Math.random() * (array.length-1))];
+			
+			if( choice instanceof Monster) {
+				m = (Monster) choice;
+				if(p.canBattle(m)) return m;
 			}
 			
 		} while (tries++<100 && m == null);

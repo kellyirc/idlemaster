@@ -71,12 +71,12 @@ public abstract class Playable {
 		//if(type == null && this instanceof Monster) rev += ((Monster)this).getBonus();
 		return rev;
 	}
-	private boolean canBattle(Playable playable, Playable other) {
-		if(playable.group!=null) {
+	public boolean canBattle(Playable other) {
+		if(group!=null) {
 			
 		}
-		if(playable.getGroup()!= null && other.getGroup()!= null && playable.getGroup().equals(other.getGroup())) return false;
-		return ( !isWithinLevel(playable, other) && !isWithinRange(playable, other));
+		if(getGroup()!= null && other.getGroup()!= null && getGroup().equals(other.getGroup())) return false;
+		return ( !isWithinLevel(other) && !isWithinRange(other));
 	}
 	public boolean canEquip(Slot s, Item i) {
 		if(i.getItemClass() == data.Item.ItemClass.Avatar)
@@ -98,9 +98,9 @@ public abstract class Playable {
 	}
 
 	public void engage(Playable other) {
-		if(canBattle(this, other)) {
+		if(this.canBattle(other)) {
 			if(this.alignment == Alignment.Good && other.alignment == Alignment.Neutral && Battle.prob(10)) {
-				IdleBot.botref.messageChannel(Battle.BATTLE + getName() + " greeted "+other.getName()+" and went on his/her merry way.");
+				IdleBot.botref.messageChannel(Event.replaceGender(Battle.BATTLE + getName() + " greeted "+other.getName()+" and went on %hisher merry way.",this));
 				warp();
 				return;
 			}
@@ -110,7 +110,7 @@ public abstract class Playable {
 				return;
 			}
 			if(this.alignment == Alignment.Evil && Battle.prob(10)){
-				IdleBot.botref.messageChannel(Event.replaceGender(Battle.BATTLE + getName() + " snickered as s/he walked by "+other.getName()+".", this));
+				IdleBot.botref.messageChannel(Event.replaceGender(Battle.BATTLE + getName() + " snickered as %she walked by "+other.getName()+".", this));
 				warp();
 				if(Battle.prob(10)) {
 					Battle.steal(this, other);
@@ -120,12 +120,14 @@ public abstract class Playable {
 			if(this instanceof Player) ((Player)this).stats.battlesCaused++;
 			new Battle(this, other);
 		} else {
-			if((this.level > other.level + 3 || this.calcTotal(null) > other.calcTotal(null) * BATTLE_MULTIPLIER) && Battle.prob(10)) {
-				IdleBot.botref.messageChannel(Event.replaceGender(Battle.BATTLE + getName() + " walked past "+other.getName()+", laughing so hard, %she was crying.",this));
-			} else if((this.level < other.level - 3 || this.calcTotal(null) * BATTLE_MULTIPLIER < other.calcTotal(null)) && Battle.prob(10)) {
-				IdleBot.botref.messageChannel(Battle.BATTLE + other.getName() + " passed by "+getName()+", laughing and gloating.");
-			} else if(Battle.prob(10)){
-				IdleBot.botref.messageChannel(Battle.BATTLE + other.getName() + " and "+getName() + " wave as they pass by each other.");
+			if(Battle.prob(10)) {
+				if((this.level > other.level + 10 || this.calcTotal(null) > other.calcTotal(null) * BATTLE_MULTIPLIER)) {
+					IdleBot.botref.messageChannel(Event.replaceGender(Battle.BATTLE + getName() + " walked past "+other.getName()+", laughing so hard, %she was crying.",this));
+				} else if((this.level < other.level - 10 || this.calcTotal(null) * BATTLE_MULTIPLIER < other.calcTotal(null))) {
+					IdleBot.botref.messageChannel(Battle.BATTLE + other.getName() + " passed by "+getName()+", laughing and gloating.");
+				} else {
+					IdleBot.botref.messageChannel(Battle.BATTLE + other.getName() + " and "+getName() + " wave as they pass by each other.");
+				}
 			}
 			
 			if(other instanceof Monster) {
@@ -202,12 +204,12 @@ public abstract class Playable {
 		return y;
 	}
 	
-	private boolean isWithinLevel(Playable left, Playable right) {
-		return (calcLevelGroup(left)*BATTLE_MULTIPLIER*2 < calcLevelGroup(right) || calcLevelGroup(right)*BATTLE_MULTIPLIER*2 < calcLevelGroup(left));
+	private boolean isWithinLevel(Playable right) {
+		return (calcLevelGroup(this)*BATTLE_MULTIPLIER*2 < calcLevelGroup(right) || calcLevelGroup(right)*BATTLE_MULTIPLIER*2 < calcLevelGroup(this));
 	}
 	
-	private boolean isWithinRange(Playable left, Playable right) {
-		return (calcTotalGroup(left)*BATTLE_MULTIPLIER < calcTotalGroup(right) || calcTotalGroup(right)*BATTLE_MULTIPLIER < calcTotalGroup(left));
+	private boolean isWithinRange(Playable right) {
+		return (calcTotalGroup(this)*BATTLE_MULTIPLIER < calcTotalGroup(right) || calcTotalGroup(right)*BATTLE_MULTIPLIER < calcTotalGroup(this));
 	}
 	
 	private int calcLevelGroup(Playable left) {
