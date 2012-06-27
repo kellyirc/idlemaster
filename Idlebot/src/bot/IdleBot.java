@@ -71,9 +71,16 @@ public class IdleBot extends PircBotX implements Globals {
 					new Event();
 				}
 				
-				if(ticks%(Event.EVENT_TIME*10) == 0) {
+				if(ticks%(Event.EVENT_TIME*5) == 0) {
 					Player pl = IdleBot.botref.getRandomPlayer();
-					Playable m = IdleBot.botref.getRandomMonster();
+					Playable m;
+					if(Math.random() > 0.9)
+						m = IdleBot.botref.getRandomMonster();
+					else {
+						do{
+							m = IdleBot.botref.getRandomPlayer();
+						} while(m.equals(pl));
+					}
 					if(m != null) {
 						pl.engage(m);
 					}

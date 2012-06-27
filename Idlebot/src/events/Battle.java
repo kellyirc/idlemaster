@@ -208,9 +208,11 @@ public class Battle {
 	private void physicalAttack(Playable left, Playable right) {
 		int damage = rand.nextInt(left.calcTotal(Type.Physical)+1);
 		battleMessage(Event.replaceGender(BATTLE + left.getBattleName()+" took a swing at "+right.getBattleName()+" with %hisher "+getWeapon(left) + " for "+Colors.RED+damage+Colors.NORMAL+" damage!", left));
-		if(right.getAlignment() == Alignment.Good && prob(4)) {
+		
+		if(damage == 0 || right.getAlignment() == Alignment.Good && prob(4)) {
 			battleMessage(BATTLE + "..but "+right.getBattleName()+" dodged!");
 			return;
+			
 		} else if(right.getAlignment() == Alignment.Good && prob(20)) {
 			damage -= (damage * 0.34);
 			battleMessage(BATTLE + "..but "+right.getBattleName()+" parried the blow, reducing the damage to "+Colors.RED+damage+Colors.NORMAL+"!");

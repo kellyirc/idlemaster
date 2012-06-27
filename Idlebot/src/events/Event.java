@@ -8,7 +8,7 @@ import bot.IdleBot;
 
 public class Event {
 	
-	public static final int EVENT_TIME = 5000;
+	public static final int EVENT_TIME = 2500;
 	public static final int EVENT_MAX_PROB = 155;
 	public static final int EVENT_BASE_PROB = 1000;
 	
