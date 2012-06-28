@@ -34,3 +34,4 @@ Bunny Pajamas,675
 Hoverchair,715
 Panzer Tank Treads,850
 Full Monty,999
+Greaves of Null and All,1200
