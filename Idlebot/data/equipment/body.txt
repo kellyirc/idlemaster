@@ -42,3 +42,4 @@ Baron's Cape,550
 Sentinel Armor,600
 Mazinger Z,700
 Bill Cosby's Sweater,800
+Infinity Armor,1200
