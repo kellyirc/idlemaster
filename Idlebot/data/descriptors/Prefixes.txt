@@ -97,6 +97,8 @@ destined,350
 fated,350
 ominous,400
 mirror,450
+unmatched,477
+final,500
 sadistic,-2
 drunken,-4
 accursed,-6
@@ -107,3 +109,6 @@ damned,-20
 masochistic,-30
 corrupt,-31
 ethereal,-50
+awful,-75
+horrible,-100
+nonexistant,-9999
