@@ -90,6 +90,8 @@ undulating,248
 luminous,249
 incandescent,250
 shiny,255
+lunar,260
+solar,265
 transcendent,275
 timeless,300
 ageless,325
