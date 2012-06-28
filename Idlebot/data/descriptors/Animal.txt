@@ -1,4 +1,3 @@
-
 bear,7
 viper,10
 pig,14
@@ -10,6 +9,7 @@ snake,25
 wonderful fish,29
 insect,33
 kraken,36
+fabulous fish,40
 dragon,43
 unicorn,57
 pixie,61
@@ -28,6 +28,7 @@ lucid lynx,160
 malicious meerkat,170
 never-narwhal,180
 welsh warthog,190
+duplicating dog,195
 helpful hedgehog,200
 herping heron,210
 derping deer,215
@@ -41,3 +42,4 @@ snorting squirrel,280
 castrated cat,290
 vicious viking,300
 phoenix,331
+machine,400
