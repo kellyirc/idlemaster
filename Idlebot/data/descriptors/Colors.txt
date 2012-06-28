@@ -1,3 +1,5 @@
+glass,0
+colorless,0
 white,1
 blue,2
 black,4
@@ -10,6 +12,16 @@ gold,19
 silver,22
 adamantine,25
 crystalline,29
+reinforced steel,32
 crystal,34
+sapphire,35
+emerald,36
+ruby,37
 oricalchum,39
+runestone,44
 kryptonite,48
+sunstone,50
+moonstone,50
+rainbow,60
+love-colored,63
+godstone,120
