@@ -21,3 +21,4 @@ Scyther,496
 My Little Painbringers,511
 Dragonscale Gloves,563
 Godhand,600
+Hands of Fate,1000
