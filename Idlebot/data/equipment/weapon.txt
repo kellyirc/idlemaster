@@ -1,4 +1,5 @@
 pill,1
+byte,1
 ice cream cone,2
 arrow,3
 bullet,4
@@ -6,6 +7,7 @@ spoon,5
 cupcake,6
 rusty spoon,9
 pillow,10
+sandwich,11
 watermelon,13
 cane,14
 hatchet,15
@@ -22,6 +24,7 @@ whip,31
 kris,32
 dirk,34
 tome,35
+glowstick,36
 fisticuffs,37
 knuckles,38
 fangs,41
@@ -144,6 +147,7 @@ razor,375
 fireflower,380
 wand,385
 bastardsword,395
+gaming laptop,400
 party cannon,404
 rock candy,410
 flaming arrow,415
@@ -175,6 +179,7 @@ swordchucks,800
 graytooth,835
 pet hellhound,906
 crossblade,935
+kilobyte,1024
 deathswat,1035
 whatisthis,1076
 lightspear,1135
