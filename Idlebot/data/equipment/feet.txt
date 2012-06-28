@@ -46,3 +46,4 @@ Red Hot Kicks,555
 Mario Boots,600
 Silver Surfboard,633
 Advanced Knee Replacement,650
+Continuity Shoes,800
