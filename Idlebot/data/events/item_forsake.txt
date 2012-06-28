@@ -15,3 +15,4 @@ A demon decides to play a trick on %player by placing a curse on %hisher %item.
 %player was baked into a cupcake, and unfortunately, %item got one too many bits of confetti on it.
 %player was forced to watch ponies on the moving picture box, and someone snuck up behind %himher and bent %item.
 %player discovered tumblr on the magic box and left %item to gather dust and rust.
+%player used what magic %she knows to enchant %hisher %item with extra power!... Unfortunately, it failed, so %item ended up in worse condition.
