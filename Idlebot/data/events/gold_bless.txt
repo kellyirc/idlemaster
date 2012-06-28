@@ -9,3 +9,5 @@ A friend of %player gives %himher %money bits of gold, saying something about a 
 The Goddess of Riches, Kirierath, causes it to rain gold down at %player only, and %she proceeds to pick up as many as %money bits of gold.
 %player finds a gold ingot with a lemon peel wrapped around it, and it was worth %money gold!
 %player tripped into a lake, and discovered someone's secret stash of %money gold.
+%player was rewarded %money gold after having performed a generic fetch quest.
+%player made %money gold selling snake oil.
