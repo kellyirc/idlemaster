@@ -5,6 +5,7 @@ arrow,3
 bullet,4
 spoon,5
 cupcake,6
+card,7
 rusty spoon,9
 pillow,10
 sandwich,11
@@ -19,6 +20,7 @@ rapier,23
 kunai,24
 hammer,27
 scriptures,28
+deck of cards,29
 axe,30
 whip,31
 kris,32
@@ -205,6 +207,8 @@ MadCatz Tournament Edition Arcade Stick,895
 Lord of Vermillion,1000
 Punisher,1100
 Deathbringer,1250
+Kusanagi,1400
 Excalibur,1500
 Phantom Tiny Bluescreen,1600
 Kikuichimonki,1750
+Infinity Edge,2500
