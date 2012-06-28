@@ -2,14 +2,17 @@ A Capella Group,14500
 Null Pointer,14000
 Supersonic Wave,13500
 Wumpus,13000
+Hat-Eater,12800
 Jar of Nutella,12750
 False Prophet,12500
 False Deity,12000
 Quetzacoatl,11500
 KR's Brain,11000
+Mecha,10800
 Queen Gnat,10500
 Shion,10250
 Satoko,10000
+Hot Pocket,9800
 Professor Oak,9500
 Rival Blue,9000
 Book of the Night Sky Defense,8500
