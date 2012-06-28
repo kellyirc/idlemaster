@@ -394,7 +394,7 @@ public class Battle {
 		if(first.health < 0) sumHealth += Math.abs(first.health);
 		sumHealth -= second.health;
 		
-		double constant = 467.524693;
+		double constant = 267.524693;
 		if(second.getLevel() < first.getLevel()) constant*=5;
 		
 		long timeMod = (long) (constant * sumHealth);
