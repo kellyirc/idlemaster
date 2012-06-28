@@ -11,3 +11,7 @@ The Goddess of Riches, Kirierath, causes it to rain gold down at %player only, a
 %player tripped into a lake, and discovered someone's secret stash of %money gold.
 %player was rewarded %money gold after having performed a generic fetch quest.
 %player made %money gold selling snake oil.
+%player found a wallet containing %money gold while walking around. %she decided to keep the money after checking if anyone had dropped it.
+%player wrote %hisher thoughts into a book, and ended up selling it for %money gold!
+%player recieved %money from a charity to help adventurers in need!
+%player was picking %hisher ears, when suddenly %money gold coins fell out right into %hisher hands!
