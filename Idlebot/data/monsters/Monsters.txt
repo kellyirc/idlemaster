@@ -145,6 +145,11 @@ phoenix,1600
 demogorgon,1800
 pixie,1900
 abomination,2000
+♥,2050
+☺,2050
+♪,2050
+♫,2050
+►,2050
 zealot,2100
 furious fawn,2150
 conjuror,2200
@@ -170,3 +175,4 @@ automaton,4000
 miniboss squad,4300
 subsonic wave,4040
 trans-dimensional being,4050
+presence,6000
