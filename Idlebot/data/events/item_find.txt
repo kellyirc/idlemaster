@@ -1,1 +1,5 @@
 %player stumbled across %item!
+While stumbling around, %player finds a Pokeball with %item inside.
+%player opens a chest and finds %item in it.
+%player got %item as a reward for performing a generic fetch quest.
+%player digs around in a skag pile and finds %item... Nice.
