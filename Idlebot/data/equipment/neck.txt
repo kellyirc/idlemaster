@@ -22,3 +22,4 @@ Aesculapius Eye,550
 Arihman's Heart,650
 Fated Orb,750
 Noose of Ascension,800
+Impossibility Cloak,1200
