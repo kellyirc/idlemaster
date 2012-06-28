@@ -1,3 +1,8 @@
+6th Grade Choir
+intro=Young voices in slight dischord begin to echo around, as many singing children appear!
+death=Many young souls that day were lost. You are horrible people.
+kills=Do~ Re~ Mi~ Fa~ So~ La~ Ti~ Do~
+end
 Dark Falz
 intro=A burst of blue light reveals a dark foe!
 death=The world has been deprived of its blue color...
