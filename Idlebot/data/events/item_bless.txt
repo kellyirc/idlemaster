@@ -9,3 +9,5 @@ A demon approaches and possesses %player's %item, to aid %player on %hisher ques
 The God of Rampage and Brawling, Ishkalorht, has decided to give %player an advantage by powering up %hisher %item.
 %player's %item was exposed to spontaneous and strong gamma radiation, and is now glowing a bright shade of green.
 %player uses a soul gem to enchant %hisher %item at an enchantment table.
+%player took %item in for repairs, and it came out looking even better than before!
+%player used what magic %she knows to enchant %hisher %item with extra power!
