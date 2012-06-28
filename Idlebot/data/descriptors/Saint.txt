@@ -8,6 +8,7 @@ the Fighter,32
 the Creator,37
 the Titan,39
 Pie,42
+Cake,42
 the Archmagi,46
 Barius,50
 Marrus,60
@@ -16,6 +17,7 @@ the Beast,79
 the Deity,83
 Damned Insanity,98
 Doom,100
+Wonder,107
 the Moon,110
 the Sun,120
 the Corrupt,130
@@ -24,3 +26,4 @@ the Hallowed,150
 the Spirit,180
 the Angel,190
 the Demon,200
+Idleness,250
