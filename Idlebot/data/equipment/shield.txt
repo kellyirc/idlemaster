@@ -33,3 +33,4 @@ Summoned Swords,570
 Hero's Shield,650
 Holy Arms,777
 Hoplon Guard,999
+Shield of Life,1200
