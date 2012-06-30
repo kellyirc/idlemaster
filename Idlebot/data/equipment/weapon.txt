@@ -211,4 +211,4 @@ Kusanagi,1400
 Excalibur,1500
 Phantom Tiny Bluescreen,1600
 Kikuichimonki,1750
-Infinity Edge,2500
+Infinity Edge,7500
