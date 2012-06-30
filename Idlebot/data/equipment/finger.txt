@@ -21,4 +21,4 @@ Magnetic Gloves,487
 Midas Touch,560
 Wolverine,635
 Black Hole,650
-Ring of Death and Life,800
+Ring of Death and Life,7500
