@@ -43,4 +43,4 @@ Fox Rods,631
 Everburn,650
 Faithful Pet Wolf,750
 Mask de Smith,777
-Magnitude Pocketwatch,1200
+Magnitude Pocketwatch,7500
