@@ -42,4 +42,4 @@ Baron's Cape,550
 Sentinel Armor,600
 Mazinger Z,700
 Bill Cosby's Sweater,800
-Armor of Dawn and Twilight,1200
+Armor of Dawn and Twilight,7500
