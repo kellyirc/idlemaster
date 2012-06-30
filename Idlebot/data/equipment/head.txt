@@ -43,4 +43,4 @@ Powdered Wig,680
 Ye Olde Helm,750
 Viking Helmet,780
 Chap's Monocle,800
-Antiverse Circlet,1200
+Antiverse Circlet,7000
