@@ -9,3 +9,4 @@ Electric's,150
 Shion's,150
 Mion's,150
 Knight's,150
+Jar's,150
