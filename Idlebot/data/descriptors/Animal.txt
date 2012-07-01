@@ -1,3 +1,4 @@
+ill iguana,5
 bear,7
 viper,10
 pig,14
@@ -14,6 +15,7 @@ dragon,43
 unicorn,57
 pixie,61
 red-eyed programmer,63
+ornate otaku,64
 radioactive rabbit,65
 silly snake,70
 goofy gopher,80
@@ -41,5 +43,7 @@ gelatinous jabberwocky,270
 snorting squirrel,280
 castrated cat,290
 vicious viking,300
-phoenix,331
+wightful werewolf,331
 machine,400
+explosive thing,425
+phoenix,500
