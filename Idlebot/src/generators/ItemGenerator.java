@@ -135,9 +135,9 @@ public class ItemGenerator {
 		// all trys become successes if type = Idle
 		Data choice;
 
-		// try to make avatar (3/1000)
+		// try to make avatar (77/10000)
 		if (cl == ItemClass.Idle || cl == ItemClass.Avatar
-				|| GeneratorData.random.nextInt(1000) > 997) {
+				|| GeneratorData.random.nextInt(10000) > 9923) {
 			itemClass = ItemClass.Avatar;
 			choice = types.get(ItemClass.Avatar)[GeneratorData.random.nextInt(types
 					.get(ItemClass.Avatar).length)];
@@ -215,11 +215,11 @@ public class ItemGenerator {
 		if (choice.toString().charAt(0) < 91 && itemClass == null)
 			itemClass = ItemClass.Special;
 
-		// try to become spirit class (5% avatar, 0.3% normal)
+		// try to become spirit class (5% avatar, 0.7% normal)
 		if (cl == ItemClass.Idle
 				|| cl == ItemClass.Spiritual
 				|| GeneratorData.random.nextInt(1000) > (itemClass == ItemClass.Avatar ? 950
-						: 997)) {
+						: 993)) {
 			choice = types.get(ItemClass.Saint)[GeneratorData.random.nextInt(types
 					.get(ItemClass.Saint).length)];
 			itemValue += choice.getValue();
@@ -232,10 +232,10 @@ public class ItemGenerator {
 			if (itemClass == null)
 				itemClass = ItemClass.Spiritual;
 
-			// if not, try to become animal class (59% avatar, 39% normal)
+			// if not, try to become animal class (63% avatar, 42% normal)
 		} else if (cl == ItemClass.Animal
-				|| GeneratorData.random.nextInt(1000) > (itemClass == ItemClass.Avatar ? 410
-						: 610)) {
+				|| GeneratorData.random.nextInt(100) > (itemClass == ItemClass.Avatar ? 37
+						: 56)) {
 			choice = types.get(ItemClass.Animal)[GeneratorData.random.nextInt(types
 					.get(ItemClass.Animal).length)];
 			itemValue += choice.getValue();

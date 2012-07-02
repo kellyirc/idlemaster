@@ -40,7 +40,8 @@ public class Battle {
 		private String condenseMembers() {
 			String s = "";
 			for(Playable p : members) {
-				s += (p.health <= 0 ? Colors.LIGHT_GRAY :Colors.RED) + p.getName() + " ["+p.health+"] "+Colors.NORMAL;
+				s += (p.health <= 0 ? Colors.LIGHT_GRAY :Colors.RED) + p.getName() + " ["+p.health+"]"+Colors.NORMAL;
+				if(!members.get(members.size()).equals(p)) s += " ";
 			}
 			return s;
 		}

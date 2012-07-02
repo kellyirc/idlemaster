@@ -31,6 +31,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.pircbotx.Colors;
 import org.pircbotx.PircBotX;
 import org.pircbotx.User;
 import org.pircbotx.exception.IrcException;
@@ -71,7 +72,7 @@ public class IdleBot extends PircBotX implements Globals {
 					new Event();
 				}
 				
-				if(ticks%(Event.EVENT_TIME*25) == 0) {
+				if(ticks%(Event.EVENT_TIME*20) == 0) {
 					Player pl = IdleBot.botref.getRandomPlayer();
 					Playable m;
 					if(Math.random() > 0.9)
@@ -108,7 +109,7 @@ public class IdleBot extends PircBotX implements Globals {
 	}
 
 	public static IdleBot botref;
-	public static final int MAX_MONSTERS = 200;
+	public static final int MAX_MONSTERS = 300;
 	
 	public static void main(String[] args) {
 
@@ -386,7 +387,7 @@ public class IdleBot extends PircBotX implements Globals {
 
 	public void messageChannel(String s) {
 		try {
-			sendMessage(getGlobalChannel(), s);
+			sendMessage(getGlobalChannel(), Colors.NORMAL+s);
 		} catch(Exception e) {
 			
 		}
@@ -547,19 +548,13 @@ public class IdleBot extends PircBotX implements Globals {
 	
 	public Monster getMonsterInRangeOf(Playable p) {
 		Monster m = null;
-		Playable[] array = players.toArray(new Playable[0]);
 		int tries = 0;
 		do {
-			
-			Playable choice = array[(int) (Math.random() * (array.length-1))];
-			
-			if( choice instanceof Monster) {
-				m = (Monster) choice;
-				if(p.canBattle(m)) return m;
-			}
-			
-		} while (tries++<100 && m == null);
+			m = MonsterGenerator.generateMonster(null, -1);
+			if(p.canBattle(m)) return m;
+			else m.die(null);
+		} while (tries++<100);
 		
-		return m;
+		return null;
 	}
 }

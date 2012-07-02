@@ -23,8 +23,8 @@ public abstract class Playable {
 	
 	public static final double BATTLE_MULTIPLIER = 1.56;
 	
-	public static final int MAX_X = 250;;
-	public static final int MAX_Y = 250;;
+	public static final int MAX_X = 250;
+	public static final int MAX_Y = 250;
 	protected Alignment alignment;;
 
 	private Boolean isMale = null;
@@ -49,6 +49,7 @@ public abstract class Playable {
 		this.classType = classtype2;
 		this.alignment = align;
 	}
+	
 	public Boolean getIsMale() {
 		return isMale;
 	}
@@ -56,6 +57,7 @@ public abstract class Playable {
 	public void setIsMale(Boolean isMale) {
 		this.isMale = isMale;
 	}
+	
 	private boolean aboveX() {
 		return x-1 > 0;
 	}
@@ -63,6 +65,7 @@ public abstract class Playable {
 	private boolean aboveY() {
 		return y-1 > 0;
 	}
+	
 	public int calcTotal(data.Item.Type type) {
 		int rev = 0;
 		for(Item i : equipment.values()) {
@@ -93,20 +96,20 @@ public abstract class Playable {
 
 	public void engage(Playable other) {
 		if(this.canBattle(other)) {
-			if(this.alignment == Alignment.Good && other.alignment == Alignment.Neutral && Battle.prob(10)) {
+			if(this.alignment == Alignment.Good && other.alignment == Alignment.Neutral && Battle.prob(5)) {
 				IdleBot.botref.messageChannel(Event.replaceGender(Battle.BATTLE + getName() + " greeted "+other.getName()+" and went on %hisher merry way.",this));
 				warp();
 				return;
 			}
-			if(this.alignment == Alignment.Neutral && Battle.prob(20)) {
+			if(this.alignment == Alignment.Neutral && Battle.prob(10)) {
 				IdleBot.botref.messageChannel(Battle.BATTLE + getName() + " glanced at "+other.getName()+" and kept walking.");
 				warp();
 				return;
 			}
-			if(this.alignment == Alignment.Evil && Battle.prob(10)){
+			if(this.alignment == Alignment.Evil && Battle.prob(5)){
 				IdleBot.botref.messageChannel(Event.replaceGender(Battle.BATTLE + getName() + " snickered as %she walked by "+other.getName()+".", this));
 				warp();
-				if(Battle.prob(10)) {
+				if(Battle.prob(15)) {
 					Battle.steal(this, other);
 				}
 				return;
@@ -137,6 +140,7 @@ public abstract class Playable {
 	public Alignment getAlignment() {
 		return alignment;
 	}
+	
 	public String getBattleName() {
 		return Colors.BOLD + getName() + Colors.NORMAL;
 	}
@@ -199,35 +203,53 @@ public abstract class Playable {
 	}
 	
 	public boolean canBattle(Playable other) {
-		if(group!=null) {
-			
-		}
 		if(getGroup()!= null && other.getGroup()!= null && getGroup().equals(other.getGroup())) return false;
-		return ( isWithinLevel(other) && isWithinRange(other));
+		
+		return ( isWithinRange(other) );
 	}
 	
+	@SuppressWarnings("unused")
 	private boolean isWithinLevel(Playable right) {
-		return (calcLevelGroup(this)/BATTLE_MULTIPLIER < calcLevelGroup(right) && calcLevelGroup(right) < calcLevelGroup(this)*BATTLE_MULTIPLIER);
+		return (calcLevelGroup()/BATTLE_MULTIPLIER < right.calcLevelGroup() && 
+				right.calcLevelGroup() < calcLevelGroup()*BATTLE_MULTIPLIER);
 	}
 	
 	private boolean isWithinRange(Playable right) {
-		return (calcTotalGroup(this)/BATTLE_MULTIPLIER < calcTotalGroup(right) && calcTotalGroup(right) < calcTotalGroup(this)*BATTLE_MULTIPLIER);
+		return (calcTotalGroup()/BATTLE_MULTIPLIER < right.calcTotalGroup() && 
+				right.calcTotalGroup() < calcTotalGroup()*BATTLE_MULTIPLIER);
 	}
 	
-	private int calcLevelGroup(Playable left) {
-		if(left.getGroup() == null) return left.level;
+	private int calcLevelGroup() {
+		if(getGroup() == null) return getLevel();
 		int rev = 0;
-		for(Playable p : left.getGroup()) {
+		for(Playable p : getGroup()) {
 			rev += p.getLevel();
 		}
 		return rev;
 	}
 	
-	private int calcTotalGroup(Playable left) {
-		if(left.getGroup() == null) return left.calcTotal(null);
+	private int calcTotalGroup() {
+		if(getGroup() == null) return battleCheckTotal();
 		int rev = 0;
-		for(Playable p : left.getGroup()) {
+		for(Playable p : getGroup()) {
 			rev += p.calcTotal(null);
+		}
+		return rev;
+	}
+	
+	public int battleCheckTotal() {
+		int rev = 0;
+		for(Item i : equipment.values()) {
+			switch(i.getType()) {
+			case Spiritual:
+			case Emotional:
+				rev += i.getValue()/10;
+				break;
+			case Physical:
+			case Magical:
+				rev += i.getValue();
+				break;
+			}
 		}
 		return rev;
 	}

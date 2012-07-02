@@ -27,7 +27,7 @@ public class Usable {
 
 	private String name;
 	private int count=1;
-	private transient Random r = new Random();
+	private Random r = new Random();
 	
 	public Usable(String name) {
 		this.name = name;
@@ -113,7 +113,7 @@ public class Usable {
 			doDice(p);
 			break;
 		case "wishingwell":
-			doWishingWell();
+			doWishingWell(p);
 			break;
 		case "wishingfountain":
 			doWishingFountain();
@@ -206,8 +206,10 @@ public class Usable {
 		}
 	}
 
-	private void doWishingWell() {
-		Player rand = IdleBot.botref.getRandomPlayer();
+	private void doWishingWell(Player p) {
+		Player rand;
+		if(Math.random() > 0.9) rand = p;
+		else rand = IdleBot.botref.getRandomPlayer();
 		for(Entry<Slot, Item> i : rand.getEquipment()) {
 			i.getValue().setValue((int) (i.getValue().getValue()*1.05));
 		}
@@ -248,19 +250,21 @@ public class Usable {
 			IdleBot.botref.messageChannel("..."+rand.getName()+" dodged the bomb!");
 		} else {
 			long l = (long) (Math.random() * 500000);
-			IdleBot.botref.messageChannel("..."+rand.getName()+" got hit by the bomb, causing "+left.getName()+" to crack ("+left.getValue()+"->"+Math.round(left.getValue()*0.8)+") and taking a "+IdleBot.botref.ms2dd(l)+" to %hisher level timer!",p);
+			IdleBot.botref.messageChannel("..."+rand.getName()+" got hit by the bomb, causing "+left.getName()+" to crack ("+left.getValue()+"->"+Math.round(left.getValue()*0.8)+") and taking a "+IdleBot.botref.ms2dd(l)+" to %hisher level timer!",rand);
 			left.setValue((int) (left.getValue() * 0.8));
-			p.modifyTime(l);
+			rand.modifyTime(l);
 		}
 	}
 
 	private void doCrystalShard(Player p) {
-		if(r.nextInt(100) > 35) {
-			Player rand = IdleBot.botref.getRandomPlayer();
+		if(Math.random() > 0.35) {
+			Player rand;
+			do {
+				rand = IdleBot.botref.getRandomPlayer();
+			} while(rand.equals(p));
 			IdleBot.botref.messageChannel(".. and was whisked away to "+rand.getName()+"!");
 			p.warp(rand);
-		}
-		else {
+		} else {
 			IdleBot.botref.messageChannel(".. and was whisked away!");
 			p.warp();
 		}
@@ -282,7 +286,7 @@ public class Usable {
 	}
 
 	private void doPocketwatch(Player p) {
-		if(r.nextBoolean()) {
+		if(Math.random() > 0.5) {
 			IdleBot.botref.messageChannel("...and realized %she was late for a very important date!",p);
 			new TimeEvent(p, TimeEvent.Type.Forsaken);
 			new ItemEvent(p, false);
@@ -307,7 +311,7 @@ public class Usable {
 	}
 
 	private void doGeniiLamp(Player p) {
-		int i = r.nextInt(100);
+		int i = (int) (Math.random() * 100);
 		if(i < 10) {
 			generateItem(p);
 		} else if(i < 30) {
@@ -473,7 +477,7 @@ public class Usable {
 	}
 	
 	private void doFortuneCookie(Player p) {
-		switch(r.nextInt(13)) {
+		switch((int)Math.random()*13) {
 		case 1: case 2:
 			IdleBot.botref.messageChannel("... and it tasted delicious!");
 			new TimeEvent(p,TimeEvent.Type.Blessing);
