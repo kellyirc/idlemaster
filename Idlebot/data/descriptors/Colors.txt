@@ -25,3 +25,4 @@ moonstone,50
 rainbow,60
 love-colored,63
 godstone,120
+cosmic,250
