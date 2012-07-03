@@ -135,9 +135,9 @@ public class ItemGenerator {
 		// all trys become successes if type = Idle
 		Data choice;
 
-		// try to make avatar (77/10000)
+		// try to make avatar (1/10000)
 		if (cl == ItemClass.Idle || cl == ItemClass.Avatar
-				|| GeneratorData.random.nextInt(10000) > 9923) {
+				|| GeneratorData.random.nextInt(10000) > 9999) {
 			itemClass = ItemClass.Avatar;
 			choice = types.get(ItemClass.Avatar)[GeneratorData.random.nextInt(types
 					.get(ItemClass.Avatar).length)];
