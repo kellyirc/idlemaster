@@ -211,4 +211,5 @@ Kusanagi,1400
 Excalibur,1500
 Phantom Tiny Bluescreen,1600
 Kikuichimonki,1750
+Golden Egg,2000
 Infinity Edge,7500
