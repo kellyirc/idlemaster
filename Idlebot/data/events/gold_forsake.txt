@@ -22,4 +22,3 @@ A miniature samurai ninja robot velociraptor with psychic powers stole %money go
 %player spends %money bits of gold on snake oil.
 %player had to spend %money tending to injuries %she got while fighting monsters.
 %player was pounced on by a group of hooligans, so %she had to throw %money gold coins at them to distract them enough so that %she could get away!
-%player decided to donate %gold gold to the "Players Who Can't Level Up Because They Keep Getting Killed Repeatedly" fund. Surely, someone will find a good use for the money that %she donated!
