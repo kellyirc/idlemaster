@@ -13,11 +13,9 @@ public class Cataclysm {
 		I, II, III, IV
 	}
 
-	public static final int MONEY_GAIN = 5000;
-
 	public Cataclysm() {
 		Quadrant quad = Quadrant.values()[(int) (Math.random() * Quadrant
-				.values().length)];
+				.values().length-1)];
 		int count = 0;
 		switch ((int) (Math.random() * 13)) {
 
@@ -150,13 +148,21 @@ public class Cataclysm {
 			break;
 
 		case 7:
+			
+			int moneyGain = 0;
+			
+			for(Player p : IdleBot.botref.getOnlinePlayers()) 
+				moneyGain += p.calcTotal(null);
+			
+			moneyGain/=IdleBot.botref.getOnlinePlayers().size();
+			
 			IdleBot.botref
 					.messageChannel(Colors.DARK_GRAY
 							+ "The deities have smiled upon this world! The sky begins to rain gold! [+"
-							+ MONEY_GAIN + "]");
+							+ moneyGain + "]");
 			for (Player p : IdleBot.botref.getOnlinePlayers()) {
 				p.stats.cataSuffered++;
-				p.setMoney(p.getMoney() + MONEY_GAIN);
+				p.setMoney(p.getMoney() + moneyGain);
 			}
 			break;
 
