@@ -138,7 +138,7 @@ public class ItemGenerator {
 		// try to make avatar (1/10000)
 		if (cl == ItemClass.Idle || cl == ItemClass.Avatar
 				|| GeneratorData.random.nextInt(10000) > 9999) {
-			itemClass = ItemClass.Avatar;
+			if(itemClass == null) itemClass = ItemClass.Avatar;
 			choice = types.get(ItemClass.Avatar)[GeneratorData.random.nextInt(types
 					.get(ItemClass.Avatar).length)];
 			itemName.append(choice + " ");

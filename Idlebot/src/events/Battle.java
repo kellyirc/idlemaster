@@ -210,8 +210,17 @@ public class Battle {
 	}
 
 	private void physicalAttack(Playable left, Playable right) {
-		int damage = rand.nextInt(Math.max(left.calcTotal(Type.Physical),1));
-		battleMessage(Event.replaceGender(BATTLE + left.getBattleName()+" took a swing at "+right.getBattleName()+" with %hisher "+getWeapon(left) + " for "+Colors.RED+damage+Colors.NORMAL+" damage!", left));
+		
+		int damage=0;
+		if(prob(5)) {
+			damage = left.calcTotal(Type.Physical);
+			battleMessage(Event.replaceGender(BATTLE + left.getBattleName()+" got a lucky hit on "+right.getBattleName()+" with %hisher "+getWeapon(left) + " for "+Colors.RED+damage+Colors.NORMAL+" damage!", left));
+			
+		} else {
+			damage = rand.nextInt(Math.max(left.calcTotal(Type.Physical),1));
+			battleMessage(Event.replaceGender(BATTLE + left.getBattleName()+" took a swing at "+right.getBattleName()+" with %hisher "+getWeapon(left) + " for "+Colors.RED+damage+Colors.NORMAL+" damage!", left));
+			
+		}
 		
 		if(damage == 0 || right.getAlignment() == Alignment.Good && prob(4)) {
 			battleMessage(BATTLE + "..but "+right.getBattleName()+" dodged!");

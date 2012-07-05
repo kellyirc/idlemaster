@@ -446,12 +446,12 @@ public class CommandListener extends
 		}
 		if(play.loggedIn) {
 			event.getBot().sendMessage(event.getUser(), play.toString());
-			event.getBot().sendMessage(event.getUser(), "You have "+play.getMoney() + " gold.");
-			event.getBot().sendMessage(event.getUser(), "You have "+event.getBot().ms2dd(play.getTimeLeft()) + " to next level.");
+			event.getBot().sendMessage(event.getUser(), play.toBattleString());
+			event.getBot().sendMessage(event.getUser(), play.getName() + " has "+play.getMoney() + " gold.");
+			event.getBot().sendMessage(event.getUser(), play.getName() + " has "+event.getBot().ms2dd(play.getTimeLeft()) + " to next level.");
 			event.getBot().sendMessage(event.getUser(), "Equipment <<"+play.calcTotal(null)+">>");
 			for(Entry<Slot, Item> i : play.getEquipment()) {
 				event.getBot().sendMessage(event.getUser(), i.getKey()+": "+i.getValue() + " <<"+i.getValue().getValue()+">>");
-				Thread.sleep(300);
 			}
 		} else 
 			event.getBot().sendMessage(event.getUser(), "You aren't even logged in.");

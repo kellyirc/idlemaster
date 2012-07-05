@@ -72,12 +72,10 @@ public abstract class Playable {
 			if(type!=null && i.getType() == type || type == null) rev += i.getValue();
 		}
 		//if(type == null && this instanceof Monster) rev += ((Monster)this).getBonus();
-		return rev;
+		return Math.max(rev,0);
 	}
 	
 	public boolean canEquip(Slot s, Item i) {
-		if(i.getItemClass() == data.Item.ItemClass.Avatar)
-			return true;
 		
 		Item current = equipment.get(s);
 		

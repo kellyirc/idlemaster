@@ -174,22 +174,24 @@ public class Usable {
 	}
 
 	private void doGenieLamp(Player p) {
+		double d = Math.random();
 		IdleBot.botref.messageChannel(p.getName() + " has three wishes!");
-		if(Math.random() < 0.05) {
+		if(d < 0.05) {
 			IdleBot.botref.messageChannel("One of them was a level up!");
 			p.levelUp();
-		} else if(Math.random() < 0.5) { 
+		} else if(d < 0.5) { 
 			IdleBot.botref.messageChannel("One of them was more money!");
 			new MoneyEvent(p, true);
 		} else {
 			IdleBot.botref.messageChannel("One of them was more pain in the world!");
 			new TimeEvent(IdleBot.botref.getRandomPlayer(), TimeEvent.Type.Forsaken);
 		}
-		if(Math.random() < 0.1) {
+		d = Math.random();
+		if(d < 0.1) {
 			IdleBot.botref.messageChannel("The second was worldly destruction!");
 			p.stats.cataCaused++;
 			new Cataclysm();
-		} else if(Math.random() < 0.3) {
+		} else if(d < 0.3) {
 			IdleBot.botref.messageChannel("The second was more material possessions!");
 			new ItemFindEvent(p);
 		} else {
@@ -245,7 +247,7 @@ public class Usable {
 
 	private void doBomb(Player p) {
 		Player rand = IdleBot.botref.getRandomPlayer();
-		Item left = ItemEvent.getRandomItem(p);
+		Item left = ItemEvent.getRandomItem(rand);
 		if(Math.random() > 0.8) {
 			IdleBot.botref.messageChannel("..."+rand.getName()+" dodged the bomb!");
 		} else {
