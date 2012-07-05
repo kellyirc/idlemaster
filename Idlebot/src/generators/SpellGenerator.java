@@ -99,7 +99,7 @@ public class SpellGenerator {
         "of the gods", "of fate"
         };
 
-		return new Spell(genSpellName(prefixes, names, suffixes), Math.max(r.nextInt(maxDamage)+1,1));
+		return new Spell(genSpellName(prefixes, names, suffixes), Math.max(r.nextInt(Math.max(1,maxDamage))+1,1));
 	}
 	
 	public Spell generateEvilSpell(int maxDamage) {
@@ -126,7 +126,7 @@ public class SpellGenerator {
         "of insanity", "of Ifrit", "of the gods"
         };
 
-		return new Spell(genSpellName(prefixes, names, suffixes), r.nextInt(maxDamage)+1);
+		return new Spell(genSpellName(prefixes, names, suffixes), r.nextInt(Math.max(1,maxDamage))+1);
 	}
 
 	private String genSpellName(String[] prefixes, String[] names,
