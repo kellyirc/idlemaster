@@ -210,7 +210,7 @@ public class Battle {
 	}
 
 	private void physicalAttack(Playable left, Playable right) {
-		int damage = rand.nextInt(left.calcTotal(Type.Physical)+1);
+		int damage = rand.nextInt(Math.max(left.calcTotal(Type.Physical),1));
 		battleMessage(Event.replaceGender(BATTLE + left.getBattleName()+" took a swing at "+right.getBattleName()+" with %hisher "+getWeapon(left) + " for "+Colors.RED+damage+Colors.NORMAL+" damage!", left));
 		
 		if(damage == 0 || right.getAlignment() == Alignment.Good && prob(4)) {
