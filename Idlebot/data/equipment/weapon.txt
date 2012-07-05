@@ -99,6 +99,7 @@ cube,125
 manual,126
 vial,127
 cheese wheel,128
+toaster,129
 contraption,130
 utensil,131
 large trout,135
