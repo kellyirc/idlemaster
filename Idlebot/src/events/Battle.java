@@ -65,7 +65,7 @@ public class Battle {
 		private void checkDoppleganger(Playable p) {
 			if(!(p.getName().equals("Doppleganger") && p instanceof Monster)) return;
 			Playable copy;
-			if(this.equals(right)) {
+			if(right.members.contains(p)) {
 				copy = left.pickAliveMember();
 			} else {
 				copy = right.pickAliveMember();
