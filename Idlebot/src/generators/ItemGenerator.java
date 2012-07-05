@@ -6,6 +6,7 @@ import data.Item.ItemClass;
 import data.Item.Type;
 import data.Playable.Alignment;
 import data.Playable.Slot;
+import data.Player;
 
 import java.io.IOException;
 import java.net.URL;
@@ -16,6 +17,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import bot.IdleBot;
 
 import data.Item;
 
@@ -139,10 +142,11 @@ public class ItemGenerator {
 		if (cl == ItemClass.Idle || cl == ItemClass.Avatar
 				|| GeneratorData.random.nextInt(10000) > 9999) {
 			if(itemClass == null) itemClass = ItemClass.Avatar;
-			choice = types.get(ItemClass.Avatar)[GeneratorData.random.nextInt(types
-					.get(ItemClass.Avatar).length)];
-			itemName.append(choice + " ");
-			itemValue += choice.getValue();
+			//choice = types.get(ItemClass.Avatar)[GeneratorData.random.nextInt(types.get(ItemClass.Avatar).length)];
+			Player pChoice = IdleBot.botref.getRandomPlayer();
+			itemName.append(pChoice.getName() + " ");
+			Item rItem = pChoice.getEquipment().toArray(new Item[0])[(int) (Math.random() * pChoice.getEquipment().size())];
+			itemValue += rItem.getValue();
 			if(type == null) 
 				type = Type.Spiritual;
 		}
