@@ -243,7 +243,7 @@ public abstract class Playable {
 			switch(i.getType()) {
 			case Spiritual:
 			case Emotional:
-				rev += i.getValue()/10;
+				rev += i.getValue()/3.5;
 				break;
 			case Physical:
 			case Magical:
