@@ -32,8 +32,10 @@ public class CommandListener extends
 
 		switch (args[0].toLowerCase()) {
 		/**
-		 * COMMAND: register ARGUMENTS: name password custom-class-name HELP:
-		 * Register a new character. PENALTY: None.
+		 * COMMAND: register 
+		 * ARGUMENTS: name password custom-class-name 
+		 * HELP: Register a new character. 
+		 * PENALTY: None.
 		 */
 		case "register":
 
@@ -41,8 +43,10 @@ public class CommandListener extends
 			break;
 
 		/**
-		 * COMMAND: login ARGUMENTS: name password HELP: Log in to a previously
-		 * created character. PENALTY: None.
+		 * COMMAND: login 
+		 * ARGUMENTS: name password 
+		 * HELP: Log in to a previously created character. 
+		 * PENALTY: None.
 		 */
 		case "login":
 
@@ -50,32 +54,40 @@ public class CommandListener extends
 			break;
 
 		/**
-		 * COMMAND: timeleft ARGUMENTS: none HELP: Get the remaining time to
-		 * level. PENALTY: None.
+		 * COMMAND: timeleft 
+		 * ARGUMENTS: none 
+		 * HELP: Get the remaining time to level. 
+		 * PENALTY: None.
 		 */
 		case "timeleft":
 			doTimeleft(event);
 			break;
 
 		/**
-		 * COMMAND: info ARGUMENTS: none HELP: Display all information about
-		 * your character. PENALTY: None.
+		 * COMMAND: info 
+		 * ARGUMENTS: none 
+		 * HELP: Display all information about your character. 
+		 * PENALTY: None.
 		 */
 		case "info":
 			doInfo(event, args);
 			break;
 
 		/**
-		 * COMMAND: logout ARGUMENTS: none HELP: Safely log out of your
-		 * character. PENALTY: None.
+		 * COMMAND: logout 
+		 * ARGUMENTS: none 
+		 * HELP: Safely log out of your character. 
+		 * PENALTY: None.
 		 */
 		case "logout":
 			doLogout(event);
 			break;
 
 		/**
-		 * COMMAND: online, who ARGUMENTS: none HELP: Show all currently logged
-		 * in players. PENALTY: None.
+		 * COMMAND: online, who 
+		 * ARGUMENTS: none 
+		 * HELP: Show all currently logged in players. 
+		 * PENALTY: None.
 		 */
 		case "online":
 		case "who":
@@ -84,62 +96,79 @@ public class CommandListener extends
 			break;
 
 		/**
-		 * COMMAND: align ARGUMENTS: [Good|Neutral|Evil] HELP: Change alignment
-		 * of your character. PENALTY: p30|p15|p5
+		 * COMMAND: align 
+		 * ARGUMENTS: [Good|Neutral|Evil] 
+		 * HELP: Change alignment of your character. 
+		 * PENALTY: p30|p15|p5
 		 */
 		case "align":
 			doAlignChange(event, args);
 			break;
 
 		/**
-		 * COMMAND: ignore ARGUMENTS: none HELP: Ignore the bots notices about
-		 * selling/trashing items. PENALTY: None.
+		 * COMMAND: ignore 
+		 * ARGUMENTS: none 
+		 * HELP: Ignore the bots notices about selling/trashing items. 
+		 * PENALTY: None.
 		 */
 		case "ignore":
 			doIgnore(event);
 			break;
 
 		/**
-		 * COMMAND: shop ARGUMENTS: [buy|info] itemname HELP: Buy or view items
-		 * available for purchase. PENALTY: None.
+		 * COMMAND: shop 
+		 * ARGUMENTS: [buy|info] itemname 
+		 * HELP: Buy or view items available for purchase. 
+		 * PENALTY: None.
 		 */
 		case "shop":
 			doShop(event, args);
 			break;
 
 		/**
-		 * COMMAND: use ARGUMENTS: itemname HELP: Use an item. PENALTY: p1
+		 * COMMAND: use 
+		 * ARGUMENTS: itemname 
+		 * HELP: Use an item. 
+		 * PENALTY: p1
 		 */
 		case "use":
 			doItemUse(event, args);
 			break;
 
 		/**
-		 * COMMAND: class ARGUMENTS: new class name HELP: Change your class
-		 * name. PENALTY: p50
+		 * COMMAND: class 
+		 * ARGUMENTS: new class name 
+		 * HELP: Change your class name. 
+		 * PENALTY: p50
 		 */
 		case "class":
 			doClassChange(event, args);
 			break;
 
 		/**
-		 * COMMAND: gold ARGUMENTS: None. HELP: Shows your current amount of
-		 * gold. PENALTY: None.
+		 * COMMAND: gold 
+		 * ARGUMENTS: None. 
+		 * HELP: Shows your current amount of gold. 
+		 * PENALTY: None.
 		 */
 		case "gold":
 			doGold(event);
 			break;
 
 		/**
-		 * COMMAND: gender ARGUMENTS: male|female|reset HELP: Change the gender
-		 * the bot refers to you as. PENALTY: None.
+		 * COMMAND: gender 
+		 * ARGUMENTS: male|female|reset 
+		 * HELP: Change the gender the bot refers to you as. 
+		 * PENALTY: None.
 		 */
 		case "gender":
 			doGender(event, args);
 			break;
 		/**
-		 * COMMAND: items ARGUMENTS: None. HELP: Shows your current items and
-		 * their amounts. PENALTY: None.
+		 * COMMAND: items 
+		 * ARGUMENTS: None. 
+		 * HELP: Shows your current items and their amounts. 
+		 * PENALTY: None.
 		 */
 		case "items":
 			Player p = IdleBot.botref.getPlayerByUser(event.getUser());
