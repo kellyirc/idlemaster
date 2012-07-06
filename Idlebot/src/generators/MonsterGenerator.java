@@ -161,6 +161,7 @@ public class MonsterGenerator {
 		
 		if(align == null) align = Alignment.Good;
 		
+		if(name.toString().contains("Doppleganger")) name = new StringBuffer("Doppleganger");
 		Monster rev = new Monster(name.toString(), align, string);
 		rev.addToBonus(valueBonus);
 		return rev;
