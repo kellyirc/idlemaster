@@ -519,6 +519,16 @@ public class CommandListener extends
 		String name = args[1];
 		String password = args[2];
 		String cclass = args[3];
+      
+    if(!name.matches("((?:[a-z][a-z]+))")) {
+      event.getBot().sendMessage(event.getUser(), "That name is invalid.");
+      return;
+    }
+    
+    if(!name.matches("((?:[a-z][a-z]+)).*?((?:[a-z][a-z]+))")) {
+      event.getBot().sendMessage(event.getUser(), "That name is invalid.");
+      return;
+    }
 		
 		if(event.getBot().findPlayer(name) != null) {
 			event.getBot().sendMessage(event.getUser(), "That guy already registered.");
