@@ -26,4 +26,5 @@ the Hallowed,150
 the Spirit,180
 the Angel,190
 the Demon,200
+the KayArr,210
 Idleness,250
