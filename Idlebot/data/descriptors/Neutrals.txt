@@ -7,3 +7,6 @@ mellowing,0
 calming,0
 bland,0
 ordinary,0
+boring,0
+vanilla,0
+neutron-ish,0
