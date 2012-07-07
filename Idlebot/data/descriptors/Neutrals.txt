@@ -10,3 +10,4 @@ ordinary,0
 boring,0
 vanilla,0
 neutron-ish,0
+lagom,0
