@@ -1,11 +1,16 @@
 rarespawn,0
+rubber duck,1
 gnat,1
 sick and dying animal,2
 godmonster,3
+mushroom,4
 pedestrian,5
 bear,7
 viper,10
+pup,11
+puppy,11
 hippie,12
+hillbillie,12
 louse,13
 pig,14
 fish,17
@@ -17,13 +22,16 @@ snake,25
 mouse,26
 skag,27
 wonderful fish,29
+batdog,30
 snorting squirrel,30
 insect,33
+chunk of meat,40
 rat,50
 radioactive rabbit,65
 owl,75
 silly snake,80
 cat,100
+surströmming,110
 welsh warthog,120
 helpful hedgehog,130
 bat,150
@@ -55,6 +63,7 @@ castrated cat,369
 orc nudist,370
 orc brawler,375
 imp,383
+android,400
 goblin,400
 vicious viking,410
 goofy gopher,425
@@ -116,6 +125,7 @@ skeletal knight,925
 skeletal magician,950
 skeletal gnat,999
 skeletal rogue,1000
+terminator,1000
 vengeful soul,1025
 heretic,1033
 batcat,1040
@@ -127,6 +137,7 @@ daring duck,1160
 supergnat,1175
 giant,1200
 horny hornet,1210
+hive mind,1220
 malicious meerkat,1225
 gryphon,1250
 mudman,1275
