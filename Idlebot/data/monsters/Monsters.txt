@@ -32,6 +32,7 @@ owl,75
 silly snake,80
 cat,100
 surströmming,110
+lutefisk,110
 welsh warthog,120
 helpful hedgehog,130
 bat,150
