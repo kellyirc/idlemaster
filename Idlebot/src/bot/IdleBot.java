@@ -139,7 +139,7 @@ public class IdleBot extends PircBotX implements Globals {
 
 			this.setLogin("EllyBot");
 			this.setName("IdleMaster");
-			this.setVersion("Eclipse 3.7");
+			this.setVersion("Eclipse 3.8");
 			this.setAutoNickChange(true);
 			this.connect(server, port);
 			this.identify("cake");
@@ -157,6 +157,7 @@ public class IdleBot extends PircBotX implements Globals {
 		}
 
 		this.joinChannel(Globals.Channel);
+		this.setModerated(getGlobalChannel());
 
 		try {
 			Thread.sleep(9001);
@@ -327,6 +328,7 @@ public class IdleBot extends PircBotX implements Globals {
 		player.getAliases().add(new UserData(user.generateSnapshot()));
 		messageChannel(user.getNick() + " has joined Idletopia as " + player
 				+ ".");
+		this.voice(getGlobalChannel(), user);
 
 	}
 

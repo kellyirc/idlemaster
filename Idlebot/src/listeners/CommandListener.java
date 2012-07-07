@@ -524,6 +524,7 @@ public class CommandListener extends
 
 		event.getBot().sendMessage(event.getUser(),
 				"You have been successfully logged out.");
+		IdleBot.botref.deVoice(IdleBot.botref.getGlobalChannel(), event.getUser());
 
 		Player p = IdleBot.botref.getPlayerByUser(event.getUser());
 		p.lastLogin = null;
