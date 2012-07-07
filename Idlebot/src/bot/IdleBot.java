@@ -14,11 +14,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.TimeZone;
+import java.util.TreeSet;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import listeners.*;
@@ -373,8 +373,16 @@ public class IdleBot extends PircBotX implements Globals {
 					Player p = gson.fromJson(strLine, Player.class);
 					if(p.getLevel() == 0) continue;
 					p.fromSerialize();
-
-					players.add(p);
+					if(players.contains(p)) continue;
+					
+					boolean dupPlayer = false;
+					for(Playable x : players) {
+						if(x.getName().equals(p.getName())) {
+							dupPlayer = true; break;
+						}
+					}
+					if(!dupPlayer)
+						players.add(p);
 				}
 
 			}
@@ -470,13 +478,14 @@ public class IdleBot extends PircBotX implements Globals {
 
 	        signalStart();
 	        
-	        LinkedList<Player> tempList = new LinkedList<>(getPlayers());
-	        Collections.sort(tempList, new Comparator<Player>(){
+	        TreeSet<Player> tempList = new TreeSet<>(new Comparator<Player>(){
 
 				@Override
 				public int compare(Player o1, Player o2) {
 					return o2.calcTotal(null) - o1.calcTotal(null);
 				}});
+	        
+	        tempList.addAll(getPlayers());
 	        
 			for (Player p : tempList) {
 				String gsonstr = gson.toJson(p);
