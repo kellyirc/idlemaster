@@ -5,7 +5,6 @@ import generators.ItemGenerator;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 import java.util.TreeSet;
 
 import org.jasypt.util.password.BasicPasswordEncryptor;
@@ -45,8 +44,6 @@ public class Player extends Playable {
 
 	private transient BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
 
-	private transient Random random = new Random();
-
 	public Statistics stats = new Statistics();
 
 	private BigInteger timeLeft = new BigInteger("0");
@@ -60,7 +57,7 @@ public class Player extends Playable {
 	private void addNewItem() {
 		Slot[] e = equipment.keySet().toArray(new Slot[0]);
 
-		Slot slot = e[random.nextInt(e.length)];
+		Slot slot = e[(int) (Math.random() * e.length)];
 
 		Item i = ItemGenerator.generateItem(slot);
 		if (i.compareTo(equipment.get(slot)) > 0 && canEquip(slot, i)) {
@@ -124,8 +121,6 @@ public class Player extends Playable {
 			equipment = new HashMap<>();
 			generateNewEquipment();
 		}
-		if (random == null)
-			random = new Random();
 		if (aliases == null)
 			aliases = new TreeSet<UserData>();
 		if (items == null)
