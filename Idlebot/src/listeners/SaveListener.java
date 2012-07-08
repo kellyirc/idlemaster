@@ -53,6 +53,7 @@ public class SaveListener extends org.pircbotx.hooks.ListenerAdapter<IdleBot> {
 			event.getBot().reconnect();
 			Thread.sleep(10000);
 		}
+		event.getBot().identify("cake");
 		event.getBot().joinChannel(Globals.Channel);
 	}
 

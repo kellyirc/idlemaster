@@ -479,7 +479,7 @@ public class Usable {
 	}
 	
 	private void doFortuneCookie(Player p) {
-		switch((int)Math.random()*13) {
+		switch((int)(Math.random()*13)) {
 		case 1: case 2:
 			IdleBot.botref.messageChannel("... and it tasted delicious!");
 			new TimeEvent(p,TimeEvent.Type.Blessing);
