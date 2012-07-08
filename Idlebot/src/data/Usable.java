@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Map.Entry;
-import java.util.Random;
 
 import data.Item.ItemClass;
 import data.Playable.Alignment;
@@ -27,7 +26,6 @@ public class Usable {
 
 	private String name;
 	private int count=1;
-	private Random r = new Random();
 	
 	public Usable(String name) {
 		this.name = name;
@@ -141,7 +139,7 @@ public class Usable {
 	}
 	
 	private void doMirror(Player p) {
-		if(r.nextBoolean()) {
+		if(Math.random() > 0.5) {
 			if(p.getAlignment() != Alignment.Good) {
 				IdleBot.botref.messageChannel("...and felt a warped sense of duty, becoming good!");
 				p.setAlignment(Alignment.Good);
@@ -220,8 +218,8 @@ public class Usable {
 
 	private void doDice(Player p) {
 		int rolls=0;
-		while(rolls++>0 && (r.nextInt(6) == r.nextInt(6)));
-		if(rolls == 0) {
+		while(rolls++>0 && ( (int)(Math.random()*6) == (int)(Math.random()*6) ));
+		if(rolls == 1) {
 			IdleBot.botref.messageChannel("...but couldn't roll the dice to save %hisher life!",p);
 		} else {
 			long gain = (long) (rolls*(Math.pow(1.16, p.getLevel()))*90000);
@@ -320,7 +318,8 @@ public class Usable {
 			IdleBot.botref.messageChannel("...but nothing happened!");
 		} else if(i < 65) {
 			IdleBot.botref.messageChannel("...and got a terrible occurrence!");
-			switch(r.nextInt(3)) {
+			int ii = (int) (Math.random() * 3);
+			switch(ii) {
 			case 0:
 				new ItemEvent(p, false);
 				break;
@@ -346,7 +345,7 @@ public class Usable {
 	}
 
 	private void generateItem(Player p, ItemClass i) {
-		Slot slot = Playable.Slot.values()[r.nextInt(Playable.Slot.values().length)];
+		Slot slot = Playable.Slot.values()[(int) (Math.random() * Playable.Slot.values().length)];
 		Item item = ItemGenerator.generateItem(slot, i, null);
 		if(p.tryEquip(item, slot)) { 
 			IdleBot.botref.messageChannel("...and got a/n "+item.getName() + " <<"+item.getValue()+">>!");
