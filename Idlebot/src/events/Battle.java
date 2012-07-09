@@ -41,7 +41,7 @@ public class Battle {
 			String s = "";
 			for(Playable p : members) {
 				s += (p.health <= 0 ? Colors.LIGHT_GRAY :Colors.RED) + p.getName() + " ["+p.health+"]"+Colors.NORMAL;
-				if(!members.get(members.size()).equals(p)) s += " ";
+				if(!members.get(members.size()-1).equals(p)) s += " ";
 			}
 			return s;
 		}
@@ -242,17 +242,7 @@ public class Battle {
 		initialize();
 		while(left.isAlive() && right.isAlive() && ++turns>0) {
 			Playable first = left.pickAliveMember();
-			/*if(first == null) {
-				System.err.println("NOT HAPPENING 1");
-			} else {
-				System.out.println(first + " " + first.health);
-			}*/
 			Playable second = right.pickAliveMember();
-			/*if(second == null) {
-				System.err.println("NOT HAPPENING 2");
-			} else {
-				System.out.println(second + " " + second.health);
-			}*/
 			
 			attack(first, second);
 			if((first.getAlignment() == Alignment.Evil && prob(7)) || (second.getAlignment() == Alignment.Neutral && prob(1))) {

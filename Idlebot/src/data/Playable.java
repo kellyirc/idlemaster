@@ -25,7 +25,7 @@ public abstract class Playable {
 	
 	public static final int MAX_X = 250;
 	public static final int MAX_Y = 250;
-	protected Alignment alignment;;
+	protected Alignment alignment;
 
 	private Boolean isMale = null;
 	protected String classType;
@@ -83,7 +83,7 @@ public abstract class Playable {
 		
 		if(current.getValue() > i.getValue()) return false;
 		
-		if(i.getValue() > level * ((level/7)+2)*1.5) return false;
+		if(i.getValue() > level * ((level/4)+5)*1.89) return false;
 		
 		return true;
 	}

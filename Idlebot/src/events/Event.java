@@ -9,7 +9,7 @@ import bot.IdleBot;
 public class Event {
 	
 	public static final int EVENT_TIME = 2500;
-	public static final int EVENT_MAX_PROB = 155;
+	public static final int EVENT_MAX_PROB = 160;
 	public static final int EVENT_BASE_PROB = 1000;
 	
 	public Event() {
@@ -41,12 +41,10 @@ public class Event {
 			new ItemFindEvent(p);
 			
 		} else if(i < 160) {
-			//TODO These are broken for battles
-			//new TeamEvent();
+			new TeamEvent();
 		}
 	}
 
-	
 	public static String replaceGender(String string, Playable player) {
 		if(player.getIsMale() == null) {
 			string = string.replaceAll("%hisher", "his/her").replaceAll("%himher", "him/her").replaceAll("%she", "s/he").replaceAll("%hishers", "his/hers");

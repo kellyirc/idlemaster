@@ -125,10 +125,26 @@ public class Usable {
 		case "darkmirror":
 			doDarkmirror(p);
 			break;
+		case "abacus":
+			new Event();
+			break;
+		case "flagofvalor":
+			doFlag();
+			break;
 		}
 		count--;
 		p.stats.itemUses++;
 		return true;
+	}
+
+	private void doFlag() {
+		if(Math.random() > 0.65) {
+			new TeamEvent(true);
+			IdleBot.botref.messageChannel("... and it inspired unity amongst the humans!");
+		} else {
+			new TeamEvent(false);
+			IdleBot.botref.messageChannel("... and it inspired unity amongst the monsters!");
+		}
 	}
 
 	private void doDarkmirror(Player p) {
@@ -468,9 +484,13 @@ public class Usable {
 		case "darkmirror":
 			return "%player gazes deeply into a darkened mirror...";
 		case "genielamp":
-			return "%player rubs a shiny gold lamp..";
+			return "%player rubs a shiny gold lamp...";
 		case "geniilamp":
-			return "%player rubs an old bronze lamp..";
+			return "%player rubs an old bronze lamp...";
+		case "abacus":
+			return "%player fiddles with %hisher abacus...";
+		case "flagofvalor":
+			return "%player raises the flag of valor!";
 		case "philosopherstone": case "wingedshoes": return "";
 		default:
 			return "THIS MESSAGE IS NOT CORRECT FOR "+name;

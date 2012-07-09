@@ -231,16 +231,18 @@ public class CommandListener extends
 		 * right.add(MonsterGenerator.generateMonster(Alignment.Evil, 1)); new
 		 * Battle(left, right); break;
 		 */
-		/*
-		 * case "teambattle": java.util.ArrayList<Player> left = new
-		 * java.util.ArrayList<>(); java.util.ArrayList<Player> right = new
-		 * java.util.ArrayList<>(); java.util.LinkedList<Player> players =
-		 * IdleBot.botref.getOnlinePlayers(); if(players.size() < 2) return;
-		 * java.util.Collections.shuffle(players); for(int i=0;
-		 * i<players.size(); i++) { if(i%2 == 0) right.add(players.get(i)); else
-		 * left.add(players.get(i)); } new events.Battle(left, right); break;
-		 * case "group": new events.TeamEvent(); break;
+		
+			/*
+		 case "teambattle": java.util.ArrayList<Player> left = new
+		 java.util.ArrayList<>(); java.util.ArrayList<Player> right = new
+		 java.util.ArrayList<>(); java.util.LinkedList<Player> players =
+		 IdleBot.botref.getOnlinePlayers(); if(players.size() < 2) return;
+		 java.util.Collections.shuffle(players); for(int i=0;
+		 i<players.size(); i++) { if(i%2 == 0) right.add(players.get(i)); else
+		 left.add(players.get(i)); } new events.Battle(left, right); break;
+		 case "group": new events.TeamEvent(); break;
 		 */
+		 
 		/*
 		 * case "groupbattle": events.TeamEvent left; events.TeamEvent right; do
 		 * { left = new events.TeamEvent(true); } while(left.group == null); do
