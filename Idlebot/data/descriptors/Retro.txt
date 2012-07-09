@@ -7,9 +7,9 @@ passe,120
 classic,140
 retro,180
 pixelated,200
-0D,202
-1D,205
-2D,210
+no-dimensional,202
+one-dimensional,205
+two-dimensional,210
 nostalgic,220
 8-bit,240
 56k,280
@@ -19,3 +19,4 @@ holographic,340
 coal-powered,350
 steam-powered,360
 steampunk,380
+mechanical,400
