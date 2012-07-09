@@ -42,19 +42,19 @@ public class TimeEvent {
 		Type type = cusType != null ? cusType : Type.values()[(int) (Math.random() * (Type.values().length-1))];
 		switch(type) {
 		case Blessing:
-			if(cusType!=null || Battle.prob(100 - target.getLevel()) && Battle.prob((int)(15*getModifier(target.getAlignment(), type)))) {
+			if(cusType!=null || Battle.prob(100 - target.getLevel()) || Battle.prob((int)(15*getModifier(target.getAlignment(), type)))) {
 				target.stats.blessed++;
 				doStuff(goodEvents[(int) (Math.random() * (goodEvents.length-1))], target, false);
 			}
 			break;
 		case Fatehand:
-			if(cusType!=null || Battle.prob(100 - target.getLevel()) && Battle.prob((int)(1*getModifier(target.getAlignment(), type))) && Battle.prob(20)) {
+			if(cusType!=null || Battle.prob(100 - target.getLevel()) || Battle.prob((int)(1*getModifier(target.getAlignment(), type))) && Battle.prob(20)) {
 				target.stats.fatehand++;
 				doStuff("met with the hand of fate", target, null);
 			}
 			break;
 		case Forsaken:
-			if(cusType!=null || Battle.prob(100 - target.getLevel()) && Battle.prob((int)(7*getModifier(target.getAlignment(), type)))) {
+			if(cusType!=null || Battle.prob(100 - target.getLevel()) || Battle.prob((int)(7*getModifier(target.getAlignment(), type)))) {
 				target.stats.forsaken++;
 				doStuff(badEvents[(int) (Math.random() * (badEvents.length-1))], target, true);
 			}
@@ -72,9 +72,9 @@ public class TimeEvent {
 			perc = (int) (Math.random() * 80)+1;
 			perc = Math.random() > 0.5 ? -perc : perc;
 		}
-		long timeMod = (long) (((Math.pow(1.16, target.getLevel() ))*650000) * (perc/100.0));
+		long timeMod = (long) (((Math.pow(1.18, target.getLevel() ))*750000) * (perc/100.0));
 		if(negative == null) {
-			IdleBot.botref.messageChannel((timeMod < 0 ? Colors.RED : Colors.DARK_GREEN) + target.getName() + " " + message + ", "+((timeMod < 0 ? "adding " : "removing ")+ IdleBot.botref.ms2dd(Math.abs(timeMod)) + (timeMod < 0 ? " to " : " from ")+Event.replaceGender("his/her level timer! ["+Math.abs(perc)+"%]", target)));
+			IdleBot.botref.messageChannel((timeMod < 0 ? Colors.RED : Colors.DARK_GREEN) + target.getName() + " " + message + ", "+((timeMod < 0 ? "adding " : "removing ")+ IdleBot.botref.ms2dd(Math.abs(timeMod)) + (timeMod < 0 ? " to " : " from ")+Event.replaceGender("%hisher level timer! ["+Math.abs(perc)+"%]", target)));
 		} else {
 			IdleBot.botref.messageChannel((timeMod < 0 ? Colors.RED : Colors.DARK_GREEN) + target.getName() + " " + message + " ["+IdleBot.botref.ms2dd(Math.abs(timeMod))+"]");
 		}
