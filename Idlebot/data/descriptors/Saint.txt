@@ -21,8 +21,11 @@ Wonder,107
 the Moon,110
 the Sun,120
 the Corrupt,130
+the Stars,135
 the Pure,140
 the Hallowed,150
+the White Knight,160
+the Black Knight,170
 the Spirit,180
 the Angel,190
 the Demon,200
