@@ -10,9 +10,10 @@ viper,10
 pup,11
 puppy,11
 hippie,12
-hillbillie,12
+hillbilly,12
 louse,13
 pig,14
+energetic evangelist,15
 fish,17
 hipster,18
 barbarian,20
@@ -27,21 +28,42 @@ snorting squirrel,30
 insect,33
 chunk of meat,40
 rat,50
+apathetic agnostic,57
 radioactive rabbit,65
 owl,75
 silly snake,80
+random pokemon,90
+arrogant atheist,95
 cat,100
 surströmming,110
-lutefisk,110
+lutefisk,111
 welsh warthog,120
 helpful hedgehog,130
 bat,150
+blob of meat,160
 salamander,175
+gnome nudist,176
+gnome slinger,177
+gnome fighter,178
+gnome warrior,179
+gnome paladin,180
+gnome cleric,181
+gnome magician,182
+gnome warlock,183
+gnome flamecaster,184
+gnome frostcaster,185
+gnome shockcaster,186
+gnome leader,187
+half-gnome giant,188
+half-giant gnome,189
 red-eyed programmer,190
 slime,200
+goo,211
 ooze,225
 bustling badger,226
 insect swarm,227
+human child,228
+human teenager,229
 human nudist,230
 human farmer,236
 human knight,250
@@ -61,12 +83,39 @@ kobold,363
 kobold mage,364
 jumping jackalope,368
 castrated cat,369
-orc nudist,370
+half-orc nudist,370
+half-orc giant,371
+half-giant orc,372
+half-giant giant,373
+orc nudist,374
 orc brawler,375
+orc rockstar,376
+orc spy,377
+orc fighter,378
+orc sorceror,379
+orc mage,380
+orc paladin,381
+orc cleric,382
 imp,383
+serial killer,391
 android,400
-goblin,400
+goblin,403
+blob,405
 vicious viking,410
+dwarf nudist,411
+dwarf fighter,412
+dwarf barbarian,413
+dwarf magician,414
+dwarf cleric,415
+dwarf oracle,416
+dwarf alchemist,417
+dwarf shadowknight,418
+dwarf shadowdancer,419
+dwarf shadowcaster,420
+dwarf shadow,421
+dwarf king,422
+dwarf prince,423
+dwarf jester,424
 goofy gopher,425
 mimic,425
 orc witch,433
@@ -90,6 +139,21 @@ ogre jouster,495
 will-o-wisp,500
 gelatinous jabberwocky,510
 lucid lynx,525
+elf nudist,530
+elf warrior,531
+elf mage,532
+elf cleric,533
+elf genius,534
+elf singer,535
+elf fighter,536
+elf thief,537
+elf rogue,538
+elf assassin,539
+elf king,540
+elf queen,541
+elf ranger,542
+elf barbarian,543
+elf archmage,544
 ninja,550
 pirate,550
 caveman,550
@@ -108,6 +172,7 @@ demon,650
 satanist,666
 mist,700
 olde zombie,701
+gray jelly,722
 old zombie,735
 zombie,750
 zombie fighter,760
@@ -123,13 +188,17 @@ ornery ocelot,880
 gory giraffe,890
 skeleton,900
 skeletal knight,925
+skeletal priest,935
+skeletal slicer,944
 skeletal magician,950
+skeletal barbarian,975
 skeletal gnat,999
 skeletal rogue,1000
-terminator,1000
+terminator,1010
 vengeful soul,1025
 heretic,1033
 batcat,1040
+catdog,1045
 vampire,1050
 vampyre,1075
 minotaur,1100
