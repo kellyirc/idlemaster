@@ -3,6 +3,11 @@ intro=Young voices in slight dischord begin to echo around, as many singing chil
 death=Many young souls that day were lost. You are horrible people.
 kills=Do~ Re~ Mi~ Fa~ So~ La~ Ti~ Do~
 end
+Skynet
+intro=0100001001101111011101110010000001100100011011110111011101101110
+death=010011100110111101101111011011110110111101101111011011110110111101101111
+kills=0100100001100001001000000100100001100001001000000100100001100001001000000100100001100001001000000100100001100001
+end
 Dark Falz
 intro=A burst of blue light reveals a dark foe!
 death=The world has been deprived of its blue color...
