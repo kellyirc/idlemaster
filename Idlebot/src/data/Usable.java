@@ -140,10 +140,8 @@ public class Usable {
 	private void doFlag() {
 		if(Math.random() > 0.65) {
 			new TeamEvent(true);
-			IdleBot.botref.messageChannel("... and it inspired unity amongst the humans!");
 		} else {
 			new TeamEvent(false);
-			IdleBot.botref.messageChannel("... and it inspired unity amongst the monsters!");
 		}
 	}
 
