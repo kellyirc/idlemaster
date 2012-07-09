@@ -1,27 +1,36 @@
 Charbydis,16000
 A Capella Group,14500
 Null Pointer,14000
+BK-201,13750
 Supersonic Wave,13500
 Wumpus,13000
+Grim Reaper,12900
 Hat-Eater,12800
 Jar of Nutella,12750
 False Prophet,12500
 False Deity,12000
 Quetzacoatl,11500
 KR's Brain,11000
+ID10T,10900
 Mecha,10800
 Queen Gnat,10500
 Shion,10250
 Satoko,10000
 Hot Pocket,9800
 Professor Oak,9500
+Alot,9001
 Rival Blue,9000
 Book of the Night Sky Defense,8500
 Ze Sveden,8000
+Unown,7750
 Scarlet Devil,7500
 Cthulhu,7000
+Giant Taco,6750
 Pedobear,6500
+Grim Reeper,6250
 Big Boo,6000
 Cookie Monster,5500
 MidBoss,5000
+Titanic,4500
+Drama Queen,1
 Doppleganger,0
