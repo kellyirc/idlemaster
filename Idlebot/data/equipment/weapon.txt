@@ -30,6 +30,7 @@ tome,35
 glowstick,36
 fisticuffs,37
 knuckles,38
+whiteboard,39
 fangs,41
 shortsword,43
 tonfa,44
@@ -47,6 +48,7 @@ nunchucks,56
 sword,57
 pen,58
 shamshir,59
+flowerpot,60
 war-axe,61
 estoc,62
 jackknife,63
@@ -80,6 +82,7 @@ lance,99
 halberd,100
 spear,101
 broadsword,102
+billboard,103
 voulge,104
 saber,106
 gladius,107
