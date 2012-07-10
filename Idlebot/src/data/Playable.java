@@ -201,6 +201,7 @@ public abstract class Playable {
 	}
 	
 	public boolean canBattle(Playable other) {
+		if(this instanceof Monster && other instanceof Monster && !Battle.prob(5)) return false;
 		if(getGroup()!= null && other.getGroup()!= null && getGroup().equals(other.getGroup())) return false;
 		
 		return ( isWithinRange(other) );
