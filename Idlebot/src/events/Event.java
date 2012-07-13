@@ -1,7 +1,5 @@
 package events;
 
-import java.util.Random;
-
 import data.Playable;
 import data.Player;
 import bot.IdleBot;
@@ -23,16 +21,15 @@ public class Event {
 	public Event(Player p, int maxProb) {
 		
 		int i = (int) (Math.random() * maxProb);
-		Random r = new Random();
 		
-		if(i == 1) {
-			new Cataclysm();
-			
-		} else if(i < 40) {
-			new MoneyEvent(p, r.nextBoolean());
+		if(i < 40) {
+			new MoneyEvent(p, Math.random() > 0.5);
 			
 		} else if(i < 90) {
-			new ItemEvent(p, r.nextBoolean());
+			new ItemEvent(p, Math.random() > 0.5);
+			
+		} else if(i == 91) {
+			new Cataclysm();
 			
 		} else if(i < 150) {
 			new TimeEvent(p);

@@ -21,7 +21,7 @@ public abstract class Playable {
 	public enum Direction { EAST, NORTH, NORTHEAST, NORTHWEST, SOUTH, SOUTHEAST, SOUTHWEST, WEST }
 	public enum Slot { Body, Charm, Feet, Finger, Hands, Head, Legs, Neck, Shield, Weapon }
 	
-	public static final double BATTLE_MULTIPLIER = 1.56;
+	public static final double BATTLE_MULTIPLIER = 1.25;
 	
 	public static final int MAX_X = 250;
 	public static final int MAX_Y = 250;
@@ -213,9 +213,27 @@ public abstract class Playable {
 				right.calcLevelGroup() < calcLevelGroup()*BATTLE_MULTIPLIER);
 	}
 	
+	private boolean hasGroup() {
+		return getGroup() != null;
+	}
+	
 	private boolean isWithinRange(Playable right) {
+		
+		if(hasGroup() && !right.hasGroup()) {
+			return (calcTotalGroup()*BATTLE_MULTIPLIER > right.calcTotalGroup() && 
+					right.calcTotalGroup() > calcTotalGroup()/BATTLE_MULTIPLIER);
+			
+		} else if(!hasGroup() && right.hasGroup()) {
+			return (calcTotalGroup()/BATTLE_MULTIPLIER < right.calcTotalGroup() && 
+					right.calcTotalGroup() < calcTotalGroup()*BATTLE_MULTIPLIER);	
+		}
+		
+		//my attempt to make this more fair
 		return (calcTotalGroup()/BATTLE_MULTIPLIER < right.calcTotalGroup() && 
-				right.calcTotalGroup() < calcTotalGroup()*BATTLE_MULTIPLIER);
+				right.calcTotalGroup() < calcTotalGroup()*BATTLE_MULTIPLIER) 
+				|| 
+			   (calcTotalGroup()*BATTLE_MULTIPLIER > right.calcTotalGroup() && 
+				right.calcTotalGroup() > calcTotalGroup()/BATTLE_MULTIPLIER);
 	}
 	
 	private int calcLevelGroup() {

@@ -126,7 +126,7 @@ public class Usable {
 			doDarkmirror(p);
 			break;
 		case "abacus":
-			new Event();
+			new Event(Event.EVENT_MAX_PROB);
 			break;
 		case "flagofvalor":
 			doFlag();
@@ -364,7 +364,7 @@ public class Usable {
 		if(p.tryEquip(item, slot)) { 
 			IdleBot.botref.messageChannel("...and got a/n "+item.getName() + " <<"+item.getValue()+">>!");
 		} else
-			IdleBot.botref.messageChannel("...but had to sell %hisher new "+item.getName() + "...");
+			IdleBot.botref.messageChannel("...but had to sell %hisher new "+item.getName() + "...", p);
 	}
 
 	private void doFight(Player p) {

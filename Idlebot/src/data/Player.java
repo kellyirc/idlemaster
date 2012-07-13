@@ -4,6 +4,7 @@ import generators.ItemGenerator;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.TreeSet;
 
@@ -122,7 +123,19 @@ public class Player extends Playable {
 			generateNewEquipment();
 		}
 		if (aliases == null)
-			aliases = new TreeSet<UserData>();
+			aliases = new TreeSet<UserData>(new Comparator<UserData>(){
+
+				@Override
+				public int compare(UserData arg0, UserData arg1) {
+					if(aliases.contains(arg0)) {
+						aliases.remove(arg0);
+						aliases.add(arg1);
+					} else if(aliases.contains(arg1)) {
+						aliases.remove(arg1);
+						aliases.add(arg0);
+					}
+					return 0;
+				}});
 		if (items == null)
 			items = new ArrayList<Usable>();
 	}
