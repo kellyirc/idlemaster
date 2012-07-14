@@ -3,6 +3,10 @@ intro=Young voices in slight dischord begin to echo around, as many singing chil
 death=Many young souls that day were lost. You are horrible people.
 kills=Do~ Re~ Mi~ Fa~ So~ La~ Ti~ Do~
 end
+The Stillstanders
+intro=The Stillstanders are up to no good again!
+death=The citizens cheer upon the defeat of the biggest mafia in all of Idletopia. Thank you, heroes!
+kills=Ya really thought you could bag us? This is our turf, ya hear?!
 Skynet
 intro=0100001001101111011101110010000001100100011011110111011101101110
 death=010011100110111101101111011011110110111101101111011011110110111101101111
