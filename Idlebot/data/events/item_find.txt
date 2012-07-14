@@ -11,3 +11,5 @@ A giant present suddenly drops from the sky, which %player opens up to find a %i
 %player was donated a %item to help $himher with $hisher quest!
 %player was bestowed a %item after saving a member of royalty from certain death.
 The God of Items, Shashkajze, caused a golden, shimmering %item to appear in front of %player.
+%player broke the seal on a magic crystal, which turned out to contain a %item!
+%player saw a strange shooting star fly down to hit the ground nearby, which %she went to the impact crater to find a glowing-hot %item in the middle of it.
