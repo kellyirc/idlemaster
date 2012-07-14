@@ -1,9 +1,11 @@
 basic,1
+slippery,1
 ghostly,2
 miserly,3
 happy,5
 bodily,7
 great,9
+lucky,10
 quilted,10
 enormous,12
 immovable,14
@@ -15,6 +17,7 @@ flaming,24
 frozen,26
 charged,28
 rocky,30
+electric,31
 airy,32
 elemental,34
 aquatic,36
@@ -30,12 +33,14 @@ ruthless,54
 savage,56
 crazed,58
 strong,60
+insane,61
 wise,62
 cunning,64
 clever,66
 dextrous,68
 brave,70
 sagely,72
+intellectual,73
 worldly,74
 courageous,76
 elven,80
@@ -103,8 +108,10 @@ ominous,400
 mirror,450
 unmatched,477
 final,500
+uncool,-1
 sadistic,-2
 drunken,-4
+unlucky,-5
 accursed,-7
 haunted,-11
 cowardly,-16
