@@ -20,7 +20,7 @@ As %player was going around stealing cheese wheels from various shops, a guard a
 %player notices the Steam summer sale and spends %money gold on obscure indie games you probably never have heard of.
 A miniature samurai ninja robot velociraptor with psychic powers stole %money gold from %player while %she wasn't looking.
 %player spends %money bits of gold on snake oil.
-%player had to spend %money tending to injuries %she got while fighting monsters.
+%player had to spend %money gold tending to injuries %she got while fighting monsters.
 %player was pounced on by a group of hooligans, so %she had to throw %money gold coins at them to distract them enough so that %she could get away!
 %player got pickpocketed of %money gold without noticing!
 %player had %money gold stolen from the Gold Fairie! Someone catch that fairie!
