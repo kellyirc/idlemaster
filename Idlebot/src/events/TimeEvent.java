@@ -48,7 +48,7 @@ public class TimeEvent {
 			}
 			break;
 		case Fatehand:
-			if(cusType!=null || Battle.prob(100 - target.getLevel()) || Battle.prob((int)(1*getModifier(target.getAlignment(), type))) && Battle.prob(1)) {
+			if(cusType!=null || Battle.prob(100 - target.getLevel()) && Battle.prob((int)(1*getModifier(target.getAlignment(), type)))) {
 				target.stats.fatehand++;
 				doStuff("met with the hand of fate", target, null);
 			}

@@ -1,9 +1,10 @@
 package data;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.pircbotx.Colors;
 
@@ -30,7 +31,11 @@ public abstract class Playable {
 	private Boolean isMale = null;
 	protected String classType;
 	
-	protected HashMap<Slot, Item> equipment = new HashMap<>();
+	protected ConcurrentHashMap<Slot, Item> equipment = new ConcurrentHashMap<>();
+
+	public void setEquipment(ConcurrentHashMap<Slot, Item> equipment) {
+		this.equipment = equipment;
+	}
 
 	private transient volatile ArrayList<? extends Playable> group;
 	
@@ -161,7 +166,12 @@ public abstract class Playable {
 		return equipment.entrySet();
 	}
 	
-	public HashMap<Slot,Item> getEquipmentRaw() {
+	public Collection<Item> getEquipmentItems() {
+		return equipment.values();
+	}
+	
+	
+	public ConcurrentHashMap<Slot,Item> getEquipmentRaw() {
 		return equipment;
 	}
 	
@@ -220,12 +230,10 @@ public abstract class Playable {
 	private boolean isWithinRange(Playable right) {
 		
 		if(hasGroup() && !right.hasGroup()) {
-			return (calcTotalGroup()*BATTLE_MULTIPLIER > right.calcTotalGroup() && 
-					right.calcTotalGroup() > calcTotalGroup()/BATTLE_MULTIPLIER);
+			return (calcTotalGroup() > right.calcTotalGroup()*BATTLE_MULTIPLIER*2);
 			
 		} else if(!hasGroup() && right.hasGroup()) {
-			return (calcTotalGroup()/BATTLE_MULTIPLIER < right.calcTotalGroup() && 
-					right.calcTotalGroup() < calcTotalGroup()*BATTLE_MULTIPLIER);	
+			return (calcTotalGroup()*BATTLE_MULTIPLIER*2 < right.calcTotalGroup());	
 		}
 		
 		//my attempt to make this more fair
@@ -269,13 +277,6 @@ public abstract class Playable {
 			}
 		}
 		return rev;
-	}
-	
-	/**
-	 * @param equipment the equipment to set
-	 */
-	public void setEquipment(HashMap<Slot, Item> equipment) {
-		this.equipment = equipment;
 	}
 
 	public void move() {

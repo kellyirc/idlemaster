@@ -354,11 +354,19 @@ public class Usable {
 		}
 	}
 	
-	private void generateItem(Player p) {
+	public static void generateItem() {
+		try{
+			generateItem(IdleBot.botref.getRandomPlayer());
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private static void generateItem(Player p) {
 		generateItem(p, ItemClass.Avatar);
 	}
 
-	private void generateItem(Player p, ItemClass i) {
+	private static void generateItem(Player p, ItemClass i) {
 		Slot slot = Playable.Slot.values()[(int) (Math.random() * Playable.Slot.values().length)];
 		Item item = ItemGenerator.generateItem(slot, i, null);
 		if(p.tryEquip(item, slot)) { 

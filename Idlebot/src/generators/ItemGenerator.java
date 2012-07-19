@@ -144,8 +144,12 @@ public class ItemGenerator {
 			if(itemClass == null) itemClass = ItemClass.Avatar;
 			//choice = types.get(ItemClass.Avatar)[GeneratorData.random.nextInt(types.get(ItemClass.Avatar).length)];
 			Player pChoice = IdleBot.botref.getRandomPlayer();
-			itemName.append(pChoice.getName() + " ");
-			Item rItem = pChoice.getEquipment().toArray(new Item[0])[(int) (Math.random() * pChoice.getEquipment().size())];
+			if(pChoice != null)
+				for(Player p : IdleBot.botref.getPlayers()) {
+					if(p.getName().equals("IdleMaster")) pChoice = p;
+				}
+			itemName.append(pChoice.getName()+"'s ");
+			Item rItem = pChoice.getEquipmentItems().toArray(new Item[0])[(int) (Math.random() * pChoice.getEquipment().size())];
 			itemValue += rItem.getValue();
 			if(type == null) 
 				type = Type.Spiritual;

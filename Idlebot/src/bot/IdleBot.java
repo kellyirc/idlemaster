@@ -306,7 +306,7 @@ public class IdleBot extends PircBotX implements Globals {
 	}
 
 	public Player getRandomPlayer() {
-		if(getOnlinePlayers().size()  == 0) return null;
+		if(getOnlinePlayers().size() == 0) return null;
 		return getOnlinePlayers().toArray(new Player[0])[(int) (Math.random() *( getOnlinePlayers().size()-1))];
 	}
 
@@ -455,11 +455,15 @@ public class IdleBot extends PircBotX implements Globals {
 
 	public void reload() {
 		messageChannel("Reloading my generators...");
-		MonsterGenerator.initialize();
-		ItemGenerator.initialize();
-		ItemEvent.initialize();
-		MoneyEvent.initialize();
-		TimeEvent.initialize();
+		try {
+			MonsterGenerator.initialize();
+			ItemGenerator.initialize();
+			ItemEvent.initialize();
+			MoneyEvent.initialize();
+			TimeEvent.initialize();
+		} catch(Exception e) {
+			messageChannel("Reload failed: "+e.getMessage());
+		}
 		messageChannel("Reloaded.");
 	}
 

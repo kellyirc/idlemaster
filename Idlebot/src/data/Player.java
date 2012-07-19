@@ -5,8 +5,8 @@ import generators.ItemGenerator;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.TreeSet;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.jasypt.util.password.BasicPasswordEncryptor;
 
@@ -119,7 +119,7 @@ public class Player extends Playable {
 		if (stats.timeSpent == null)
 			stats.timeSpent = new BigInteger("0");
 		if (equipment == null) {
-			equipment = new HashMap<>();
+			equipment = new ConcurrentHashMap<>();
 			generateNewEquipment();
 		}
 		if (aliases == null)
@@ -178,7 +178,7 @@ public class Player extends Playable {
 		return timeLeft.subtract(curTime).longValue();
 	}
 
-	void levelUp() {
+	public void levelUp() {
 		curTime = new BigInteger("0");
 		if (level < 100) {
 			timeLeft = timeLeft.add(calcLevelTime(level + 1));

@@ -197,6 +197,20 @@ public class CommandListener extends
 		case "cataclysm":
 			// new Cataclysm();
 			break;
+		
+		case "itemgen":
+			Usable.generateItem();
+			break;
+			
+		case "setlevel":
+			if(args.length < 3) return;
+			
+			Player target = IdleBot.botref.findPlayer(args[1]);
+			int level = Integer.parseInt(args[2]);
+			
+			while(target.getLevel() < level) {
+				target.levelUp();
+			}
 
 		case "team":
 			// new events.TeamEvent();
