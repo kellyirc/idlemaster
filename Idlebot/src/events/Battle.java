@@ -78,7 +78,7 @@ public class Battle {
 		public void timeMod(BigInteger l) {
 			for(Playable p : members) { 
 				if(p instanceof Player){
-					battleMessage(Event.replaceGender(p.getName()+" got "+IdleBot.botref.ms2dd(l.abs())+(l.abs().compareTo(l)==0 ? " removed from " : " added to ") + "%hisher level timer!", p));
+					battleMessage(Event.replaceGender(p.getName()+" got "+IdleBot.ms2dd(l.abs())+(l.abs().compareTo(l)==0 ? " removed from " : " added to ") + "%hisher level timer!", p));
 					((Player) p).modifyTime(l);
 				} 
 			}
@@ -402,19 +402,19 @@ public class Battle {
 
 		if(second.getAlignment() == Alignment.Good && first.getAlignment() == Alignment.Evil && prob(80)) {
 			timeMod = timeMod.divide(BigInteger.valueOf(2));
-			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod)+" to "+first.getName()+"'s level timer!");
+			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.ms2dd(timeMod)+" to "+first.getName()+"'s level timer!");
 			((Player)first).modifyTime(timeMod.negate());
 		} else if(second.getAlignment() == Alignment.Neutral && prob(20)) {
 			timeMod = timeMod.divide(BigInteger.valueOf(5));
-			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod)+" to "+first.getName()+"'s level timer!");
+			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.ms2dd(timeMod)+" to "+first.getName()+"'s level timer!");
 			((Player)first).modifyTime(timeMod.negate());
 			timeMod = timeMod.divide(BigInteger.valueOf(3));
 		} else if(second.getAlignment() == Alignment.Evil && first.getAlignment() == Alignment.Good && prob(40)) {
-			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod)+" to "+first.getName()+"'s level timer!");
+			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.ms2dd(timeMod)+" to "+first.getName()+"'s level timer!");
 			((Player)first).modifyTime(timeMod.negate());
 			timeMod = timeMod.divide(BigInteger.valueOf(4));
 		} else if(second.getAlignment() == Alignment.Evil && first.getAlignment() == Alignment.Neutral && prob(20)) {
-			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod)+" to "+first.getName()+"'s level timer!");
+			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.ms2dd(timeMod)+" to "+first.getName()+"'s level timer!");
 			((Player)first).modifyTime(timeMod.negate());
 		}
 	}

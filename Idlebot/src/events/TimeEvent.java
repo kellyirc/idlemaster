@@ -83,9 +83,9 @@ public class TimeEvent {
 				.divide(BigInteger.valueOf(100));
 		
 		if(negative == null) {
-			IdleBot.botref.messageChannel((bigintIsNegative(tg) ? Colors.RED : Colors.DARK_GREEN) + target.getName() + " " + message + ", "+((bigintIsNegative(tg) ? "adding " : "removing ")+ IdleBot.botref.ms2dd(tg.abs()) + (bigintIsNegative(tg) ? " to " : " from ")+Event.replaceGender("%hisher level timer! ["+Math.abs(perc)+"%]", target)));
+			IdleBot.botref.messageChannel((bigintIsNegative(tg) ? Colors.RED : Colors.DARK_GREEN) + target.getName() + " " + message + ", "+((bigintIsNegative(tg) ? "adding " : "removing ")+ IdleBot.ms2dd(tg.abs()) + (bigintIsNegative(tg) ? " to " : " from ")+Event.replaceGender("%hisher level timer! ["+Math.abs(perc)+"%]", target)));
 		} else {
-			IdleBot.botref.messageChannel((bigintIsNegative(tg) ? Colors.RED : Colors.DARK_GREEN) + target.getName() + " " + message + " ["+IdleBot.botref.ms2dd(tg.abs())+"]");
+			IdleBot.botref.messageChannel((bigintIsNegative(tg) ? Colors.RED : Colors.DARK_GREEN) + target.getName() + " " + message + " ["+IdleBot.ms2dd(tg.abs())+"]");
 		}
 		target.modifyTime(tg);
 	}

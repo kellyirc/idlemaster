@@ -36,7 +36,7 @@ public class Cataclysm {
 						.divide(BigInteger.valueOf(100));
 				
 				IdleBot.botref.messageChannel(Colors.DARK_GRAY + p.getName()
-						+ " had " + IdleBot.botref.ms2dd(tg)
+						+ " had " + IdleBot.ms2dd(tg)
 						+ " added to %hisher level timer!",p);
 				p.modifyTime(tg.negate());
 
@@ -64,7 +64,7 @@ public class Cataclysm {
 					
 					IdleBot.botref.messageChannel(Colors.DARK_GRAY
 							+ p.getName() + " had "
-							+ IdleBot.botref.ms2dd(tg)
+							+ IdleBot.ms2dd(tg)
 							+ " taken away from %hisher level timer!",p);
 					p.modifyTime(tg);
 
@@ -92,7 +92,7 @@ public class Cataclysm {
 					
 					IdleBot.botref.messageChannel(Colors.DARK_GRAY
 							+ p.getName() + " had "
-							+ IdleBot.botref.ms2dd(tg)
+							+ IdleBot.ms2dd(tg)
 							+ " added to %hisher level timer!",p);
 					p.modifyTime(tg.negate());
 				}
@@ -119,7 +119,7 @@ public class Cataclysm {
 					
 					IdleBot.botref.messageChannel(Colors.DARK_GRAY
 							+ p.getName() + " had "
-							+ IdleBot.botref.ms2dd(tg)
+							+ IdleBot.ms2dd(tg)
 							+ " added to %hisher level timer!",p);
 					p.modifyTime(tg.negate());
 					p.warp();
@@ -141,7 +141,7 @@ public class Cataclysm {
 						.multiply(BigInteger.valueOf(80325));
 				
 				IdleBot.botref.messageChannel(Colors.DARK_GRAY + p.getName()
-						+ " had " + IdleBot.botref.ms2dd(tg)
+						+ " had " + IdleBot.ms2dd(tg)
 						+ " taken away from %hisher level timer!",p);
 				p.modifyTime(tg);
 			}
@@ -161,7 +161,7 @@ public class Cataclysm {
 						.divide(BigInteger.valueOf(100));
 				
 				IdleBot.botref.messageChannel(Colors.DARK_GRAY + p.getName()
-						+ " had " + IdleBot.botref.ms2dd(tg)
+						+ " had " + IdleBot.ms2dd(tg)
 						+ " added to %hisher level timer!",p);
 				p.modifyTime(tg.negate());
 				p.warp();
@@ -213,7 +213,7 @@ public class Cataclysm {
 					
 					IdleBot.botref.messageChannel(Colors.DARK_GRAY
 							+ p.getName() + " had "
-							+ IdleBot.botref.ms2dd(tg)
+							+ IdleBot.ms2dd(tg)
 							+ " added to %hisher level timer!",p);
 					p.modifyTime(tg.negate());
 

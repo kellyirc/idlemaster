@@ -495,7 +495,7 @@ public class CommandListener extends
 		}
 		event.getBot().sendMessage(
 				event.getUser(),
-				"You have " + event.getBot().ms2dd(p.getTimeLeft())
+				"You have " + IdleBot.ms2dd(p.getTimeLeft())
 						+ " to next level.");
 	}
 
@@ -521,7 +521,7 @@ public class CommandListener extends
 			event.getBot().sendMessage(
 					event.getUser(),
 					play.getName() + " has "
-							+ event.getBot().ms2dd(play.getTimeLeft())
+							+ IdleBot.ms2dd(play.getTimeLeft())
 							+ " to next level.");
 			event.getBot().sendMessage(event.getUser(),
 					"Equipment <<" + play.calcTotal(null) + ">>");
@@ -590,7 +590,7 @@ public class CommandListener extends
 				event.getBot().sendMessage(
 						event.getUser(),
 						"You are successfully logged in as " + player + ". "
-								+ event.getBot().ms2dd(player.getTimeLeft())
+								+ IdleBot.ms2dd(player.getTimeLeft())
 								+ " to next level.");
 				event.getBot().handleLogin(event.getUser(), player);
 			} else {

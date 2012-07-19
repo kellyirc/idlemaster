@@ -13,12 +13,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.TimeZone;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -420,32 +418,43 @@ public class IdleBot extends PircBotX implements Globals {
 		loggedIn.remove(oldNick);
 		loggedIn.put(newNick, p);
 	}
-
-	//TODO make this work with bigintegers.
 	
-	public String ms2dd(BigInteger b) {
-		return ms2dd(b.longValue());
-	}
-	
-	private String ms2dd(long l) {
-
-		SimpleDateFormat sdf = null;
-
-		if (l > 86400000 - 1) {
-			sdf = new SimpleDateFormat("dd'd 'HH'h 'mm'm 'ss");
-		} else if (l > 3600000 - 1) {
-			sdf = new SimpleDateFormat("HH'h 'mm'm 'ss");
-		} else if (l > 60000 - 1) {
-			sdf = new SimpleDateFormat("mm'm 'ss");
-		} else if (l > 1000 - 1) {
-			sdf = new SimpleDateFormat("ss");
-		} else {
-			sdf = new SimpleDateFormat("SSS");
+	public static String ms2dd(BigInteger b) {
+		int weeks=0, days=0, hours=0, minutes=0, seconds=0;
+		
+		while(b.compareTo(BigInteger.valueOf(86400000)) > 0) {
+			days++;
+			b = b.subtract(BigInteger.valueOf(86400000));
 		}
-
-		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-
-		return sdf.format(l) + (l < 1000 ? "ms" : "s");
+		
+		while(days > 7) {
+			weeks++;
+			days -= 7;
+		}
+		
+		while(b.compareTo(BigInteger.valueOf(3600000)) > 0) {
+			hours++;
+			b = b.subtract(BigInteger.valueOf(3600000));
+		}
+		
+		while(b.compareTo(BigInteger.valueOf(60000)) > 0) {
+			minutes++;
+			b = b.subtract(BigInteger.valueOf(60000));
+		}
+		
+		while(b.compareTo(BigInteger.valueOf(1000)) > 0) {
+			seconds++;
+			b = b.subtract(BigInteger.valueOf(1000));
+		}
+		
+		StringBuffer sb = new StringBuffer();
+		if(weeks > 0) sb.append(weeks + "w ");
+		if(days > 0) sb.append(days + "d ");
+		if(hours > 0) sb.append(hours + "h ");
+		if(minutes > 0) sb.append(minutes + "m ");
+		if(seconds > 0) sb.append(seconds + "s");
+		
+		return sb.toString();
 	}
 
 	public void penalize(String user, int length) {

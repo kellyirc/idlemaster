@@ -238,7 +238,7 @@ public class Usable {
 			IdleBot.botref.messageChannel("...but couldn't roll the dice to save %hisher life!",p);
 		} else {
 			BigInteger gain = BigInteger.valueOf(rolls*90000).multiply(Player.getModifierTime(p.level));
-			IdleBot.botref.messageChannel("...and got "+IdleBot.botref.ms2dd(gain)+" taken away from %hisher level timer!",p);
+			IdleBot.botref.messageChannel("...and got "+IdleBot.ms2dd(gain)+" taken away from %hisher level timer!",p);
 			p.modifyTime(gain);
 		}
 	}
@@ -265,7 +265,7 @@ public class Usable {
 			IdleBot.botref.messageChannel("..."+rand.getName()+" dodged the bomb!");
 		} else {
 			BigInteger l = BigInteger.valueOf((long) (Math.random()*500000));
-			IdleBot.botref.messageChannel("..."+rand.getName()+" got hit by the bomb, causing "+left.getName()+" to crack ("+left.getValue()+"->"+Math.round(left.getValue()*0.8)+") and taking a "+IdleBot.botref.ms2dd(l)+" to %hisher level timer!",rand);
+			IdleBot.botref.messageChannel("..."+rand.getName()+" got hit by the bomb, causing "+left.getName()+" to crack ("+left.getValue()+"->"+Math.round(left.getValue()*0.8)+") and taking a "+IdleBot.ms2dd(l)+" to %hisher level timer!",rand);
 			left.setValue((int) (left.getValue() * 0.8));
 			rand.modifyTime(l);
 		}
