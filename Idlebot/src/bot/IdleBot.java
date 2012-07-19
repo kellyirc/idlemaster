@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -419,7 +420,13 @@ public class IdleBot extends PircBotX implements Globals {
 		loggedIn.put(newNick, p);
 	}
 
-	public String ms2dd(long l) {
+	//TODO make this work with bigintegers.
+	
+	public String ms2dd(BigInteger b) {
+		return ms2dd(b.longValue());
+	}
+	
+	private String ms2dd(long l) {
 
 		SimpleDateFormat sdf = null;
 
@@ -444,9 +451,9 @@ public class IdleBot extends PircBotX implements Globals {
 		Player p = this.getPlayerByUser(user);
 		if (p == null)
 			return;
-		long pentime = (long) (length * Math.pow(1.17, p.getLevel())) * 1000;
+		BigInteger pentime = (new BigInteger(String.valueOf(1000*length)).multiply(Player.getModifierTime(p.getLevel())));
 		messageChannel(p.getName() + " was penalized " + ms2dd(pentime));
-		p.modifyTime(-pentime);
+		p.modifyTime(pentime.negate());
 	}
 
 	public void penalize(User user, int length) {

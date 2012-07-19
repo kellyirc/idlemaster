@@ -197,10 +197,6 @@ public class CommandListener extends
 		case "cataclysm":
 			// new Cataclysm();
 			break;
-		
-		case "itemgen":
-			Usable.generateItem();
-			break;
 			
 		case "setlevel":
 			if(args.length < 3) return;
@@ -211,6 +207,15 @@ public class CommandListener extends
 			while(target.getLevel() < level) {
 				target.levelUp();
 			}
+			
+		case "givegold":
+			if(args.length < 3) return;
+			
+			Player tgt = IdleBot.botref.findPlayer(args[1]);
+			long money = Integer.parseInt(args[2]);
+			
+			tgt.setMoney(money);
+			
 
 		case "team":
 			// new events.TeamEvent();
@@ -219,7 +224,7 @@ public class CommandListener extends
 		case "announce":
 			if (args.length < 2)
 				return;
-			// event.getBot().messageChannel("[ANNOUNCEMENT] "+event.getMessage().substring(8));
+			event.getBot().messageChannel("[ANNOUNCEMENT] "+event.getMessage().substring(8));
 			break;
 
 		case "total":

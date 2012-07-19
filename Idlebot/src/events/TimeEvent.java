@@ -2,6 +2,7 @@ package events;
 
 import generators.Utilities;
 
+import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -62,6 +63,10 @@ public class TimeEvent {
 		}
 	}
 	
+	private boolean bigintIsNegative(BigInteger b) {
+		return !(b.abs().compareTo(b) == 0);
+	}
+	
 	private void doStuff(String message, Player target, Boolean negative) {
 		int perc;
 		message = Event.replaceGender(message, target);
@@ -72,13 +77,17 @@ public class TimeEvent {
 			perc = (int) (Math.random() * 80)+1;
 			perc = Math.random() > 0.5 ? -perc : perc;
 		}
-		long timeMod = (long) (((Math.pow(1.18, target.getLevel() ))*750000) * (perc/100.0));
+
+		BigInteger tg = Player.calcLevelTime(target.getLevel())
+				.multiply(BigInteger.valueOf(perc))
+				.divide(BigInteger.valueOf(100));
+		
 		if(negative == null) {
-			IdleBot.botref.messageChannel((timeMod < 0 ? Colors.RED : Colors.DARK_GREEN) + target.getName() + " " + message + ", "+((timeMod < 0 ? "adding " : "removing ")+ IdleBot.botref.ms2dd(Math.abs(timeMod)) + (timeMod < 0 ? " to " : " from ")+Event.replaceGender("%hisher level timer! ["+Math.abs(perc)+"%]", target)));
+			IdleBot.botref.messageChannel((bigintIsNegative(tg) ? Colors.RED : Colors.DARK_GREEN) + target.getName() + " " + message + ", "+((bigintIsNegative(tg) ? "adding " : "removing ")+ IdleBot.botref.ms2dd(tg.abs()) + (bigintIsNegative(tg) ? " to " : " from ")+Event.replaceGender("%hisher level timer! ["+Math.abs(perc)+"%]", target)));
 		} else {
-			IdleBot.botref.messageChannel((timeMod < 0 ? Colors.RED : Colors.DARK_GREEN) + target.getName() + " " + message + " ["+IdleBot.botref.ms2dd(Math.abs(timeMod))+"]");
+			IdleBot.botref.messageChannel((bigintIsNegative(tg) ? Colors.RED : Colors.DARK_GREEN) + target.getName() + " " + message + " ["+IdleBot.botref.ms2dd(tg.abs())+"]");
 		}
-		target.modifyTime(timeMod);
+		target.modifyTime(tg);
 	}
 
 	public float getModifier(Alignment align, Type type) {

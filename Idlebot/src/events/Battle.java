@@ -3,6 +3,7 @@ package events;
 import generators.SpellGenerator;
 import generators.SpellGenerator.Spell;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.Random;
@@ -74,10 +75,10 @@ public class Battle {
 			p.setName(copy.getName()+"'s Doppleganger");
 		}
 
-		public void timeMod(long l) {
+		public void timeMod(BigInteger l) {
 			for(Playable p : members) { 
 				if(p instanceof Player){
-					battleMessage(Event.replaceGender(p.getName()+" got "+IdleBot.botref.ms2dd(Math.abs(l))+(l>0 ? " removed from " : " added to ") + "%hisher level timer!", p));
+					battleMessage(Event.replaceGender(p.getName()+" got "+IdleBot.botref.ms2dd(l.abs())+(l.abs().compareTo(l)==0 ? " removed from " : " added to ") + "%hisher level timer!", p));
 					((Player) p).modifyTime(l);
 				} 
 			}
@@ -321,10 +322,10 @@ public class Battle {
 		double constant = 467.524693;
 		if(victors.getTotalLevel() < losrars.getTotalLevel()) constant*=3;
 		
-		long timeMod = (long) (constant * sumHealth);
+		BigInteger timeMod = BigInteger.valueOf((long) (constant * sumHealth));
 		
 		victors.timeMod(timeMod);
-		losrars.timeMod(-timeMod/2);
+		losrars.timeMod(timeMod.negate().divide(BigInteger.valueOf(2)));
 		
 		this.victor = victors;
 	}
@@ -397,20 +398,24 @@ public class Battle {
 		double constant = 267.524693;
 		if(second.getLevel() < first.getLevel()) constant*=5;
 		
-		long timeMod = (long) (constant * sumHealth);
+		BigInteger timeMod = BigInteger.valueOf((long) (constant * sumHealth));
 
 		if(second.getAlignment() == Alignment.Good && first.getAlignment() == Alignment.Evil && prob(80)) {
-			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/2)+" to "+first.getName()+"'s level timer!");
-			((Player)first).modifyTime(-timeMod/2);
+			timeMod = timeMod.divide(BigInteger.valueOf(2));
+			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod)+" to "+first.getName()+"'s level timer!");
+			((Player)first).modifyTime(timeMod.negate());
 		} else if(second.getAlignment() == Alignment.Neutral && prob(20)) {
-			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/5)+" to "+first.getName()+"'s level timer!");
-			((Player)first).modifyTime(-timeMod/5);
+			timeMod = timeMod.divide(BigInteger.valueOf(5));
+			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod)+" to "+first.getName()+"'s level timer!");
+			((Player)first).modifyTime(timeMod.negate());
+			timeMod = timeMod.divide(BigInteger.valueOf(3));
 		} else if(second.getAlignment() == Alignment.Evil && first.getAlignment() == Alignment.Good && prob(40)) {
-			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/3)+" to "+first.getName()+"'s level timer!");
-			((Player)first).modifyTime(-timeMod/3);
+			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod)+" to "+first.getName()+"'s level timer!");
+			((Player)first).modifyTime(timeMod.negate());
+			timeMod = timeMod.divide(BigInteger.valueOf(4));
 		} else if(second.getAlignment() == Alignment.Evil && first.getAlignment() == Alignment.Neutral && prob(20)) {
-			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod/4)+" to "+first.getName()+"'s level timer!");
-			((Player)first).modifyTime(-timeMod/4);
+			battleMessage(Colors.DARK_GREEN+BATTLE + second + " landed a critical final blow, adding "+IdleBot.botref.ms2dd(timeMod)+" to "+first.getName()+"'s level timer!");
+			((Player)first).modifyTime(timeMod.negate());
 		}
 	}
 	

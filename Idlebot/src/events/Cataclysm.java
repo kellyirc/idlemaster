@@ -1,5 +1,7 @@
 package events;
 
+import java.math.BigInteger;
+
 import org.pircbotx.Colors;
 
 import data.Playable;
@@ -26,12 +28,17 @@ public class Cataclysm {
 			for (Player p : IdleBot.botref.getOnlinePlayers()) {
 				p.stats.cataSuffered++;
 
-				int perc = (int) ((Math.random() * 20) + 1);
-				long timeGain = (long) (((Math.pow(1.16, p.getLevel())) * 3250000) * ((double) perc / 100));
+				int perc = (int) ((Math.random() * 20));
+				
+				BigInteger tg = Player.getModifierTime(p.getLevel())
+						.multiply(BigInteger.valueOf(3250000))
+						.multiply(BigInteger.valueOf(perc))
+						.divide(BigInteger.valueOf(100));
+				
 				IdleBot.botref.messageChannel(Colors.DARK_GRAY + p.getName()
-						+ " had " + IdleBot.botref.ms2dd(timeGain)
+						+ " had " + IdleBot.botref.ms2dd(tg)
 						+ " added to %hisher level timer!",p);
-				p.modifyTime(-timeGain);
+				p.modifyTime(tg.negate());
 
 				int moneyLoss = (int) (p.getMoney() * (MoneyEvent.percent / 100.0));
 				IdleBot.botref.messageChannel(Colors.DARK_GRAY + p.getName()
@@ -49,12 +56,17 @@ public class Cataclysm {
 					count++;
 
 					int perc = (int) (Math.random() * 17) + 1;
-					long timeGain = (long) (((Math.pow(1.16, p.getLevel())) * 1250000) * ((double) perc / 100));
+
+					BigInteger tg = Player.getModifierTime(p.getLevel())
+							.multiply(BigInteger.valueOf(1250000))
+							.multiply(BigInteger.valueOf(perc))
+							.divide(BigInteger.valueOf(100));
+					
 					IdleBot.botref.messageChannel(Colors.DARK_GRAY
 							+ p.getName() + " had "
-							+ IdleBot.botref.ms2dd(timeGain)
+							+ IdleBot.botref.ms2dd(tg)
 							+ " taken away from %hisher level timer!",p);
-					p.modifyTime(timeGain);
+					p.modifyTime(tg);
 
 				}
 			}
@@ -72,12 +84,17 @@ public class Cataclysm {
 					count++;
 
 					int perc = (int) (Math.random() * 31) + 1;
-					long timeGain = (long) (((Math.pow(1.16, p.getLevel())) * 750000) * ((double) perc / 100));
+
+					BigInteger tg = Player.getModifierTime(p.getLevel())
+							.multiply(BigInteger.valueOf(750000))
+							.multiply(BigInteger.valueOf(perc))
+							.divide(BigInteger.valueOf(100));
+					
 					IdleBot.botref.messageChannel(Colors.DARK_GRAY
 							+ p.getName() + " had "
-							+ IdleBot.botref.ms2dd(timeGain)
+							+ IdleBot.botref.ms2dd(tg)
 							+ " added to %hisher level timer!",p);
-					p.modifyTime(-timeGain);
+					p.modifyTime(tg.negate());
 				}
 			}
 			if (count == 0)
@@ -94,12 +111,17 @@ public class Cataclysm {
 					count++;
 
 					int perc = (int) (Math.random() * 15) + 1;
-					long timeGain = (long) (((Math.pow(1.16, p.getLevel())) * 305000) * ((double) perc / 100));
+					
+					BigInteger tg = Player.getModifierTime(p.getLevel())
+							.multiply(BigInteger.valueOf(305000))
+							.multiply(BigInteger.valueOf(perc))
+							.divide(BigInteger.valueOf(100));
+					
 					IdleBot.botref.messageChannel(Colors.DARK_GRAY
 							+ p.getName() + " had "
-							+ IdleBot.botref.ms2dd(timeGain)
+							+ IdleBot.botref.ms2dd(tg)
 							+ " added to %hisher level timer!",p);
-					p.modifyTime(-timeGain);
+					p.modifyTime(tg.negate());
 					p.warp();
 				}
 			}
@@ -114,11 +136,14 @@ public class Cataclysm {
 							+ "The deities breathe mercy into the world! Everyones time to level has been reduced!");
 			for (Player p : IdleBot.botref.getOnlinePlayers()) {
 				p.stats.cataSuffered++;
-				long timeGain = (long) (((Math.pow(1.16, p.getLevel())) * 225000) * 0.357);
+
+				BigInteger tg = Player.getModifierTime(p.getLevel())
+						.multiply(BigInteger.valueOf(80325));
+				
 				IdleBot.botref.messageChannel(Colors.DARK_GRAY + p.getName()
-						+ " had " + IdleBot.botref.ms2dd(timeGain)
+						+ " had " + IdleBot.botref.ms2dd(tg)
 						+ " taken away from %hisher level timer!",p);
-				p.modifyTime(timeGain);
+				p.modifyTime(tg);
 			}
 			break;
 
@@ -129,11 +154,16 @@ public class Cataclysm {
 				p.stats.cataSuffered++;
 
 				int perc = (int) (Math.random() * 5) + 1;
-				long timeGain = (long) (((Math.pow(1.16, p.getLevel())) * 1000000) * ((double) perc / 100));
+				
+				BigInteger tg = Player.getModifierTime(p.getLevel())
+						.multiply(BigInteger.valueOf(1000000))
+						.multiply(BigInteger.valueOf(perc))
+						.divide(BigInteger.valueOf(100));
+				
 				IdleBot.botref.messageChannel(Colors.DARK_GRAY + p.getName()
-						+ " had " + IdleBot.botref.ms2dd(timeGain)
+						+ " had " + IdleBot.botref.ms2dd(tg)
 						+ " added to %hisher level timer!",p);
-				p.modifyTime(-timeGain);
+				p.modifyTime(tg.negate());
 				p.warp();
 			}
 			break;
@@ -175,12 +205,17 @@ public class Cataclysm {
 					count++;
 
 					int perc = (int) ((Math.random() * 20) + 1);
-					long timeGain = (long) (((Math.pow(1.16, p.getLevel())) * 3000000) * ((double) perc / 100));
+					
+					BigInteger tg = Player.getModifierTime(p.getLevel())
+							.multiply(BigInteger.valueOf(3000000))
+							.multiply(BigInteger.valueOf(perc))
+							.divide(BigInteger.valueOf(100));
+					
 					IdleBot.botref.messageChannel(Colors.DARK_GRAY
 							+ p.getName() + " had "
-							+ IdleBot.botref.ms2dd(timeGain)
+							+ IdleBot.botref.ms2dd(tg)
 							+ " added to %hisher level timer!",p);
-					p.modifyTime(-timeGain);
+					p.modifyTime(tg.negate());
 
 					int moneyLoss = (int) (p.getMoney() * ((MoneyEvent.percent * 5) / 100.0));
 					IdleBot.botref

@@ -78,9 +78,16 @@ public class Player extends Playable {
 		return false;
 	}
 
-	public BigInteger calcLevelTime(int level) {
-		return new BigInteger("" + 600).multiply(new BigInteger(""
-				+ Math.round(Math.pow(1.16, level) * 100)));
+	public BigInteger calcLevelTime() {
+		return calcLevelTime(this.level);
+	}
+
+	public static BigInteger calcLevelTime(int level) {
+		return BigInteger.valueOf(600).multiply(getModifierTime(level).multiply(BigInteger.valueOf(111)));
+	}
+	
+	public static BigInteger getModifierTime(int level) {
+		return BigInteger.valueOf((long) Math.pow(TIME_MULTIPLIER,level));
 	}
 
 	@Override
@@ -174,8 +181,8 @@ public class Player extends Playable {
 		return money;
 	}
 
-	public long getTimeLeft() {
-		return timeLeft.subtract(curTime).longValue();
+	public BigInteger getTimeLeft() {
+		return timeLeft.subtract(curTime);
 	}
 
 	public void levelUp() {
@@ -195,7 +202,11 @@ public class Player extends Playable {
 	}
 
 	public void modifyTime(long modification) {
-		curTime = curTime.add(new BigInteger("" + modification));
+		modifyTime(new BigInteger(String.valueOf(modification)));
+	}
+	
+	public void modifyTime(BigInteger modification) {
+		curTime = curTime.add(modification);
 		if (curTime.compareTo(timeLeft) >= 0) {
 			levelUp();
 		}

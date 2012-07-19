@@ -1,5 +1,6 @@
 package data;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -232,11 +233,11 @@ public class Usable {
 
 	private void doDice(Player p) {
 		int rolls=0;
-		while(rolls++>0 && ( (int)(Math.random()*6) == (int)(Math.random()*6) ));
+		while(rolls++>0 && ( ((int)(Math.random()*3)) == ((int)(Math.random()*3)) ));
 		if(rolls == 1) {
 			IdleBot.botref.messageChannel("...but couldn't roll the dice to save %hisher life!",p);
 		} else {
-			long gain = (long) (rolls*(Math.pow(1.16, p.getLevel()))*90000);
+			BigInteger gain = BigInteger.valueOf(rolls*90000).multiply(Player.getModifierTime(p.level));
 			IdleBot.botref.messageChannel("...and got "+IdleBot.botref.ms2dd(gain)+" taken away from %hisher level timer!",p);
 			p.modifyTime(gain);
 		}
@@ -263,7 +264,7 @@ public class Usable {
 		if(Math.random() > 0.8) {
 			IdleBot.botref.messageChannel("..."+rand.getName()+" dodged the bomb!");
 		} else {
-			long l = (long) (Math.random() * 500000);
+			BigInteger l = BigInteger.valueOf((long) (Math.random()*500000));
 			IdleBot.botref.messageChannel("..."+rand.getName()+" got hit by the bomb, causing "+left.getName()+" to crack ("+left.getValue()+"->"+Math.round(left.getValue()*0.8)+") and taking a "+IdleBot.botref.ms2dd(l)+" to %hisher level timer!",rand);
 			left.setValue((int) (left.getValue() * 0.8));
 			rand.modifyTime(l);
