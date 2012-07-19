@@ -104,6 +104,7 @@ public class IdleBot extends PircBotX implements Globals {
 				}
 			}}catch(Exception e) {
 				e.printStackTrace();
+				IdleBot.botref.messageChannel("I derped: "+ e.getMessage());
 			}
 		}
 
