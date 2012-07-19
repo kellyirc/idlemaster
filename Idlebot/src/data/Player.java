@@ -187,9 +187,7 @@ public class Player extends Playable {
 
 	public void levelUp() {
 		curTime = new BigInteger("0");
-		if (level < 100) {
-			timeLeft = timeLeft.add(calcLevelTime(level + 1));
-		}
+		timeLeft = timeLeft.add(calcLevelTime(level + 1));
 		IdleBot.botref.signalLevelUp(this);
 		level++;
 	}
@@ -216,12 +214,13 @@ public class Player extends Playable {
 		int gain = 0;
 		gain += i.getValue() / 6;
 		gain *= Math.max(level / 5, 1);
+		gain *= (this.stats.hasPhilStone ? 2 : 1);
 		if (gain > 0) {
 			if (!isIgnoring && !(name.equals("IdleMaster"))) {
 				IdleBot.botref.sendNotice(IdleBot.botref.getUserByPlayer(this),
 						"You gained " + gain + " gold from selling " + i + ".");
 			}
-			money += gain * (this.stats.hasPhilStone ? 2 : 1);
+			money += gain;
 		} else {
 			if (!isIgnoring && !(name.equals("IdleMaster"))) {
 				IdleBot.botref.sendNotice(IdleBot.botref.getUserByPlayer(this),
