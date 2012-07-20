@@ -33,9 +33,19 @@ public class UserListener extends org.pircbotx.hooks.ListenerAdapter<IdleBot> {
 	
 	private void tryToMatch(User u) {
 		for (Player p : IdleBot.botref.getPlayers()) {
+			if(IdleBot.botref.findLoggedInUser(u.getNick())) return;
+			if(p.loggedIn) continue;
 			for (UserData alias : p.getAliases()) {
-				if ((alias.getLogin().equals(u.getLogin()) && alias.getRealName().equals(u.getRealName()) || alias
-								.getHostMask().equals(u.getHostmask())) && p.lastLogin!= null && p.lastLogin.compareTo(alias) == 0 && !IdleBot.botref.findLoggedInUser(u.getNick())) {
+				
+					//login must match
+				if ((alias.getLogin().equals(u.getLogin()) ||
+					//or real name and nick must match
+					 (alias.getRealName().equals(u.getRealName()) && alias.getNick().equals(u.getNick())) || 
+					//or hostmask must match
+					 alias.getHostMask().equals(u.getHostmask())) && 
+					 
+					 //can't be the first time
+					 p.lastLogin!= null) {
 					IdleBot.botref.handleLogin(u, p);
 					break;
 				}

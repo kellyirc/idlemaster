@@ -63,7 +63,10 @@ public class IdleBot extends PircBotX implements Globals {
 				for (Playable p : players) {
 					if (p instanceof Player && !((Player) p).loggedIn)
 						continue;
-					p.takeTurn();
+
+					if(ticks++%Event.EVENT_TIME/(p instanceof Player && ((Player)p).stats.hasWingShoes ? 250 : 85) == 0) {
+						p.takeTurn();
+					}
 				}
 				
 				if(ticks++%Event.EVENT_TIME == 0) {
@@ -71,7 +74,7 @@ public class IdleBot extends PircBotX implements Globals {
 					new Event();
 				}
 				
-				if(ticks%(Event.EVENT_TIME*50) == 0) {
+				if(ticks%(Event.EVENT_TIME*10) == 0) {
 					Player pl = IdleBot.botref.getRandomPlayer();
 					Playable m;
 					if(Math.random() > 0.9)
@@ -81,8 +84,11 @@ public class IdleBot extends PircBotX implements Globals {
 							m = IdleBot.botref.getRandomPlayer();
 						} while(m.equals(pl));
 					}
-					if(m != null) {
-						pl.engage(m);
+					if(!(pl.getGroup()!= null && m.getGroup()!= null && pl.getGroup().equals(m.getGroup()))) {
+						if(m != null) {
+							pl.engage(m);
+						}
+						
 					}
 				}
 
@@ -325,7 +331,7 @@ public class IdleBot extends PircBotX implements Globals {
 		player.loggedIn = true;
 		player.lastLogin = new UserData(user.generateSnapshot());
 		loggedIn.put(user.getNick(), player);
-		player.getAliases().add(new UserData(user.generateSnapshot()));
+		player.addAlias(new UserData(user.generateSnapshot()));
 		messageChannel(user.getNick() + " has joined Idletopia as " + player
 				+ ".");
 		this.voice(getGlobalChannel(), user);

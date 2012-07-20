@@ -4,8 +4,7 @@ import generators.ItemGenerator;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.TreeSet;
+import java.util.LinkedList;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.jasypt.util.password.BasicPasswordEncryptor;
@@ -30,7 +29,7 @@ public class Player extends Playable {
 		this.money = money;
 	}
 
-	private TreeSet<UserData> aliases;
+	private LinkedList<UserData> aliases;
 
 	private BigInteger curTime = new BigInteger("0");
 	public boolean isIgnoring;
@@ -130,19 +129,7 @@ public class Player extends Playable {
 			generateNewEquipment();
 		}
 		if (aliases == null)
-			aliases = new TreeSet<UserData>(new Comparator<UserData>(){
-
-				@Override
-				public int compare(UserData arg0, UserData arg1) {
-					if(aliases.contains(arg0)) {
-						aliases.remove(arg0);
-						aliases.add(arg1);
-					} else if(aliases.contains(arg1)) {
-						aliases.remove(arg1);
-						aliases.add(arg0);
-					}
-					return 0;
-				}});
+			aliases = new LinkedList<UserData>();
 		if (items == null)
 			items = new ArrayList<Usable>();
 	}
@@ -170,8 +157,15 @@ public class Player extends Playable {
 				Item.ItemClass.Newbie));
 	}
 
-	public TreeSet<UserData> getAliases() {
+	public LinkedList<UserData> getAliases() {
 		return aliases;
+	}
+	
+	public void addAlias(UserData newData) {
+		for(UserData u : aliases) {
+			if(u.equals(newData)) return;
+		}
+		aliases.add(newData);
 	}
 
 	/**
