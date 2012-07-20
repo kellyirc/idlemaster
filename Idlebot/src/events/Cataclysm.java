@@ -20,6 +20,9 @@ public class Cataclysm {
 				.values().length-1)];
 		int count = 0;
 		switch ((int) (Math.random() * 13)) {
+			default:
+				new Cataclysm();
+				break;
 
 		case 0:
 			IdleBot.botref

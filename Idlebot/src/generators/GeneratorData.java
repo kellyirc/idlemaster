@@ -4,10 +4,8 @@ import generators.Utilities.Data;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Random;
 
 public class GeneratorData {
-	public static Random random;
 	public static Data[] colors;
 	public static Data[] downvalue;
 	public static Data[] upvalue;
@@ -19,7 +17,6 @@ public class GeneratorData {
 	public static final Data[] DUMMYARRAY = new Data[0];
 
 	static {
-		random = new Random();
 		try {
 			loadOthers();
 		} catch (MalformedURLException e) {
@@ -56,7 +53,7 @@ public class GeneratorData {
 	}
 	
 	private static Data getRandom(Data[] array) {
-		return array[GeneratorData.random.nextInt(array.length)];
+		return array[(int) (Math.random() * (array.length - 1))];
 	}
 	
 	public static Data getRColor() {

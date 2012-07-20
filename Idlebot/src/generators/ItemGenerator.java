@@ -140,29 +140,31 @@ public class ItemGenerator {
 
 		// try to make avatar (1/10000)
 		if (cl == ItemClass.Idle || cl == ItemClass.Avatar
-				|| GeneratorData.random.nextInt(10000) > 9999) {
+				|| Math.random() * 10000 > 9999) {
 			if(itemClass == null) itemClass = ItemClass.Avatar;
 			//choice = types.get(ItemClass.Avatar)[GeneratorData.random.nextInt(types.get(ItemClass.Avatar).length)];
 			Player pChoice = IdleBot.botref.getRandomPlayer();
-			if(pChoice != null)
+			if(pChoice == null)
 				for(Player p : IdleBot.botref.getPlayers()) {
 					if(p.getName().equals("IdleMaster")) pChoice = p;
 				}
-			itemName.append(pChoice.getName()+"'s ");
-			Item rItem = pChoice.getEquipmentItems().toArray(new Item[0])[(int) (Math.random() * pChoice.getEquipment().size())];
-			itemValue += rItem.getValue();
-			if(type == null) 
-				type = Type.Spiritual;
+			if(pChoice != null) {
+				itemName.append(pChoice.getName()+"'s ");
+				Item rItem = pChoice.getEquipmentItems().toArray(new Item[0])[(int) (Math.random() * pChoice.getEquipment().size())];
+				itemValue += rItem.getValue();
+				if(type == null) 
+					type = Type.Spiritual;
+			}
 		}
 
 		// try to add retro
 		if (cl == ItemClass.Idle
 				|| cl == ItemClass.Retro
-				|| GeneratorData.random.nextInt(1000) > (itemClass == ItemClass.Avatar ? 960
+				|| Math.random() * 1000 > (itemClass == ItemClass.Avatar ? 960
 						: 980)) {
 
-			choice = types.get(ItemClass.Retro)[GeneratorData.random.nextInt(types
-					.get(ItemClass.Retro).length)];
+			choice = types.get(ItemClass.Retro)[(int) (Math.random() * (types
+					.get(ItemClass.Retro).length-1))];
 			itemValue += choice.getValue();
 			itemName.append(choice + " ");
 			if (itemClass == null)
@@ -174,10 +176,10 @@ public class ItemGenerator {
 		// try to add descriptor (25% normal, 55% if avatar)
 		// value descriptors need to be taken care of
 		if (cl == ItemClass.Idle
-				|| GeneratorData.random.nextInt(1000) > (itemClass == ItemClass.Avatar ? 450
+				|| Math.random() * 1000 > (itemClass == ItemClass.Avatar ? 450
 						: 750)) {
 			Data[] array;
-			int i = GeneratorData.random.nextInt(100);
+			int i = (int) (Math.random() * 100);
 			if (i < 6) {
 				array = GeneratorData.evils;
 				align = Alignment.Evil;
@@ -196,28 +198,28 @@ public class ItemGenerator {
 			} else {
 				array = GeneratorData.prefixes;
 			}
-			choice = array[GeneratorData.random.nextInt(array.length)];
+			choice = array[(int) (Math.random() * (array.length-1))];
 			itemValue += choice.getValue();
 			itemName.append(choice + " ");
 		}
 		// try to add color (75% avatar, 25% normal)
 		if (cl == ItemClass.Idle
-				|| GeneratorData.random.nextInt(1000) > (itemClass == ItemClass.Avatar ? 250
+				|| Math.random() * 1000 > (itemClass == ItemClass.Avatar ? 250
 						: 750)) {
-			choice = GeneratorData.colors[GeneratorData.random.nextInt(GeneratorData.colors.length)];
+			choice = GeneratorData.colors[(int) (Math.random() * (GeneratorData.colors.length-1))];
 			itemValue += choice.getValue();
 			itemName.append(choice + " ");
 		}
 
 		if (slot == null) {
 			Slot[] e = equipment.keySet().toArray(new Slot[0]);
-			slot = e[GeneratorData.random.nextInt(e.length)];
+			slot = e[(int) (Math.random() * (e.length-1))];
 		}
 
 		// pick a base item, if slot, seed with slot
 		// if base item is a proper named item
 		// if no current class, or class is avatar, make class special
-		choice = equipment.get(slot)[GeneratorData.random.nextInt(equipment.get(slot).length)];
+		choice = equipment.get(slot)[(int) (Math.random() * (equipment.get(slot).length-1))];
 		itemValue += choice.getValue();
 		itemName.append(choice);
 		if (choice.toString().charAt(0) < 91 && itemClass == null)
@@ -226,15 +228,15 @@ public class ItemGenerator {
 		// try to become spirit class (5% avatar, 0.7% normal)
 		if (cl == ItemClass.Idle
 				|| cl == ItemClass.Spiritual
-				|| GeneratorData.random.nextInt(1000) > (itemClass == ItemClass.Avatar ? 950
+				|| Math.random() * 1000 > (itemClass == ItemClass.Avatar ? 950
 						: 993)) {
-			choice = types.get(ItemClass.Saint)[GeneratorData.random.nextInt(types
-					.get(ItemClass.Saint).length)];
+			choice = types.get(ItemClass.Saint)[(int) (Math.random() * (types
+					.get(ItemClass.Saint).length-1))];
 			itemValue += choice.getValue();
 			itemName.append(" of " + choice + ", ");
 
-			choice = types.get(ItemClass.Animal)[GeneratorData.random.nextInt(types
-					.get(ItemClass.Animal).length)];
+			choice = types.get(ItemClass.Animal)[(int) (Math.random() * (types
+					.get(ItemClass.Animal).length-1))];
 			itemValue += choice.getValue();
 			itemName.append("the " + choice);
 			if (itemClass == null)
@@ -242,10 +244,10 @@ public class ItemGenerator {
 
 			// if not, try to become animal class (63% avatar, 42% normal)
 		} else if (cl == ItemClass.Animal
-				|| GeneratorData.random.nextInt(100) > (itemClass == ItemClass.Avatar ? 37
+				|| Math.random() * 100 > (itemClass == ItemClass.Avatar ? 37
 						: 56)) {
-			choice = types.get(ItemClass.Animal)[GeneratorData.random.nextInt(types
-					.get(ItemClass.Animal).length)];
+			choice = types.get(ItemClass.Animal)[(int) (Math.random() * (types
+					.get(ItemClass.Animal).length-1))];
 			itemValue += choice.getValue();
 			itemName.append(" of the " + choice);
 			if (itemClass == null)
@@ -253,10 +255,10 @@ public class ItemGenerator {
 
 			// if not, try to become saint class (17% avatar, 1% normal)
 		} else if (cl == ItemClass.Saint
-				|| GeneratorData.random.nextInt(1000) > (itemClass == ItemClass.Avatar ? 830
+				|| Math.random() * 1000 > (itemClass == ItemClass.Avatar ? 830
 						: 990)) {
-			choice = types.get(ItemClass.Saint)[GeneratorData.random.nextInt(types
-					.get(ItemClass.Saint).length)];
+			choice = types.get(ItemClass.Saint)[(int) (Math.random() * (types
+					.get(ItemClass.Saint).length-1))];
 			itemValue += choice.getValue();
 			itemName.append(" of " + choice);
 			if (itemClass == null)
@@ -266,20 +268,17 @@ public class ItemGenerator {
 		// take care of any remaining value descriptors that modify value by a factor (1.5, .5, etc)
 		// determine type
 
-		if (itemType == null)
-			itemType = determineType(slot);
-
 		if (itemClass == null)
 			itemClass = ItemClass.Normal;
 
 		if (modPercent > 0)
 			itemValue *= modPercent;
 		
-		if(type == null) {
-			type = determineType(slot);
+		if(itemType == null) {
+			itemType = determineType(slot);
 		}
 
-		return new Item(itemName.toString(), itemValue, type,
+		return new Item(itemName.toString(), itemValue, itemType,
 				itemClass, align);
 	}
 

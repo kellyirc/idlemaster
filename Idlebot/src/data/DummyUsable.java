@@ -24,7 +24,7 @@ public class DummyUsable {
 		return null;
 	}
 	
-	public static DummyUsable[] dummyItems = {
+	public static final DummyUsable[] dummyItems = {
 		new DummyUsable("fortunecookie", 20000, "Everyone loves to eat these tasty treats!", true, true),
 		new DummyUsable("karmacookie", 	30000, "Mmmm, tastes like revenge!", false, true),
 		new DummyUsable("sledgehammer",45000, "Smashy smashy!", true, true),

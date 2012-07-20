@@ -10,7 +10,7 @@ public class Item implements Comparable<Item>{
 	 * @param value the value to set
 	 */
 	public void setValue(int value) {
-		this.value = Math.round(value);
+		this.value = value;
 	}
 
 	public enum Type { Magical, Physical, Spiritual, Emotional };

@@ -42,7 +42,7 @@ public class MonsterGenerator {
 		try {
 			loadMonsters();
 			loadStrings();
-		} catch (MalformedURLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -61,6 +61,7 @@ public class MonsterGenerator {
 				BossStrings bs = new BossStrings();
 				for(int j=0; j<5; j++) {
 					strLine = br.readLine();
+					if(strLine == null) continue;
 					if(strLine.contains("intro=")){
 						bs.intro = strLine.substring(6);
 					} else if(strLine.contains("death=")) {
@@ -124,7 +125,7 @@ public class MonsterGenerator {
 			Data[] array;
 			Data choice;
 			
-			int i = GeneratorData.random.nextInt(100);
+			int i = (int) (Math.random() * 100);
 			if (i < 6 && alignment==null) {
 				array = GeneratorData.evils;
 				align = Alignment.Evil;
@@ -143,7 +144,7 @@ public class MonsterGenerator {
 			} else {
 				array = GeneratorData.prefixes;
 			}
-			choice = array[GeneratorData.random.nextInt(array.length)];
+			choice = array[(int) (Math.random() * (array.length-1))];
 			valueBonus += choice.getValue();
 			name.append(choice + " ");
 		}

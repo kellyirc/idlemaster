@@ -344,6 +344,9 @@ public class Usable {
 			case 2:
 				new MoneyEvent(p, false);
 				break;
+			default:
+				new Cataclysm();
+				break;
 			}
 		} else if(i < 85) {
 			IdleBot.botref.messageChannel("...and lost a level!");

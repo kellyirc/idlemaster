@@ -173,7 +173,7 @@ public class IdleBot extends PircBotX implements Globals {
 		}
 
 		this.setTopic(getGlobalChannel(), getCustomTopic());
-		new Thread(new EventThread(), "Event Thread").run();
+		new Thread(new EventThread(), "Event Thread").start();
 	}
 
 	private void addListeners() {
@@ -523,6 +523,7 @@ public class IdleBot extends PircBotX implements Globals {
 			temp.renameTo(file);
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 	}
