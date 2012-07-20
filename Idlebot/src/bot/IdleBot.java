@@ -201,6 +201,17 @@ public class IdleBot extends PircBotX implements Globals {
 			e1.printStackTrace();
 		}
 		copy(file, output);
+		cleanBackups();
+	}
+
+	private void cleanBackups() {
+		File dir = new File("_backup/");
+		for(File f : dir.listFiles()) {
+			long dayDiff = (System.currentTimeMillis() - f.lastModified())/86400000;
+			if(dayDiff > 1) {
+				f.delete();
+			}
+		}
 	}
 
 	private void copy(File file, File output) {
