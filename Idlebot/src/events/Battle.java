@@ -101,6 +101,14 @@ public class Battle {
 			return ret;
 		}
 		
+		public int getAverageLevel() {
+			int ret = 0;
+			for(Playable p : members) {
+				ret += p.getLevel();
+			}
+			return ret/members.size();
+		}
+		
 		public void takeDamage(Playable opp, int damage) {
 			for(Playable p : members) {
 				p.health -= damage;
@@ -319,13 +327,14 @@ public class Battle {
 		if(losrars.getRemainingLife() < 0) sumHealth += Math.abs(losrars.getRemainingLife());
 		sumHealth -= victors.getRemainingLife();
 		
-		double constant = 467.524693;
+		double constant = 267.524693;
 		if(victors.getTotalLevel() < losrars.getTotalLevel()) constant*=3;
 		
 		BigInteger timeMod = BigInteger.valueOf((long) (constant * sumHealth));
 		
-		victors.timeMod(timeMod);
-		losrars.timeMod(timeMod.negate().divide(BigInteger.valueOf(2)));
+		//make the stakes higher if peoples levels are at that range
+		victors.timeMod(timeMod.multiply(BigInteger.valueOf(victors.getAverageLevel() > 30 ? victors.getAverageLevel()/5 : 1)));
+		losrars.timeMod(timeMod.negate().divide(BigInteger.valueOf(2)).multiply(BigInteger.valueOf(losrars.getAverageLevel() > 30 ? losrars.getAverageLevel()/5 : 1)));
 		
 		this.victor = victors;
 	}

@@ -386,6 +386,10 @@ public class Usable {
 		do {
 			right = IdleBot.botref.getRandomPlayer();
 		} while(right.equals(left));
+		if(left.getGroup()!= null && right.getGroup()!= null && left.getGroup().equals(right.getGroup())) {
+			IdleBot.botref.messageChannel("...but there were no adequate adversaries!");
+			return;
+		}
 		new Battle(left, right);
 	}
 
