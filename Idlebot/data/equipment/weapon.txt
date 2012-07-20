@@ -214,6 +214,7 @@ popsicle stick,1650
 gungnir,1703
 popsicle,1750
 flying car,1800
+snickersnee,1900
 Reina's Billhook,350
 Gigasword,390
 Vacuum Gun,420
