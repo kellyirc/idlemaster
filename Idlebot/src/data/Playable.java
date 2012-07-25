@@ -261,8 +261,10 @@ public abstract class Playable {
 				rev += i.getValue()/1.1;
 				break;
 			case Physical:
-			case Magical:
 				rev += i.getValue();
+				break;
+			case Magical:
+				rev += i.getValue()/3;
 				break;
 			}
 		}
