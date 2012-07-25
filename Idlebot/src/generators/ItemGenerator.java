@@ -152,9 +152,9 @@ public class ItemGenerator {
 				itemName.append(pChoice.getName()+"'s ");
 				Item rItem = pChoice.getEquipmentItems().toArray(new Item[0])[(int) (Math.random() * pChoice.getEquipment().size())];
 				itemValue += rItem.getValue();
-				if(type == null) 
-					type = Type.Spiritual;
 			}
+			if(type == null) 
+				type = Type.Spiritual;
 		}
 
 		// try to add retro

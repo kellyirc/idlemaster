@@ -227,12 +227,12 @@ public class Player extends Playable {
 	public void takeTurn() {
 		modifyTime(10);
 
-		stats.timeSpent = stats.timeSpent.add(new BigInteger("10"));
+		stats.timeSpent = stats.timeSpent.add(BigInteger.valueOf(10));
 
 		ticks++;
 		if (ticks % 9000 == 0) {
 			addNewItem();
-		} else if (ticks % (30) / (this.stats.hasWingShoes ? 3 : 1) == 0) {
+		} else if(ticks%(stats.hasWingShoes ? 250 : 85) == 0) {
 			move();
 			if (alignment == Alignment.Evil || alignment == Alignment.Neutral)
 				move();

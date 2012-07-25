@@ -57,19 +57,17 @@ public class IdleBot extends PircBotX implements Globals {
 
 		@Override
 		public void run() {
-			try{
 			while (true) {
+				ticks++;
 
 				for (Playable p : players) {
 					if (p instanceof Player && !((Player) p).loggedIn)
 						continue;
 
-					if(ticks++%Event.EVENT_TIME/(p instanceof Player && ((Player)p).stats.hasWingShoes ? 250 : 85) == 0) {
-						p.takeTurn();
-					}
+					p.takeTurn();
 				}
 				
-				if(ticks++%Event.EVENT_TIME == 0) {
+				if(ticks%Event.EVENT_TIME == 0) {
 					if(getPlayers().size() == 0) continue;
 					new Event();
 				}
@@ -106,9 +104,6 @@ public class IdleBot extends PircBotX implements Globals {
 						savePlayers(false);
 					}
 				}
-			}}catch(Exception e) {
-				e.printStackTrace();
-				IdleBot.botref.messageChannel("I derped: "+ e.getMessage());
 			}
 		}
 
