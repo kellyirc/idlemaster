@@ -442,7 +442,7 @@ public class IdleBot extends PircBotX implements Globals {
 			b = b.subtract(BigInteger.valueOf(86400000));
 		}
 		
-		while(days > 7) {
+		while(days >= 7) {
 			weeks++;
 			days -= 7;
 		}

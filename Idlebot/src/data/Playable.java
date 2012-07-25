@@ -22,7 +22,7 @@ public abstract class Playable {
 	public enum Direction { EAST, NORTH, NORTHEAST, NORTHWEST, SOUTH, SOUTHEAST, SOUTHWEST, WEST }
 	public enum Slot { Body, Charm, Feet, Finger, Hands, Head, Legs, Neck, Shield, Weapon }
 	
-	public static final double BATTLE_MULTIPLIER = 1.25;
+	public static final double BATTLE_MULTIPLIER = 1.5;
 	public static final double TIME_MULTIPLIER = 1.16;
 	
 	public static final int MAX_X = 250;
@@ -255,8 +255,10 @@ public abstract class Playable {
 		for(Item i : equipment.values()) {
 			switch(i.getType()) {
 			case Spiritual:
+				rev += i.getValue()/1.5;
+				break;
 			case Emotional:
-				rev += i.getValue()/3.5;
+				rev += i.getValue()/1.1;
 				break;
 			case Physical:
 			case Magical:
