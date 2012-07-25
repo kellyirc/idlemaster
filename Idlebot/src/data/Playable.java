@@ -89,7 +89,7 @@ public abstract class Playable {
 		
 		if(current.getValue() > i.getValue()) return false;
 		
-		if(i.getValue() > level * ((level/4)+5)*1.89) return false;
+		if(i.getValue() > level * ((level/1.3)+15)*1.89) return false;
 		
 		return true;
 	}
@@ -218,12 +218,6 @@ public abstract class Playable {
 		return ( isWithinRange(other) );
 	}
 	
-	@SuppressWarnings("unused")
-	private boolean isWithinLevel(Playable right) {
-		return (calcLevelGroup()/BATTLE_MULTIPLIER < right.calcLevelGroup() && 
-				right.calcLevelGroup() < calcLevelGroup()*BATTLE_MULTIPLIER);
-	}
-	
 	private boolean hasGroup() {
 		return getGroup() != null;
 	}
@@ -231,10 +225,12 @@ public abstract class Playable {
 	private boolean isWithinRange(Playable right) {
 		
 		if(hasGroup() && !right.hasGroup()) {
-			return (calcTotalGroup() > right.calcTotalGroup()*BATTLE_MULTIPLIER*2);
+			if(calcTotalGroup() < right.calcTotalGroup()) return false;
+			return !(calcTotalGroup()/BATTLE_MULTIPLIER > right.calcTotalGroup());	
 			
 		} else if(!hasGroup() && right.hasGroup()) {
-			return (calcTotalGroup()*BATTLE_MULTIPLIER*2 < right.calcTotalGroup());	
+			if(calcTotalGroup() > right.calcTotalGroup()) return false;
+			return !(calcTotalGroup() < right.calcTotalGroup()/BATTLE_MULTIPLIER);	
 		}
 		
 		//my attempt to make this more fair
@@ -243,15 +239,6 @@ public abstract class Playable {
 				|| 
 			   (calcTotalGroup()*BATTLE_MULTIPLIER > right.calcTotalGroup() && 
 				right.calcTotalGroup() > calcTotalGroup()/BATTLE_MULTIPLIER);
-	}
-	
-	private int calcLevelGroup() {
-		if(getGroup() == null) return getLevel();
-		int rev = 0;
-		for(Playable p : getGroup()) {
-			rev += p.getLevel();
-		}
-		return rev;
 	}
 	
 	private int calcTotalGroup() {
@@ -311,7 +298,10 @@ public abstract class Playable {
 		}
 		Playable p = IdleBot.botref.findPlayableByCoordinates(this);
 		if(p!=null) {
-			engage(p);
+			if(Math.random() > 0.5) 
+				engage(p);
+			else
+				p.engage(this);
 		}
 	}
 	

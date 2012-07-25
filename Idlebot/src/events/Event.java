@@ -7,8 +7,8 @@ import bot.IdleBot;
 public class Event {
 	
 	public static final int EVENT_TIME = 2500;
-	public static final int EVENT_MAX_PROB = 160;
-	public static final int EVENT_BASE_PROB = 1000;
+	public static final int EVENT_MAX_PROB = 140;
+	public static final int EVENT_BASE_PROB = 500;
 	
 	public Event() {
 		this(IdleBot.botref.getRandomPlayer(), EVENT_BASE_PROB);
@@ -31,13 +31,13 @@ public class Event {
 		} else if(i == 91) {
 			new Cataclysm();
 			
-		} else if(i < 150) {
+		} else if(i < 130) {
 			new TimeEvent(p);
 			
-		} else if(i < 155) {
+		} else if(i < 135) {
 			new ItemFindEvent(p);
 			
-		} else if(i < 160) {
+		} else if(i < 140) {
 			new TeamEvent();
 		}
 	}

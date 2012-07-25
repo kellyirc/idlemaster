@@ -84,7 +84,10 @@ public class IdleBot extends PircBotX implements Globals {
 					}
 					if(!(pl.getGroup()!= null && m.getGroup()!= null && pl.getGroup().equals(m.getGroup()))) {
 						if(m != null) {
-							pl.engage(m);
+							if(Math.random() > 0.5)
+								pl.engage(m);
+							else
+								m.engage(pl);
 						}
 						
 					}
