@@ -97,7 +97,7 @@ public class TimeEvent {
 			return 0.7f;
 		case Fatehand:
 			if(align == Alignment.Neutral) return 3;
-			return 1;
+			return 0.1f;
 		case Forsaken:
 			if(align == Alignment.Evil) return 4.3f;
 			return 0.5f;
