@@ -230,7 +230,7 @@ public class Player extends Playable {
 		stats.timeSpent = stats.timeSpent.add(BigInteger.valueOf(10));
 
 		ticks++;
-		if (ticks % 9000 == 0) {
+		if (ticks % 20000 == 0) {
 			addNewItem();
 		} else if(ticks%(stats.hasWingShoes ? 250 : 85) == 0) {
 			move();
