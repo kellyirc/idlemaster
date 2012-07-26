@@ -469,9 +469,9 @@ public class IdleBot extends PircBotX implements Globals {
 		if(days > 0) sb.append(days + "d ");
 		if(hours > 0) sb.append(hours + "h ");
 		if(minutes > 0) sb.append(minutes + "m ");
-		if(seconds > 0) sb.append(seconds + "s");
+		if(seconds > 0) sb.append(seconds + "s ");
 		
-		return sb.toString();
+		return sb.toString().substring(0, sb.length()-1);
 	}
 
 	public void penalize(String user, int length) {
