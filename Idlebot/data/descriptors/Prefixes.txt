@@ -35,6 +35,7 @@ crazed,58
 strong,60
 insane,61
 wise,62
+eco-friendly,63
 cunning,64
 clever,66
 dextrous,68
@@ -117,6 +118,7 @@ haunted,-11
 cowardly,-16
 ancient,-22
 damned,-29
+wasteful,-33
 masochistic,-37
 corrupt,-46
 ethereal,-56
