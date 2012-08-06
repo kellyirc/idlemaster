@@ -9,11 +9,14 @@ round shield,14
 tower shield,17
 kite shield,21
 bulwark,23
+lunchbox,25
 wing,27
 escutcheon,31
 aegis,37
+keyboard,40
 magic bubble,45
 shieldkind,51
+clock,55
 turtle shell,59
 iron ingot,63
 mirror shield,72
@@ -21,6 +24,7 @@ barrier birds,78
 tribal shield,90
 riot shield,124
 car door,135
+magic orb shield,143
 cube of meat,150
 phalanx shield,173
 spiked targe,203
@@ -31,6 +35,7 @@ Companion Cube,380
 Reinforced Chunk of Rust,450
 Summoned Swords,570
 Hero's Shield,650
+iMac,666
 Holy Arms,777
 Hoplon Guard,999
 Smashing Board,1247
