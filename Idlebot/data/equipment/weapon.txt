@@ -1,7 +1,7 @@
-byte,1
+bit,1
 ice cream cone,2
 arrow,3
-bullet,4
+byte,4
 spoon,5
 cupcake,6
 card,7
@@ -55,6 +55,7 @@ jackknife,63
 flail,66
 cudgel,68
 schimitar,69
+bullet,70
 cutlass,72
 mattock,73
 awl-pike,75
@@ -151,6 +152,7 @@ ace of spades,211
 butcher blade,212
 runeaxe,213
 armcannon,215
+billhook,220
 tsurigi,221
 ultraball,227
 stompin' boots,228
@@ -191,7 +193,9 @@ whisker,705
 flametongue,710
 icebrand,715
 mjollnir,735
+drillbit,750
 killer7,777
+jetengine,790
 swordchucks,800
 graytooth,835
 pet hellhound,906
@@ -206,7 +210,9 @@ ponybane,1215
 holyspear,1235
 crystal gun,1300
 skullcrusher,1335
+dumpster,1350
 steelhorn,1403
+tree,1428
 dragon killing bare hands,1453
 magicbane,1503
 excalibur,1603
@@ -215,7 +221,6 @@ gungnir,1703
 popsicle,1750
 flying car,1800
 snickersnee,1900
-Reina's Billhook,350
 Gigasword,390
 Vacuum Gun,420
 Full Ale Bottle,450
@@ -225,6 +230,7 @@ Notepad++,700
 MadCatz Tournament Edition Arcade Stick,895
 Lord of Vermillion,1000
 Punisher,1100
+Binary Tree,1175
 Deathbringer,1250
 Macbook Pro,1300
 Kusanagi,1400
@@ -236,4 +242,5 @@ Golden Egg,2000
 Johnny's Plank,2250
 Masterball,2500
 Smashing Board,2750
+Turbo Jet Engine,3000
 Infinity Edge,7500
