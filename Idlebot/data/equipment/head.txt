@@ -11,10 +11,12 @@ aventail,9
 corsage,10
 glasses,11
 diadem,12
+flowerpot,13
 halo,15
 devil horns,16
 coronet,25
 horned cap,30
+fishbowl,33
 cornuthaum,35
 mitre,40
 cowl,42
