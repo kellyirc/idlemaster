@@ -160,8 +160,8 @@ public class ItemGenerator {
 		// try to add retro
 		if (cl == ItemClass.Idle
 				|| cl == ItemClass.Retro
-				|| Math.random() * 1000 > (itemClass == ItemClass.Avatar ? 960
-						: 980)) {
+				|| Math.random() * 1000 > (itemClass == ItemClass.Avatar ? 900
+						: 955)) {
 
 			choice = types.get(ItemClass.Retro)[(int) (Math.random() * (types
 					.get(ItemClass.Retro).length-1))];
@@ -176,8 +176,8 @@ public class ItemGenerator {
 		// try to add descriptor (25% normal, 55% if avatar)
 		// value descriptors need to be taken care of
 		if (cl == ItemClass.Idle
-				|| Math.random() * 1000 > (itemClass == ItemClass.Avatar ? 450
-						: 750)) {
+				|| Math.random() * 1000 > (itemClass == ItemClass.Avatar ? 150
+						: 550)) {
 			Data[] array;
 			int i = (int) (Math.random() * 100);
 			if (i < 6) {
@@ -256,7 +256,7 @@ public class ItemGenerator {
 			// if not, try to become saint class (17% avatar, 1% normal)
 		} else if (cl == ItemClass.Saint
 				|| Math.random() * 1000 > (itemClass == ItemClass.Avatar ? 830
-						: 990)) {
+						: 950)) {
 			choice = types.get(ItemClass.Saint)[(int) (Math.random() * (types
 					.get(ItemClass.Saint).length-1))];
 			itemValue += choice.getValue();

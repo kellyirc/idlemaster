@@ -9,7 +9,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.jasypt.util.password.BasicPasswordEncryptor;
 
+import data.Item.ItemClass;
 import data.Item.Type;
+import events.Battle;
 
 import bot.IdleBot;
 
@@ -55,11 +57,17 @@ public class Player extends Playable {
 	}
 
 	private void addNewItem() {
+
 		Slot[] e = equipment.keySet().toArray(new Slot[0]);
+		Slot slot = e[(int) (Math.random() * e.length-1)];
+		
+		ItemClass cl = null;
+		if(Battle.prob(10)) {
+			ItemClass[] ic = ItemClass.values();
+			cl = ic[(int) (Math.random() * ic.length-1)];
+		}
 
-		Slot slot = e[(int) (Math.random() * e.length)];
-
-		Item i = ItemGenerator.generateItem(slot);
+		Item i = ItemGenerator.generateItem(slot, cl, null);
 		if (i.compareTo(equipment.get(slot)) > 0 && canEquip(slot, i)) {
 			equip(slot, i);
 		} else {
