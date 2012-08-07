@@ -39,6 +39,10 @@ public class Event {
 			
 		} else if(i < 140) {
 			new TeamEvent();
+		
+		} else if(i == 140) {
+			new RepopulateEvent();
+			
 		}
 	}
 

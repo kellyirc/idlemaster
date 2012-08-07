@@ -607,4 +607,14 @@ public class IdleBot extends PircBotX implements Globals {
 		
 		return null;
 	}
+
+	public void repop() {
+		for(Playable p : players) {
+			if(p instanceof Monster) {
+				Monster m = (Monster)p;
+				m.die(null);
+			}
+		}
+		
+	}
 }
