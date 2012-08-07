@@ -18,7 +18,7 @@ is suddenly struck by a strong burst of pure energy.
 was bitten in the leg by a rabid wolf.
 noticed an airplane flying above %himher, and felt the plane's 'cargo' drop on %himher.
 had poo flung at %himher by a cage of monkeys.
-suddenly sees a beast appear in front of %himher, blast %himher with an immense amount of energy, then teleport way.
+suddenly sees a beast appear in front of %himher, blast %himher with an immense amount of energy, then teleport away.
 was crushed by a falling tower.
 finds a heavy bag on the ground, and upon trying to open it, is chomped on by a strong set of razor-sharp teeth.
 got run over by a herd of elephants.
@@ -46,4 +46,5 @@ tried to divide by zero, and caused a nearby city to sink into the ground.
 was crushed by a falling bookshelf.
 got hit by a mac truck and is now limping along the highway.
 was taken in by the Stillstanders for questioning.
-had their time stolen by the Goddess of Time, Ulrya.
+had %hisher time stolen by the Goddess of Time, Ulrya.
+had %hisher leg set on fire by a box of cheerios.
