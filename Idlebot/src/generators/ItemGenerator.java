@@ -153,8 +153,8 @@ public class ItemGenerator {
 				Item rItem = pChoice.getEquipmentItems().toArray(new Item[0])[(int) (Math.random() * pChoice.getEquipment().size())];
 				itemValue += rItem.getValue();
 			}
-			if(type == null) 
-				type = Type.Spiritual;
+			if(itemType == null) 
+				itemType = Type.Spiritual;
 		}
 
 		// try to add retro
@@ -169,8 +169,8 @@ public class ItemGenerator {
 			itemName.append(choice + " ");
 			if (itemClass == null)
 				itemClass = ItemClass.Retro;
-			if(type == null) 
-				type = Type.Emotional;
+			if(itemType == null) 
+				itemType = Type.Emotional;
 		}
 
 		// try to add descriptor (25% normal, 55% if avatar)
