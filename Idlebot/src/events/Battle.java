@@ -58,7 +58,7 @@ public class Battle {
 				if(!((p instanceof Monster) && ((Monster) p).strings!=null && p.health > 0))p.health = p.calcTotal(null);
 				if(((p instanceof Monster) && ((Monster) p).strings!=null)) p.health += ((Monster)p).getBonus();
 				emotional += p.calcTotal(Type.Emotional);
-				spiritual += p.calcTotal(Type.Spiritual)/10;
+				spiritual += p.calcTotal(Type.Spiritual)/3;
 				totalHealth += p.health;
 			}
 		}
