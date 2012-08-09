@@ -167,6 +167,10 @@ public abstract class Playable {
 		return equipment.entrySet();
 	}
 	
+	public Item getRandomEquipmentItem() {
+		return getEquipmentItems().toArray(new Item[0])[(int) (Math.random() * getEquipmentItems().size()-1)];
+	}
+	
 	public Collection<Item> getEquipmentItems() {
 		return equipment.values();
 	}

@@ -231,6 +231,11 @@ public class Battle {
 			
 		}
 		
+		if(prob(5)) {
+			battleMessage(BATTLE + "..but "+right.getBattleName()+" blocked the attack with %hisher "+right.getRandomEquipmentItem()+"!");
+			return;
+		}
+		
 		if(damage == 0 || right.getAlignment() == Alignment.Good && prob(4)) {
 			battleMessage(BATTLE + "..but "+right.getBattleName()+" dodged!");
 			return;
