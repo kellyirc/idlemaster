@@ -471,6 +471,7 @@ public class IdleBot extends PircBotX implements Globals {
 		if(minutes > 0) sb.append(minutes + "m ");
 		if(seconds > 0) sb.append(seconds + "s ");
 		
+		if(sb.toString().length() == 0) { return "0 instants!"; }
 		return sb.toString().substring(0, sb.length()-1);
 	}
 
