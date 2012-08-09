@@ -232,7 +232,7 @@ public class Battle {
 		}
 		
 		if(prob(5)) {
-			battleMessage(BATTLE + "..but "+right.getBattleName()+" blocked the attack with %hisher "+right.getRandomEquipmentItem()+"!");
+			battleMessage(Event.replaceGender(BATTLE + "..but "+right.getBattleName()+" blocked the attack with %hisher "+right.getRandomEquipmentItem()+"!",right));
 			return;
 		}
 		
