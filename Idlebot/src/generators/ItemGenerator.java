@@ -21,6 +21,7 @@ import org.jsoup.select.Elements;
 import bot.IdleBot;
 
 import data.Item;
+import events.Battle;
 
 public class ItemGenerator {
 
@@ -153,6 +154,8 @@ public class ItemGenerator {
 				Item rItem = pChoice.getEquipmentItems().toArray(new Item[0])[(int) (Math.random() * pChoice.getEquipment().size())];
 				itemValue += rItem.getValue();
 			}
+			if(itemType == null) 
+				itemType = Type.Physical;
 		}
 
 		// try to add retro
@@ -167,7 +170,7 @@ public class ItemGenerator {
 			itemName.append(choice + " ");
 			if (itemClass == null)
 				itemClass = ItemClass.Retro;
-			if(itemType == null) 
+			if(itemType == null || Battle.prob(50)) 
 				itemType = Type.Emotional;
 		}
 
@@ -240,7 +243,7 @@ public class ItemGenerator {
 			if (itemClass == null)
 				itemClass = ItemClass.Spiritual;
 
-			if(itemType == null) 
+			if(itemType == null || itemType == Type.Physical) 
 				itemType = Type.Spiritual;
 
 			// if not, try to become animal class (63% avatar, 42% normal)
@@ -265,7 +268,7 @@ public class ItemGenerator {
 			if (itemClass == null)
 				itemClass = ItemClass.Saint;
 
-			if(itemType == null) 
+			if(itemType == null || itemType == Type.Physical) 
 				itemType = Type.Spiritual;
 		}
 
