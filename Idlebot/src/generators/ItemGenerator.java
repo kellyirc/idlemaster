@@ -153,8 +153,6 @@ public class ItemGenerator {
 				Item rItem = pChoice.getEquipmentItems().toArray(new Item[0])[(int) (Math.random() * pChoice.getEquipment().size())];
 				itemValue += rItem.getValue();
 			}
-			if(itemType == null) 
-				itemType = Type.Spiritual;
 		}
 
 		// try to add retro
@@ -242,6 +240,9 @@ public class ItemGenerator {
 			if (itemClass == null)
 				itemClass = ItemClass.Spiritual;
 
+			if(itemType == null) 
+				itemType = Type.Spiritual;
+
 			// if not, try to become animal class (63% avatar, 42% normal)
 		} else if (cl == ItemClass.Animal
 				|| Math.random() * 100 > (itemClass == ItemClass.Avatar ? 37
@@ -263,6 +264,9 @@ public class ItemGenerator {
 			itemName.append(" of " + choice);
 			if (itemClass == null)
 				itemClass = ItemClass.Saint;
+
+			if(itemType == null) 
+				itemType = Type.Spiritual;
 		}
 
 		// take care of any remaining value descriptors that modify value by a factor (1.5, .5, etc)
