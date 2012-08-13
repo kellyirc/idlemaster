@@ -62,9 +62,11 @@ public class Player extends Playable {
 		Slot slot = e[(int) (Math.random() * e.length-1)];
 		
 		ItemClass cl = null;
-		if(Battle.prob(10)) {
+		if(Battle.prob(5)) {
 			ItemClass[] ic = ItemClass.values();
 			cl = ic[(int) (Math.random() * ic.length-1)];
+			if(cl == ItemClass.Newbie) cl = null;
+			if(cl == ItemClass.Special) cl = null;
 		}
 
 		Item i = ItemGenerator.generateItem(slot, cl, null);

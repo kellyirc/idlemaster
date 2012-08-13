@@ -14,7 +14,7 @@ public class Item implements Comparable<Item>{
 	}
 
 	public enum Type { Magical, Physical, Spiritual, Emotional };
-	public enum ItemClass { Newbie, Normal, Animal, Saint, Spiritual, Avatar, Special, Retro, Idle};
+	public enum ItemClass { Newbie, Saint, Spiritual, Animal, Normal, Special, Retro, Avatar, Idle};
 	
 	private Type type;
 	
