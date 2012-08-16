@@ -6,3 +6,4 @@ Ghost of KWRPG,90000
 Omega Shenron,120000
 Deity,150000
 Ishkalorht,175000
+Arnold Schwarzenegger,1000000
