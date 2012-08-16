@@ -37,3 +37,8 @@ intro=The God of Rampage and Brawling steps down from the skies onto the fields 
 death=Ishkalorht, seeing that that the Idletopians do possess great power, steps back up into the skies to spectate from a distance.
 kills=You are but a weakling, and you have proven nothing! Bring forth the next!
 end
+Arnold Schwarzenegger
+intro=Who's your daddy and what does he do?
+death=I'll be back!
+kills=Consider that a divorce.
+end
