@@ -21,7 +21,6 @@ import org.jsoup.select.Elements;
 import bot.IdleBot;
 
 import data.Item;
-import events.Battle;
 
 public class ItemGenerator {
 
@@ -168,10 +167,10 @@ public class ItemGenerator {
 					.get(ItemClass.Retro).length-1))];
 			itemValue += choice.getValue();
 			itemName.append(choice + " ");
-			if (itemClass == null)
-				itemClass = ItemClass.Retro;
-			if(itemType == null || Battle.prob(50)) 
-				itemType = Type.Emotional;
+
+			itemClass = ItemClass.Retro;
+			
+			itemType = Type.Emotional;
 		}
 
 		// try to add descriptor (25% normal, 55% if avatar)
@@ -240,10 +239,10 @@ public class ItemGenerator {
 					.get(ItemClass.Animal).length-1))];
 			itemValue += choice.getValue();
 			itemName.append("the " + choice);
-			if (itemClass == null)
-				itemClass = ItemClass.Spiritual;
+				
+			itemClass = ItemClass.Spiritual;
 
-			if(itemType == null || itemType == Type.Physical) 
+			if(itemType == Type.Physical) 
 				itemType = Type.Spiritual;
 
 			// if not, try to become animal class (63% avatar, 42% normal)
@@ -254,8 +253,8 @@ public class ItemGenerator {
 					.get(ItemClass.Animal).length-1))];
 			itemValue += choice.getValue();
 			itemName.append(" of the " + choice);
-			if (itemClass == null)
-				itemClass = ItemClass.Animal;
+			
+			itemClass = ItemClass.Animal;
 
 			// if not, try to become saint class (17% avatar, 1% normal)
 		} else if (cl == ItemClass.Saint
@@ -265,10 +264,10 @@ public class ItemGenerator {
 					.get(ItemClass.Saint).length-1))];
 			itemValue += choice.getValue();
 			itemName.append(" of " + choice);
-			if (itemClass == null)
-				itemClass = ItemClass.Saint;
+			
+			itemClass = ItemClass.Saint;
 
-			if(itemType == null || itemType == Type.Physical) 
+			if(itemType == Type.Physical) 
 				itemType = Type.Spiritual;
 		}
 
