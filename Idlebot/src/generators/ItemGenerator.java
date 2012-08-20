@@ -168,7 +168,8 @@ public class ItemGenerator {
 			itemValue += choice.getValue();
 			itemName.append(choice + " ");
 
-			itemClass = ItemClass.Retro;
+			if(cl != ItemClass.Idle)
+				itemClass = ItemClass.Retro;
 			
 			itemType = Type.Emotional;
 		}
@@ -223,7 +224,8 @@ public class ItemGenerator {
 		itemValue += choice.getValue();
 		itemName.append(choice);
 		if (choice.toString().charAt(0) < 91 && itemClass == null)
-			itemClass = ItemClass.Special;
+			if(cl != ItemClass.Idle)
+				itemClass = ItemClass.Special;
 
 		// try to become spirit class (5% avatar, 0.7% normal)
 		if (cl == ItemClass.Idle
@@ -239,8 +241,9 @@ public class ItemGenerator {
 					.get(ItemClass.Animal).length-1))];
 			itemValue += choice.getValue();
 			itemName.append("the " + choice);
-				
-			itemClass = ItemClass.Spiritual;
+
+			if(cl != ItemClass.Idle)
+				itemClass = ItemClass.Spiritual;
 
 			if(itemType == Type.Physical) 
 				itemType = Type.Spiritual;
@@ -253,8 +256,9 @@ public class ItemGenerator {
 					.get(ItemClass.Animal).length-1))];
 			itemValue += choice.getValue();
 			itemName.append(" of the " + choice);
-			
-			itemClass = ItemClass.Animal;
+
+			if(cl != ItemClass.Idle)
+				itemClass = ItemClass.Animal;
 
 			// if not, try to become saint class (17% avatar, 1% normal)
 		} else if (cl == ItemClass.Saint
@@ -264,8 +268,9 @@ public class ItemGenerator {
 					.get(ItemClass.Saint).length-1))];
 			itemValue += choice.getValue();
 			itemName.append(" of " + choice);
-			
-			itemClass = ItemClass.Saint;
+
+			if(cl != ItemClass.Idle)
+				itemClass = ItemClass.Saint;
 
 			if(itemType == Type.Physical) 
 				itemType = Type.Spiritual;
@@ -273,6 +278,11 @@ public class ItemGenerator {
 
 		// take care of any remaining value descriptors that modify value by a factor (1.5, .5, etc)
 		// determine type
+		
+		if(itemClass == ItemClass.Idle) {
+			Type[] e = Type.values();
+			itemType = e[(int) (Math.random() * (e.length-1))];
+		}
 
 		if (itemClass == null)
 			itemClass = ItemClass.Normal;
