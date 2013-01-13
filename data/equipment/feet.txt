@@ -1,0 +1,49 @@
+socks,1
+sandals,2
+sneakers,3
+golf shoes,4
+flip-flops,5
+high-heels,6
+duct-tape shoes,7
+boots,15
+geta,18
+greaves,20
+hovershoes,31
+anchors,35
+cement shoes,37
+jetboots,43
+mermaid tail,46
+fuzzy boots,48
+long fall boots,50
+long jump boots,55
+steel-toed boots,60
+spiked boots,65
+sticky stuff,76
+cleats,85
+iron boots,93
+spring shoes,99
+rollerskates,112
+bear paws,129
+snow shoes,154
+diamond boots,167
+foot binding,176
+boots made for walking,195
+combat boots,204
+armored boots,218
+Mom's Heels,250
+Uggs,276
+Grabbin' 'n Slowin' Ghosts,300
+Rocket Rocket Rocket Skates,325
+Flippity Floppies,350
+Rocket Shoes,375
+Hover Boots,400
+Iron Boots,425
+Expensive Cardboard Shoes,450
+Stilettos,500
+Hoverskates,525
+Two Ton Bricks,550
+Red Hot Kicks,555
+Mario Boots,600
+Silver Surfboard,633
+Advanced Knee Replacement,650
+Continuity Shoes,7000

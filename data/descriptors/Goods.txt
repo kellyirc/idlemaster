@@ -1,0 +1,6 @@
+lawful,0
+blessed,0
+just,0
+holy,0
+divine,0
+saintly,0

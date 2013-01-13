@@ -1,0 +1,33 @@
+the Jester,7
+the Hunter,10
+the Amazon,15
+the Artist,19
+the Undertaker,25
+the Lover,32
+the Fighter,32
+the Creator,37
+the Titan,39
+Pie,42
+Cake,42
+the Archmagi,46
+Barius,50
+Marrus,60
+St. Galli,71
+the Beast,79
+the Deity,83
+Damned Insanity,98
+Doom,100
+Wonder,107
+the Moon,110
+the Sun,120
+the Corrupt,130
+the Stars,135
+the Pure,140
+the Hallowed,150
+the White Knight,160
+the Black Knight,170
+the Spirit,180
+the Angel,190
+the Demon,200
+the KayArr,210
+Idleness,250

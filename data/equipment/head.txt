@@ -1,0 +1,48 @@
+hat,1
+barette,2
+sombrero,2
+beret,3
+mask,4
+helm,5
+coif,6
+cap,7
+skullcap,8
+aventail,9
+corsage,10
+glasses,11
+diadem,12
+flowerpot,13
+halo,15
+devil horns,16
+coronet,25
+horned cap,30
+fishbowl,33
+cornuthaum,35
+mitre,40
+cowl,42
+rose,45
+pile of hats,50
+pile of helms,55
+cardboard box,60
+saucer,65
+paper hat,70
+tinfoil hat,87
+hipster hat,96
+earbuds,101
+skull,165
+umbrella hat,176
+cute animal,190
+monocle,210
+Fedora,250
+Jungle Rose,300
+Dunce Cap,350
+Top Hat,450
+Holy Mitre,550
+Metal Box,600
+Fusion Earring,630
+Flying Saucer,650
+Powdered Wig,680
+Ye Olde Helm,750
+Viking Helmet,780
+Chap's Monocle,800
+Antiverse Circlet,7000

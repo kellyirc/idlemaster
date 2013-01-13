@@ -1,0 +1,24 @@
+mittens,1
+gloves,3
+bracers,4
+guards,7
+gauntlets,9
+armlets,10
+chainmail gloves,12
+scalemail gloves,22
+dragonscale gloves,32
+blacksmith gloves,45
+tempered gloves,86
+spiked knuckles,124
+crimson gloves,156
+Roll of Quarters,200
+Glover,250
+How-Do-You-Type-With-These Boxing Gloves,300
+Real Steel,356
+Knife-Fists,415
+Pixelated Gloves,450
+Scyther,496
+My Little Painbringers,511
+Dragonscale Gloves,563
+Godhand,600
+Hands of Fate,7000

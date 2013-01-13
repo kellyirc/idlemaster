@@ -1,0 +1,46 @@
+pin,1
+bracelet,2
+talisman,4
+armband,5
+bauble,7
+earring,8
+trinket,11
+plume,13
+pixane,16
+juju,23
+credit card,25
+skeleton key,28
+luckstone,31
+magic mirror,35
+whistle,37
+wooden stake,40
+cross,40
+candle,45
+bead,54
+magnifying glass,60
+quill,67
+scroll,76
+hoverpet,88
+sextant,96
+dollar,100
+sun stone,110
+blessed mess,111
+metronome,123
+die-cast robot princess bubblegum,143
+tentacle,156
+brimstone,170
+netherrack,200
+Fuckin' Magnet,250
+Guardian Angel,303
+Rabbit's Foot,350
+Whole Rabbit,400
+Jaffa Cake,420
+Twilight Bracelet,450
+Attorney's Badge,503
+Mirror Mirror,550
+Nevermeltice,559
+Fox Rods,631
+Everburn,650
+Faithful Pet Wolf,750
+Mask de Smith,777
+Magnitude Pocketwatch,7500

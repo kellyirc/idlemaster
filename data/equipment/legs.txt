@@ -1,0 +1,37 @@
+invisible leaf,0
+stockings,1
+panties,3
+pantaloons,4
+oak leaf,5
+evergreen branch,6
+censor leaf,7
+poison ivy leaf,8
+birch bark,9
+pants,14
+trousers,14
+leggings,17
+chaps,20
+chausses,24
+assless chaps,25
+leather pants,39
+ponyskin,48
+potato sack,56
+beaver,78
+jeans,83
+cargo pants,90
+leather leggings,110
+gold leggings,140
+iron leggings,170
+diamond leggings,200
+kneesocks,245
+Victoria's Panties,350
+Granny's Pantaloons,375
+Plated Pants,425
+Venus Flytrap,450
+Black Bar,500
+Untouchable Pants,615
+Bunny Pajamas,675
+Hoverchair,715
+Panzer Tank Treads,850
+Full Monty,999
+Greaves of Null and All,7000
