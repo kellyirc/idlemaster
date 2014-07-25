@@ -38,7 +38,7 @@ death=Ishkalorht, seeing that that the Idletopians do possess great power, steps
 kills=You are but a weakling, and you have proven nothing! Bring forth the next!
 end
 Arnold Schwarzenegger
-intro=Who's your daddy and what does he do?
-death=I'll be back!
-kills=Consider that a divorce.
+intro=Hoo eez your dah-dee und vut doss hee doo?
+death=Awl bee bock!
+kills=Yoo lahk diss-suh-plin!
 end
