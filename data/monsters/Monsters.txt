@@ -256,4 +256,5 @@ automaton,4000
 miniboss squad,4300
 subsonic wave,4040
 trans-dimensional being,4050
+party-hat-wearing dragon,4500
 presence,6000
