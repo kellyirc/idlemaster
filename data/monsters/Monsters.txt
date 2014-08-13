@@ -154,6 +154,7 @@ elf queen,541
 elf ranger,542
 elf barbarian,543
 elf archmage,544
+laser shark,547
 ninja,550
 pirate,550
 caveman,550
@@ -180,6 +181,7 @@ zombie mage,765
 smart zombie,770
 wight,775
 ghost,800
+procrastination gnome,805
 diaphanous drake,810
 poltergeist,825
 ghoul,850
@@ -196,6 +198,7 @@ skeletal gnat,999
 skeletal rogue,1000
 terminator,1010
 vengeful soul,1025
+velociraptor-riding transformer, 1030
 heretic,1033
 batcat,1040
 catdog,1045
