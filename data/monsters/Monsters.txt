@@ -181,6 +181,7 @@ zombie mage,765
 smart zombie,770
 wight,775
 ghost,800
+vampiric gun-slinging samurai space pirate ninja schoolgirl,803
 procrastination gnome,805
 diaphanous drake,810
 poltergeist,825
